@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Answers from './components/AnswersBox/Answers';
 
 function App() {
   return (
     <Routes>
-      <Route path="/home" element={<Answers />} />
+      <Route path="/home" element="" />
 
       {/* ADMIN */}
       <Route path="admin/login" element="" />
