@@ -1,45 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
-import Img from './luzu.png';
+import { Link } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import Img from '../../public/luzu.png';
 
-function Header() {
+import './Header.css';
+
+function Header(props) {
+  const { hidden, isSideBarOpen, setIsSideBarOpen } = props;
+
+  const handleSideBar = () => {
+    setIsSideBarOpen(!isSideBarOpen);
+  };
+
   return (
-    <HeaderWrapper>
-      <Logo src={Img} />
-      <Logout> Logout </Logout>
-    </HeaderWrapper>
+    <div className={`headerWrapper ${hidden ? 'hidden' : ''}`}>
+      <GiHamburgerMenu
+        className={`header-HamburgerIcon ${isSideBarOpen ? 'isOpen' : ''}`}
+        onClick={handleSideBar}
+      />
+      <Link to="/">
+        <img className="header-logo" src={Img} alt="Luzu TV Logo" />
+      </Link>
+      <div className="header-logOutBtn">Logout</div>
+    </div>
   );
 }
 
 export default Header;
-
-const HeaderWrapper = styled.div`
-  width: 100vw;
-  height: 15%;
-  background-color: #1b2430;
-  display: flex;
-  margin: 0;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Logout = styled.p`
-  padding: 20px;
-  font-size: 20px;
-  background: none;
-  border: none;
-  color: #d9d9d9;
-  font-size: 20px;
-  cursor: pointer;
-
-  &:hover {
-    color: #fff;
-    font-weight: 700;
-    font-size: 21px;
-  }
-`;
-
-const Logo = styled.img`
-  width: 250px;
-  height: 100px;
-`;

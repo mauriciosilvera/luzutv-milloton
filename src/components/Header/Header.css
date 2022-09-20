@@ -1,0 +1,52 @@
+.headerWrapper {
+  height: 15%;
+  background-color: #1b2430;
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerWrapper.hidden {
+  display: none;
+}
+
+.header-logOutBtn {
+  padding: 20px;
+  background: none;
+  border: none;
+  color: #d9d9d9;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.header-logOutBtn:hover {
+  color: #fff;
+  font-weight: 700;
+  font-size: 21px;
+}
+
+.header-HamburgerIcon {
+  color: #d9d9d9;
+  background-color: #1b2430;
+  font-size: 50px;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 20px;
+}
+
+@media (max-width: 780px) {
+  .headerWrapper {
+    justify-content: center;
+    position: relative;
+  }
+  .header-logOutBtn {
+    display: none;
+  }
+  .header-HamburgerIcon {
+    position: absolute;
+    left: 5%;
+    margin-left: 0;
+  }
+}
