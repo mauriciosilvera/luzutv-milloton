@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
+import PollManagement from './views/PollManagement/PollManagement';
 import TestView from './views/TestView';
 
 function App() {
@@ -28,16 +29,17 @@ function App() {
           isOpen={isSideBarOpen}
           setIsOpen={setIsSideBarOpen}
         />
-        <Routes>
-          <Route path="/" element={<TestView />} />
+        <div className="view">
+          <Routes>
+            <Route path="/" element={<PollManagement />} />
 
-          {/* ADMIN */}
-          <Route path="admin/login" element={<TestView />} />
-          <Route path="admin/password-recovery" element={<TestView />} />
-
-          <Route path="admin/poll-management" element={<TestView />} />
-          <Route path="admin/active-polls" element={<TestView />} />
-        </Routes>
+            {/* ADMIN */}
+            <Route path="admin/login" element={<TestView />} />
+            <Route path="admin/password-recovery" element={<TestView />} />
+            <Route path="admin/poll-management" element={<PollManagement />} />
+            <Route path="admin/active-polls" element={<TestView />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
