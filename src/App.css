@@ -4,9 +4,9 @@
 }
 
 .body {
+  height: 85%;
   width: 100vw;
   display: flex;
-  height: 85%;
 }
 
 .testView {
