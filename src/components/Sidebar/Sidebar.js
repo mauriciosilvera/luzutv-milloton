@@ -14,8 +14,8 @@ function Sidebar(props) {
     <div className={`sideBarContainer ${!isOpen || hidden ? 'hidden' : ''}`}>
       <div className="sideBar-Navigation">
         <div className="sideBar-LinkContainer">
-          <Link to="/admin/poll-management" onClick={handleSideBar}>
-            <div className="sideBar-Option">Management</div>
+          <Link to="/admin/polls-management" onClick={handleSideBar}>
+            <div className="sideBar-Option">Polls Management</div>
           </Link>
         </div>
 

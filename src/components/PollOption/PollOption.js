@@ -1,13 +1,20 @@
 import React from 'react';
 import './PollOption.css';
-import { BsCircle as Icon } from 'react-icons/bs';
 
-function PollOption() {
+function PollOption(props) {
+  const { option, onClick, selected } = props;
+
+  const handleClick = () => {
+    onClick();
+  };
+
   return (
-    <div className="pollOptionWrapper">
+    <div
+      className={`pollOptionWrapper ${selected ? 'selected' : ''}`}
+      onClick={handleClick}
+    >
       <div className="titleBox">
-        <Icon />
-        <p className="title">Prueba respuesta</p>
+        <span className="title">{option}</span>
       </div>
     </div>
   );
