@@ -42,7 +42,7 @@ function PollManagement() {
                   ))
                 ) : (
                   <div className="emptyPollsContainer">
-                    No se encontraron encuestas para esta emision
+                    No se encontraron encuestas para esta emisión
                   </div>
                 )}
                 <PollCard create emission={emission} />
