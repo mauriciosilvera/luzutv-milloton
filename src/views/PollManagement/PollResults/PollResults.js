@@ -1,15 +1,14 @@
 import React from 'react';
 import './PollResults.css';
+import { BsCircle as Icon } from 'react-icons/bs';
 
 function PollResults() {
   return (
     <div className="pollResultsWrapper">
       <div className="titleBox">
-        <p className="title">Titulo de prueba</p>
-        <p className="title">100%</p>
+        <Icon />
+        <p className="title">Prueba respuesta</p>
       </div>
-      <div className="progressBar" />
-      <div className="votes"> 29 votes </div>
     </div>
   );
 }

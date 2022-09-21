@@ -31,13 +31,12 @@ function App() {
           setIsOpen={setIsSideBarOpen}
         />
         <Routes>
-          <Route path="/" element={<TestView />} />
+          <Route path="/" element={<PollResults />} />
 
           {/* ADMIN */}
           <Route path="admin/login" element={<TestView />} />
           <Route path="admin/password-recovery" element={<TestView />} />
           <Route path="admin/poll-management" element={<PollManagement />} />
-          <Route path="admin/active-polls" element={<PollResults />} />
         </Routes>
       </div>
     </div>
