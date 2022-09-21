@@ -1,12 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-import Poll from './components/Poll';
+import Poll from './components/Poll/Poll';
+import './PollManagement.css';
 
 function PollManagement() {
   return (
-    <PollManagementWrapper>
-      <Title> Polls history</Title>
-      <PollsContainer>
+    <div className="pollManagementWrapper">
+      <h1 className="pollTitle"> Polls history</h1>
+      <div className="pollsContainer">
         <Poll />
         <Poll />
         <Poll />
@@ -15,31 +15,9 @@ function PollManagement() {
         <Poll />
         <Poll />
         <Poll />
-      </PollsContainer>
-    </PollManagementWrapper>
+      </div>
+    </div>
   );
 }
 
 export default PollManagement;
-
-const Title = styled.h1`
-  padding: 20px;
-`;
-
-const PollManagementWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const PollsContainer = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-content: flex-start;
-  margin: 15px;
-`;
