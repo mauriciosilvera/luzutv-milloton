@@ -1,0 +1,40 @@
+.pollOptionWrapper{
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #1b2430;
+  width: 40%;
+  height: 10%;
+  border-radius: 10px;
+  padding: 15px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.titleBox{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title{
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px;
+}
+
+.progressBar{
+  height: 5px;
+  width: 100%;
+  background-color: #1b2430;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.votes{
+  width: 100%;
+  font-size: 12px;
+  font-style: italic;
+  padding-top: 5px;
+  color: #1b2430;
+}

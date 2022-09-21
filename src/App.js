@@ -29,17 +29,14 @@ function App() {
           isOpen={isSideBarOpen}
           setIsOpen={setIsSideBarOpen}
         />
-        <div className="view">
-          <Routes>
-            <Route path="/" element={<PollManagement />} />
+        <Routes>
+          <Route path="/" element={<TestView />} />
 
-            {/* ADMIN */}
-            <Route path="admin/login" element={<TestView />} />
-            <Route path="admin/password-recovery" element={<TestView />} />
-            <Route path="admin/poll-management" element={<PollManagement />} />
-            <Route path="admin/active-polls" element={<TestView />} />
-          </Routes>
-        </div>
+          {/* ADMIN */}
+          <Route path="admin/login" element={<TestView />} />
+          <Route path="admin/password-recovery" element={<TestView />} />
+          <Route path="admin/poll-management" element={<PollManagement />} />
+        </Routes>
       </div>
     </div>
   );
