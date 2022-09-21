@@ -1,10 +1,10 @@
 import React from 'react';
-import './PollResults.css';
+import './PollOption.css';
 import { BsCircle as Icon } from 'react-icons/bs';
 
-function PollResults() {
+function PollOption() {
   return (
-    <div className="pollResultsWrapper">
+    <div className="pollOptionWrapper">
       <div className="titleBox">
         <Icon />
         <p className="title">Prueba respuesta</p>
@@ -13,4 +13,4 @@ function PollResults() {
   );
 }
 
-export default PollResults;
+export default PollOption;

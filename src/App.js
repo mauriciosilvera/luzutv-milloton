@@ -5,7 +5,6 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
 import TestView from './views/TestView';
-import PollResults from './views/PollManagement/PollResults/PollResults';
 
 function App() {
   const location = useLocation();
@@ -31,7 +30,7 @@ function App() {
           setIsOpen={setIsSideBarOpen}
         />
         <Routes>
-          <Route path="/" element={<PollResults />} />
+          <Route path="/" element={<TestView />} />
 
           {/* ADMIN */}
           <Route path="admin/login" element={<TestView />} />
