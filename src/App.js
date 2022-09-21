@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
@@ -30,7 +29,7 @@ function App() {
           isOpen={isSideBarOpen}
           setIsOpen={setIsSideBarOpen}
         />
-        <View>
+        <div className="view">
           <Routes>
             <Route path="/" element={<PollManagement />} />
 
@@ -40,18 +39,10 @@ function App() {
             <Route path="admin/poll-management" element={<PollManagement />} />
             <Route path="admin/active-polls" element={<TestView />} />
           </Routes>
-        </View>
+        </div>
       </div>
     </div>
   );
 }
 
 export default App;
-
-// STYLES
-
-const View = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: #ffe5b4;
-`;
