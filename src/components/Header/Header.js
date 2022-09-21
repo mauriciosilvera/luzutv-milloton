@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Img from '../../public/luzu.png';
-
 import './Header.css';
 
 function Header(props) {

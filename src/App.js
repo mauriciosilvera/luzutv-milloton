@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
-import TestView from './views/TestView';
+import PollManagement from './views/PollManagement/PollManagement';
 
 function App() {
   const location = useLocation();
@@ -28,19 +29,31 @@ function App() {
           isOpen={isSideBarOpen}
           setIsOpen={setIsSideBarOpen}
         />
-        <Routes>
-          <Route path="/" element={<TestView />} />
+        <View>
+          <Routes>
+            <Route path="/" element={<PollManagement />} />
 
-          {/* ADMIN */}
-          <Route path="admin/login" element={<TestView />} />
-          <Route path="admin/password-recovery" element={<TestView />} />
-
-          <Route path="admin/poll-management" element={<TestView />} />
-          <Route path="admin/active-polls" element={<TestView />} />
-        </Routes>
+            {/* ADMIN */}
+            <Route path="admin/login" element={<PollManagement />} />
+            <Route
+              path="admin/password-recovery"
+              element={<PollManagement />}
+            />
+            <Route path="admin/poll-management" element={<PollManagement />} />
+            <Route path="admin/active-polls" element={<PollManagement />} />
+          </Routes>
+        </View>
       </div>
     </div>
   );
 }
 
 export default App;
+
+// STYLES
+
+const View = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #ffe5b4;
+`;
