@@ -7,8 +7,8 @@
   align-items: center;
 }
 
-.headerWrapper.hidden {
-  display: none;
+.headerWrapper.hideButtons {
+  justify-content: center;
 }
 
 .header-logOutBtn {
@@ -27,6 +27,10 @@
   font-size: 21px;
 }
 
+.header-logOutBtn.hidden {
+  display: none;
+}
+
 .header-HamburgerIcon {
   color: #d9d9d9;
   background-color: #1b2430;
@@ -34,6 +38,10 @@
   cursor: pointer;
   padding: 5px;
   margin-left: 20px;
+}
+
+.header-HamburgerIcon.hidden {
+  display: none;
 }
 
 @media (max-width: 780px) {

@@ -5,12 +5,13 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
 import TestView from './views/TestView';
+import Home from './views/Home/Home';
 
 function App() {
   const location = useLocation();
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
-  const hideHeader = location.pathname === '/';
+  const hideHeaderButtons = location.pathname === '/';
   const hideSidebar =
     location.pathname === '/' ||
     location.pathname === '/admin/login' ||
@@ -19,23 +20,24 @@ function App() {
   return (
     <div className="container">
       <Header
-        hidden={hideHeader}
+        hideButtons={hideHeaderButtons}
         isSideBarOpen={isSideBarOpen}
         setIsSideBarOpen={setIsSideBarOpen}
       />
-      <div className={`body ${hideHeader ? 'no-header' : ''}`}>
+      <div className="body">
         <Sidebar
           hidden={hideSidebar}
           isOpen={isSideBarOpen}
           setIsOpen={setIsSideBarOpen}
         />
         <Routes>
-          <Route path="/" element={<TestView />} />
+          <Route path="/" element={<Home />} />
 
           {/* ADMIN */}
           <Route path="admin/login" element={<TestView />} />
           <Route path="admin/password-recovery" element={<TestView />} />
-          <Route path="admin/poll-management" element={<PollManagement />} />
+          <Route path="admin/polls-management" element={<PollManagement />} />
+          <Route path="admin/poll-details/:pollId" element={<TestView />} />
         </Routes>
       </div>
     </div>

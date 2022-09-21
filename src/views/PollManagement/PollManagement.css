@@ -1,21 +1,41 @@
-.pollManagementWrapper{
+.pollManagementWrapper {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 2rem;
 }
 
-.pollTitle{
+.pollTitle {
   padding: 20px;
 }
 
-.pollsContainer{
+.pollsContainer {
   display: flex;
-  height: 100%;
-  width: 100%;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-evenly;
   align-content: flex-start;
   margin: 15px;
+}
+
+.emissionTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  width: 400px;
+  border-bottom: 1px solid;
+}
+
+.emptyPollsContainer {
+  margin-bottom: 15px;
+}
+
+.css-smkl36-MuiCollapse-wrapper {
+  justify-content: center;
+}
+
+.MuiCollapse-wrapperInner.MuiCollapse-vertical.css-9l5vo-MuiCollapse-wrapperInner {
+  width: unset;
 }
