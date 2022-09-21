@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
+import Results from './views/PollManagement/components/Results';
 
 function App() {
   const location = useLocation();
@@ -40,7 +41,10 @@ function App() {
               element={<PollManagement />}
             />
             <Route path="admin/poll-management" element={<PollManagement />} />
-            <Route path="admin/active-polls" element={<PollManagement />} />
+            <Route
+              path="admin/active-polls"
+              element={<Results color="red" />}
+            />
           </Routes>
         </View>
       </div>
