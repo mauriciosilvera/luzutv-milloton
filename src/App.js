@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
-import Results from './views/PollManagement/components/Results';
+import TestView from './views/TestView';
 
 function App() {
   const location = useLocation();
@@ -35,16 +35,10 @@ function App() {
             <Route path="/" element={<PollManagement />} />
 
             {/* ADMIN */}
-            <Route path="admin/login" element={<PollManagement />} />
-            <Route
-              path="admin/password-recovery"
-              element={<PollManagement />}
-            />
+            <Route path="admin/login" element={<TestView />} />
+            <Route path="admin/password-recovery" element={<TestView />} />
             <Route path="admin/poll-management" element={<PollManagement />} />
-            <Route
-              path="admin/active-polls"
-              element={<Results color="red" />}
-            />
+            <Route path="admin/active-polls" element={<TestView />} />
           </Routes>
         </View>
       </div>
