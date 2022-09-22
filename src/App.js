@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
 import TestView from './views/TestView';
+import PollDetail from './views/PollDetail/PollDetail';
 import Home from './views/Home/Home';
 
 function App() {
@@ -36,8 +37,8 @@ function App() {
           {/* ADMIN */}
           <Route path="admin/login" element={<TestView />} />
           <Route path="admin/password-recovery" element={<TestView />} />
-          <Route path="admin/polls-management" element={<PollManagement />} />
-          <Route path="admin/poll-details/:pollId" element={<TestView />} />
+          <Route path="admin/poll-management" element={<PollManagement />} />
+          <Route path="admin/poll/id" element={<PollDetail />} />
         </Routes>
       </div>
     </div>
