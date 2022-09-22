@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Img from '../../public/luzu.png';
 
@@ -8,8 +8,15 @@ import './Header.css';
 function Header(props) {
   const { hideButtons, isSideBarOpen, setIsSideBarOpen } = props;
 
+  const navigate = useNavigate();
+
   const handleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen);
+  };
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    navigate('/admin/login');
   };
 
   return (
@@ -23,7 +30,10 @@ function Header(props) {
       <Link to="/">
         <img className="header-logo" src={Img} alt="Luzu TV Logo" />
       </Link>
-      <div className={`header-logOutBtn ${hideButtons ? 'hidden' : ''}`}>
+      <div
+        className={`header-logOutBtn ${hideButtons ? 'hidden' : ''}`}
+        onClick={handleLogOut}
+      >
         Logout
       </div>
     </div>
