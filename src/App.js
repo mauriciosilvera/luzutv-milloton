@@ -37,8 +37,8 @@ function App() {
           {/* ADMIN */}
           <Route path="admin/login" element={<TestView />} />
           <Route path="admin/password-recovery" element={<TestView />} />
-          <Route path="admin/poll-management" element={<PollManagement />} />
-          <Route path="admin/poll/id" element={<PollDetail />} />
+          <Route path="admin/polls-management" element={<PollManagement />} />
+          <Route path="admin/poll-details/:pollId" element={<PollDetail />} />
         </Routes>
       </div>
     </div>

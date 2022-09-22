@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import './PollDetail.css';
-import { Button } from '@mui/material';
+import { Button, MenuItem, Select } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
+import { mockEmissions } from '../../util';
 
 function PollDetail() {
+  const { pollId } = useParams();
   const [inputFields, setInputFields] = useState([
     { id: 0, option: '' },
     { id: 1, option: '' }
   ]);
 
   const handleAddfields = () => {
-    setInputFields([...inputFields, { id: 2, option: '' }]);
+    setInputFields([...inputFields, { id: inputFields.length, option: '' }]);
   };
 
   const handleDeleteOption = (id) => {
@@ -30,22 +33,21 @@ function PollDetail() {
       <div className="pollFormBox">
         <form className="pollForm" onSubmit={handleSubmit}>
           <div className="pollTitleBox">
-            <h2 className="title"> Poll #1</h2>
+            <h2 className="title">{`Encuesta # ${pollId}`}</h2>
             <EditIcon className="pollIcon" />
           </div>
-          <label htmlFor="title" className="pollLabel">
-            {' '}
-            Title
-          </label>
-          <TextField fullWidth size="small" id="title" variant="outlined" />
           <label htmlFor="live" className="pollLabel">
-            {' '}
-            Emission
+            Emisión
           </label>
-          <TextField fullWidth size="small" id="emission" variant="outlined" />
+          <Select sx={{ height: '2.4375em' }}>
+            {mockEmissions.map((emission) => (
+              <MenuItem key={emission.id} value={emission.name} size="small">
+                {emission.name}
+              </MenuItem>
+            ))}
+          </Select>
           <label htmlFor="pollQuestion" className="pollLabel">
-            {' '}
-            Question
+            Pregunta
           </label>
           <TextField
             fullWidth
@@ -56,8 +58,7 @@ function PollDetail() {
           {inputFields.map((row) => (
             <>
               <label htmlFor="option" className="pollLabel">
-                {' '}
-                Option {row.id + 1}
+                Opción {row.id + 1}
               </label>
               <div className="pollOptionBox">
                 <TextField
@@ -79,7 +80,7 @@ function PollDetail() {
                 variant="outlined"
                 onClick={handleAddfields}
               >
-                Add option
+                Agregar opción
               </Button>
             </div>
 
@@ -89,7 +90,7 @@ function PollDetail() {
               type="submit"
               variant="outlined"
             >
-              Save poll!
+              Guardar encuesta
             </Button>
           </div>
         </form>

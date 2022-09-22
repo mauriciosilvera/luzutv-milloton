@@ -9,9 +9,7 @@ function PollCard(props) {
     <Link
       className={`pollCardWrapper ${create ? 'create' : ''}`}
       to={
-        create
-          ? '/admin/poll-management/'
-          : `/admin/poll-management/${poll?.id}`
+        create ? '/admin/poll-management/' : `/admin/poll-details/${poll?.id}`
       }
     >
       <span className="pollCardTitle">

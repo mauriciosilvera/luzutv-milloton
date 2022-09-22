@@ -1,63 +1,62 @@
-.pollDetailWrapper{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    overflow: auto;
+.pollDetailWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
 }
 
-.pollTitleBox{
-    display: flex;
-    width: 100%;
-    justify-content: center;
+.pollTitleBox {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
-.pollFormBox{
-    width: 50%;
-    border-radius: 15px;
-    background-color: #F5EFE6;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+.pollFormBox {
+  width: 50%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
-.pollIcon{
-    font-size: 25px;
-    cursor: pointer;
-    margin-left: 5px;
+.pollIcon {
+  font-size: 25px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
-.pollOptionBox{
-    display: flex;
-    align-items: center;
+.pollOptionBox {
+  display: flex;
+  align-items: center;
 }
 
-.pollForm{
-    display: flex;
-    flex-direction: column;
-    width: 60%;
+.pollForm {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
 }
 
-.pollLabel{
-    margin: 15px 0 5px 0;
+.pollLabel {
+  margin: 15px 0 5px 0;
 }
 
-.pollButtonBox{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+.pollButtonBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 
-.pollButton{
-    width: 60%;
-    padding: 5px;
-    margin-top: 10px;
+.pollButton {
+  width: 60%;
+  padding: 5px;
+  margin-top: 10px;
 }
 
-.addQuestionBox{
-    width: 100%;
-    margin: 10px 0 30px 0;
-    display: flex;
-    justify-content: center;
+.addQuestionBox {
+  width: 100%;
+  margin: 20px 0 30px 0;
+  display: flex;
+  justify-content: center;
 }
