@@ -5,16 +5,43 @@ import './PollDetail.css';
 import { Button, MenuItem, Select } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
 import { mockEmissions } from '../../util';
+import { pollPost } from '../../util/Requests';
 
 function PollDetail() {
   const { pollId } = useParams();
   const [inputFields, setInputFields] = useState([
-    { id: 0, option: '' },
-    { id: 1, option: '' }
+    { id: 0, answer_name: '' },
+    { id: 1, answer_name: '' }
   ]);
+  const [program, setProgram] = useState('');
+  const [question, setQuestion] = useState('');
+
+  const data = [
+    {
+      emission: {
+        date: '1663786397915',
+        emission_name: program,
+        admin_id: '6329e5cc5c8fe25c8095bc6b'
+      }
+    },
+    {
+      question: {
+        question_name: question,
+        date: '1663786397915',
+        end_time: '2022-09-21',
+        start_time: '2022-09-20T19:00:00.000Z'
+      }
+    },
+    {
+      answers: inputFields
+    }
+  ];
 
   const handleAddfields = () => {
-    setInputFields([...inputFields, { id: inputFields.length, option: '' }]);
+    setInputFields([
+      ...inputFields,
+      { id: inputFields.length, answer_name: '' }
+    ]);
   };
 
   const handleDeleteOption = (id) => {
@@ -26,7 +53,18 @@ function PollDetail() {
     setInputFields(values);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    pollPost(data);
+  };
+
+  const handleSelectChange = (event) => {
+    setProgram(event.target.value);
+  };
+
+  const handleQuestion = (event) => {
+    setQuestion(event.target.value);
+  };
 
   return (
     <div className="pollDetailWrapper">
@@ -39,7 +77,7 @@ function PollDetail() {
           <label htmlFor="live" className="pollLabel">
             Emisión
           </label>
-          <Select sx={{ height: '2.4375em' }}>
+          <Select onChange={handleSelectChange} sx={{ height: '2.4375em' }}>
             {mockEmissions.map((emission) => (
               <MenuItem key={emission.id} value={emission.name} size="small">
                 {emission.name}
@@ -54,6 +92,7 @@ function PollDetail() {
             size="small"
             id="pollQuestion"
             variant="outlined"
+            onChange={handleQuestion}
           />
           {inputFields.map((row) => (
             <>
@@ -67,7 +106,10 @@ function PollDetail() {
                   id="option"
                   variant="outlined"
                 />
-                <DeleteIcon className="pollIcon" onClick={handleDeleteOption} />
+                <DeleteIcon
+                  className="pollIcon"
+                  onClick={() => handleDeleteOption(row.id)}
+                />
               </div>
             </>
           ))}

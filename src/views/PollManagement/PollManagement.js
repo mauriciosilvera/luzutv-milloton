@@ -1,7 +1,6 @@
 import React from 'react';
 import { Collapse } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import axios from 'axios';
 import PollCard from '../../components/PollCard/PollCard';
 import { mockEmissions, mockPolls } from '../../util';
 import './PollManagement.css';
@@ -9,29 +8,18 @@ import './PollManagement.css';
 function PollManagement() {
   const [openEmission, setOpenEmission] = React.useState(true);
 
-  // async function getPolls() {
-  //   try {
-  //     const response = await axios.post(
-  //       'https://luzutv-api.herokuapp.com/admin/polls'
-  //     );
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  React.useEffect(() => {
-    axios
-      .post('https://luzutv-api.herokuapp.com/admin/polls', {
-        filters: ''
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   axios
+  //     .post('https://luzutv-api.herokuapp.com/admin/polls', {
+  //       filters: {}
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   return (
     <div className="pollManagementWrapper">
