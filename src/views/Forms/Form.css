@@ -1,0 +1,36 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80%;
+}
+.CTAcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 500px;
+}
+
+.formInput {
+  width: 100%;
+}
+
+.formButton {
+  width: 300px;
+}
+
+.passwordRecovery {
+  color: #1976d2;
+  text-decoration: none;
+}
