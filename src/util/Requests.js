@@ -37,20 +37,22 @@ export const getActivePoll = () =>
       console.log(error);
     });
 
-export const deletePoll = () =>
+export const deletePoll = (pollId) =>
   axios
-    .delete(
-      'https://luzutv-api.herokuapp.com/admin/poll',
-      [
+    .delete('https://luzutv-api.herokuapp.com/admin/poll', {
+      headers: {
+        'Content-Type': 'application/json',
+        token: '6329e5cc5c8fe25c8095bc6b'
+      },
+      data: [
         {
           question: {
-            id: '632cdeb2fc19dfb206f8fa58'
+            id: pollId
           }
         }
-      ],
-      config
-    )
-    .then((response) => response.data)
+      ]
+    })
+    .then((response) => console.log(response))
     .catch((error) => {
       console.log(error);
     });

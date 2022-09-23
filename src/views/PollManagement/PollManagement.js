@@ -18,8 +18,7 @@ function PollManagement() {
 
   const handleDeletePoll = (e) => {
     e.stopPropagation();
-    console.log(e.currentTarget.value);
-    deletePoll();
+    deletePoll(e.currentTarget.value);
   };
 
   return (
