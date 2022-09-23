@@ -6,16 +6,27 @@ import './PollCard.css';
 function PollCard(props) {
   const { poll, create } = props;
   return (
-    <Link
-      className={`pollCardWrapper ${create ? 'create' : ''}`}
-      to={
-        create ? '/admin/poll-management/' : `/admin/poll-details/${poll?.id}`
-      }
-    >
-      <span className="pollCardTitle">
-        {poll?.question ?? (create ? <Add /> : '')}
-      </span>
-    </Link>
+    <div>
+      {create ? (
+        <Link
+          className={`pollCardWrapper ${create ? 'create' : ''}`}
+          to="/admin/poll-details/new"
+        >
+          <Add />
+        </Link>
+      ) : (
+        poll?.questions?.map((row) => (
+          <Link
+            className={`pollCardWrapper ${create ? 'create' : ''}`}
+            to={`/admin/poll-details/${row._id}`}
+          >
+            <span className="pollCardTitle">
+              {create ? <Add /> : row.question_name}
+            </span>
+          </Link>
+        ))
+      )}
+    </div>
   );
 }
 

@@ -18,6 +18,7 @@
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
     "no-console": "off",
+    "no-underscore-dangle": "off",
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "jsx-a11y/no-static-element-interactions": "off",

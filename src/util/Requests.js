@@ -10,12 +10,12 @@ export const pollPost = (data) =>
       console.log(error);
     });
 
-export const Polltest = (data) =>
+export const allPollsPost = () =>
   axios
-    .post('https://luzutv-api.herokuapp.com/admin/poll', data)
-    .then((response) => {
-      console.log(response);
+    .post('https://luzutv-api.herokuapp.com/admin/polls', {
+      filters: {}
     })
+    .then((response) => response.data)
     .catch((error) => {
       console.log(error);
     });

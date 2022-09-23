@@ -1,32 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Collapse } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import PollCard from '../../components/PollCard/PollCard';
-import { mockEmissions, mockPolls } from '../../util';
+import { mockEmissions } from '../../util';
+import { allPollsPost } from '../../util/Requests';
 import './PollManagement.css';
 
 function PollManagement() {
   const [openEmission, setOpenEmission] = React.useState(true);
+  const [data, setData] = React.useState();
 
-  // React.useEffect(() => {
-  //   axios
-  //     .post('https://luzutv-api.herokuapp.com/admin/polls', {
-  //       filters: {}
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    allPollsPost().then((polls) => {
+      setData(polls);
+    });
+  }, []);
 
   return (
     <div className="pollManagementWrapper">
       <h2 className="pollTitle">Encuestas</h2>
       {mockEmissions.map((emission) => {
-        const emissionPolls = mockPolls.filter(
-          (poll) => poll.emissions === emission
+        const emissionPolls = data?.filter(
+          (poll) => poll.emission_name === emission.name
         );
 
         return (
@@ -49,7 +44,7 @@ function PollManagement() {
               unmountOnExit
             >
               <div className="pollsContainer">
-                {emissionPolls.length > 0 ? (
+                {emissionPolls?.length > 0 ? (
                   emissionPolls.map((poll) => (
                     <PollCard key={poll.id} poll={poll} />
                   ))
@@ -58,7 +53,7 @@ function PollManagement() {
                     No se encontraron encuestas para esta emisión
                   </div>
                 )}
-                <PollCard create emission={emission} />
+                <PollCard create />
               </div>
             </Collapse>
           </div>
