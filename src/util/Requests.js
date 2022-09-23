@@ -19,3 +19,11 @@ export const allPollsPost = () =>
     .catch((error) => {
       console.log(error);
     });
+
+export const getActivePoll = () =>
+  axios
+    .get('https://luzutv-api.herokuapp.com/public/polls')
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+    });

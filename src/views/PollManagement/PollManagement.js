@@ -46,7 +46,7 @@ function PollManagement() {
               <div className="pollsContainer">
                 {emissionPolls?.length > 0 ? (
                   emissionPolls.map((poll) => (
-                    <PollCard key={poll.id} poll={poll} />
+                    <PollCard key={poll._id} poll={poll} />
                   ))
                 ) : (
                   <div className="emptyPollsContainer">
