@@ -5,6 +5,7 @@ import './PollCard.css';
 
 function PollCard(props) {
   const { poll, create } = props;
+
   return (
     <div>
       {create ? (
@@ -17,7 +18,7 @@ function PollCard(props) {
       ) : (
         poll?.questions?.map((row) => (
           <Link
-            className={`pollCardWrapper ${create ? 'create' : ''}`}
+            className="pollCardWrapper"
             to={`/admin/poll-details/${row._id}`}
           >
             <span className="pollCardTitle">

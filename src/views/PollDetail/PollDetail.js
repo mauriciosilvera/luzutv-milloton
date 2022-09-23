@@ -29,7 +29,8 @@ function PollDetail() {
         question_name: question,
         date: '1663786397915',
         end_time: '2022-09-21',
-        start_time: '2022-09-20T19:00:00.000Z'
+        start_time: '2022-09-20T19:00:00.000Z',
+        is_active: false
       }
     },
     {
@@ -66,8 +67,14 @@ function PollDetail() {
     setQuestion(event.target.value);
   };
 
+  const handleChangeInput = (event) => {
+    event.preventDefault();
+    setInputFields(...inputFields, ...{ answer_name: event.target.value });
+  };
+
   return (
     <div className="pollDetailWrapper">
+      {console.log(inputFields)}
       <div className="pollFormBox">
         <form className="pollForm" onSubmit={handleSubmit}>
           <div className="pollTitleBox">
@@ -94,7 +101,7 @@ function PollDetail() {
             variant="outlined"
             onChange={handleQuestion}
           />
-          {inputFields.map((row) => (
+          {inputFields?.map((row) => (
             <>
               <label htmlFor="option" className="pollLabel">
                 Opción {row.id + 1}
@@ -105,6 +112,7 @@ function PollDetail() {
                   size="small"
                   id="option"
                   variant="outlined"
+                  onChange={handleChangeInput}
                 />
                 <DeleteIcon
                   className="pollIcon"

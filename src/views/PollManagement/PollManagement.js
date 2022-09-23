@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { Collapse } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { MdDelete as DeleteIcon } from 'react-icons/md';
 import PollCard from '../../components/PollCard/PollCard';
 import { mockEmissions } from '../../util';
-import { allPollsPost } from '../../util/Requests';
+import { allPollsPost, deleteQuestion } from '../../util/Requests';
 import './PollManagement.css';
 
 function PollManagement() {
@@ -15,6 +16,11 @@ function PollManagement() {
       setData(polls);
     });
   }, []);
+
+  const handleDeletePoll = (id) => {
+    console.log(id);
+    deleteQuestion();
+  };
 
   return (
     <div className="pollManagementWrapper">
@@ -46,7 +52,10 @@ function PollManagement() {
               <div className="pollsContainer">
                 {emissionPolls?.length > 0 ? (
                   emissionPolls.map((poll) => (
-                    <PollCard key={poll._id} poll={poll} />
+                    <div key={poll._id} className="pollCard">
+                      <PollCard deletePoll={handleDeletePoll} poll={poll} />
+                      <DeleteIcon onClick={() => handleDeletePoll(poll._id)} />
+                    </div>
                   ))
                 ) : (
                   <div className="emptyPollsContainer">

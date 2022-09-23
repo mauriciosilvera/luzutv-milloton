@@ -27,3 +27,17 @@ export const getActivePoll = () =>
     .catch((error) => {
       console.log(error);
     });
+
+export const deleteQuestion = () =>
+  axios
+    .delete('https://luzutv-api.herokuapp.com/admin/poll', [
+      {
+        question: {
+          id: '632ce1c70e362a0a202d62c4'
+        }
+      }
+    ])
+    .then((response) => console.log(response))
+    .catch((error) => {
+      console.log(error);
+    });
