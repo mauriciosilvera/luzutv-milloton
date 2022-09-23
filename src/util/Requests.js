@@ -65,12 +65,14 @@ export const deletePoll = (pollId) =>
 
 export const getPollById = (pollId) =>
   axios
-    .post('https://luzutv-api.herokuapp.com/admin/poll/id', {
-      question_id: pollId
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
+    .post(
+      'https://luzutv-api.herokuapp.com/admin/poll/id',
+      {
+        question_id: pollId
+      },
+      config
+    )
+    .then((response) => response.data)
     .catch((error) => {
       console.log(error);
     });
