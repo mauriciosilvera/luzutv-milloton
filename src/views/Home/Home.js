@@ -15,9 +15,9 @@ function Home() {
 
   return (
     <div className="homeWrapper">
-      <h2 className="questionTitle">{activePoll?.[0].question_name}</h2>
+      <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
       <div className="answersWrapper">
-        {activePoll?.[0].answers.map((answer) => (
+        {activePoll?.[0]?.answers.map((answer) => (
           <PollOption
             option={answer}
             onClick={() => {

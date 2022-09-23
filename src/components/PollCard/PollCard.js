@@ -4,30 +4,21 @@ import { Add } from '@mui/icons-material';
 import './PollCard.css';
 
 function PollCard(props) {
-  const { poll, create } = props;
+  const { question, create } = props;
 
   return (
-    <div>
-      {create ? (
-        <Link
-          className={`pollCardWrapper ${create ? 'create' : ''}`}
-          to="/admin/poll-details/new"
-        >
-          <Add />
-        </Link>
-      ) : (
-        poll?.questions?.map((row) => (
-          <Link
-            className="pollCardWrapper"
-            to={`/admin/poll-details/${row._id}`}
-          >
-            <span className="pollCardTitle">
-              {create ? <Add /> : row.question_name}
-            </span>
-          </Link>
-        ))
-      )}
-    </div>
+    <Link
+      className={`pollCardWrapper ${create ? 'create' : ''}`}
+      to={
+        create
+          ? '/admin/poll-details/new'
+          : `/admin/poll-details/${question?._id}`
+      }
+    >
+      <span className="pollCardTitle">
+        {question?.question_name ?? (create ? <Add /> : '')}
+      </span>
+    </Link>
   );
 }
 
