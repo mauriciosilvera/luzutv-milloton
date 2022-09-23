@@ -1,22 +1,45 @@
 import { Button, TextField } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { Login } from '../../util/Requests';
 import './Form.css';
 
 function Form(props) {
   const { recovery } = props;
   const FormMessage = recovery ? 'Enviar Pin' : 'Iniciar Sesion';
   const navigate = useNavigate();
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
+  const [error, setError] = useState();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError();
+    const loginData = {
+      admin_name: userName,
+      admin_password: password
+    };
+
+    const res = await Login(loginData);
+
+    if (res.response) {
+      setError(res.response.data.message);
+      return;
+    }
 
     if (recovery) {
       navigate('/admin/login');
     } else {
       navigate('/admin/polls-management');
     }
+  };
+
+  const handleEmail = (e) => {
+    setUserName(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
@@ -29,12 +52,14 @@ function Form(props) {
               autoFocus
               type="text"
               placeholder="Email"
+              onChange={handleEmail}
               required
             />
             <TextField
               className="formInput"
               type="password"
               placeholder="Pin"
+              onChange={handlePassword}
               required
             />
             <Link to="/admin/password-recovery">
@@ -48,12 +73,14 @@ function Form(props) {
               autoFocus
               type="text"
               placeholder="Email"
+              onChange={handleEmail}
               required
             />
             <TextField
               className="formInput"
               type="password"
               placeholder="Contraseña"
+              onChange={handlePassword}
               required
             />
             <Link to="/admin/password-recovery">
@@ -68,6 +95,7 @@ function Form(props) {
         >
           {FormMessage}
         </Button>
+        <span className="error"> {error || null} </span>
       </div>
     </div>
   );

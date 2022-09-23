@@ -5,6 +5,12 @@ const config = {
   headers: { token }
 };
 
+export const Login = (data) =>
+  axios
+    .post('https://luzutv-api.herokuapp.com/public/login', data, config)
+    .then((response) => response)
+    .catch((error) => error);
+
 export const pollPost = (data) =>
   axios
     .post('https://luzutv-api.herokuapp.com/admin/poll', data, config)
