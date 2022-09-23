@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Collapse, Box, CircularProgress } from '@mui/material';
+import { Collapse, Box, CircularProgress, IconButton } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import PollCard from '../../components/PollCard/PollCard';
@@ -16,14 +16,13 @@ function PollManagement() {
     });
   }, []);
 
-  const handleDeletePoll = (id) => {
-    console.log(id);
-    deleteQuestion();
+  const handleDeletePoll = (e) => {
+    e.stopPropagation();
+    deleteQuestion(e.currentTarget.value);
   };
 
   return (
     <div className="pollManagementWrapper">
-      {console.log(data)}
       <h2 className="pollTitle">Encuestas</h2>
       {data === undefined && (
         <Box sx={{ display: 'flex' }}>
@@ -49,13 +48,10 @@ function PollManagement() {
               {emission?.questions?.length > 0 ? (
                 emission?.questions.map((question) => (
                   <div key={question._id} className="pollCard">
-                    <PollCard
-                      deletePoll={handleDeletePoll}
-                      question={question}
-                    />
-                    <DeleteIcon
-                      onClick={() => handleDeletePoll(question._id)}
-                    />
+                    <PollCard question={question} />
+                    <IconButton onClick={handleDeletePoll} value={question._id}>
+                      <DeleteIcon />
+                    </IconButton>
                   </div>
                 ))
               ) : (

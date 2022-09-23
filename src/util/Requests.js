@@ -37,7 +37,7 @@ export const deleteQuestion = () =>
         }
       }
     ])
-    .then((response) => console.log(response))
+    .then((response) => response.data)
     .catch((error) => {
       console.log(error);
     });
