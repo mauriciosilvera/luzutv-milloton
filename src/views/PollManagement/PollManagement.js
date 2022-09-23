@@ -3,7 +3,7 @@ import { Collapse, Box, CircularProgress, IconButton } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import PollCard from '../../components/PollCard/PollCard';
-import { allPollsPost, deleteQuestion } from '../../util/Requests';
+import { allPollsPost, deletePoll } from '../../util/Requests';
 import './PollManagement.css';
 
 function PollManagement() {
@@ -18,7 +18,8 @@ function PollManagement() {
 
   const handleDeletePoll = (e) => {
     e.stopPropagation();
-    deleteQuestion(e.currentTarget.value);
+    console.log(e.currentTarget.value);
+    deletePoll();
   };
 
   return (
