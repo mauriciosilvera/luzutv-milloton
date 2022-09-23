@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import './PollDetail.css';
 import { Button, MenuItem, Select } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
 import { mockEmissions } from '../../util';
-import { pollPost } from '../../util/Requests';
+import { pollPost, getPollById } from '../../util/Requests';
 
 function PollDetail() {
   const { pollId } = useParams();
@@ -15,6 +15,13 @@ function PollDetail() {
   ]);
   const [program, setProgram] = useState('');
   const [question, setQuestion] = useState('');
+  const [selectedPoll, setSelectedPoll] = useState('');
+
+  useEffect(() => {
+    getPollById(pollId).then((poll) => {
+      setSelectedPoll(poll);
+    });
+  });
 
   const data = [
     {
@@ -74,7 +81,7 @@ function PollDetail() {
 
   return (
     <div className="pollDetailWrapper">
-      {console.log(inputFields)}
+      {console.log(selectedPoll)}
       <div className="pollFormBox">
         <form className="pollForm" onSubmit={handleSubmit}>
           <div className="pollTitleBox">
