@@ -60,3 +60,22 @@
   display: flex;
   justify-content: center;
 }
+
+.loadingState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectedValue {
+  border: 1px solid #c4c4c4;
+  padding: 5px;
+  border-radius: 5px;
+  min-height: 2.4375em;
+}
+
+.activateButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
