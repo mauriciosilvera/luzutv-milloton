@@ -16,7 +16,8 @@ import {
   pollPost,
   getPollById,
   getEmissions,
-  pollPut
+  pollPut,
+  pollPostExtraOption
 } from '../../util/Requests';
 
 function PollDetail() {
@@ -34,6 +35,7 @@ function PollDetail() {
     { id: 0, answer_name: '' },
     { id: 1, answer_name: '' }
   ]);
+  const [editExtraAnswer, setEditExtraAnswer] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -64,6 +66,9 @@ function PollDetail() {
       ...selectedOptions,
       { id: selectedOptions?.length, answer_name: '' }
     ]);
+    if (isEditMode) {
+      setEditExtraAnswer(true);
+    }
   };
 
   const handleChangeOption = (id, e) => {
@@ -125,6 +130,8 @@ function PollDetail() {
   };
 
   const handleSubmit = (e) => {
+    const extraOptions = [...selectedOptions];
+
     const postData = [
       {
         emission: selectedEmission
@@ -155,10 +162,18 @@ function PollDetail() {
       }
     ];
 
+    const putExtraOption = {
+      question_id: selectedPoll?._id,
+      answers: extraOptions?.splice(selectedPoll?.answers?.length)
+    };
+
     e?.preventDefault();
 
     if (isEditMode) {
       pollPut(putData);
+      if (editExtraAnswer) {
+        pollPostExtraOption(putExtraOption);
+      }
     } else {
       pollPost(postData);
     }

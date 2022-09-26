@@ -33,6 +33,19 @@ export const pollPut = (data) => {
     });
 };
 
+export const pollPostExtraOption = (data) => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+  return axios
+    .post('http://luzutv-api.herokuapp.com/admin/poll/answer', data, config)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const allPollsPost = () => {
   const token = auth.getData();
   const config = {
