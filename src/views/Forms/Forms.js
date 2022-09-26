@@ -24,11 +24,11 @@ function Form(props) {
     const res = await Login(loginData);
 
     if (res.response) {
-      setError(res.response.data.message);
+      setError(res?.response?.data?.message);
       return;
     }
 
-    auth.signin(res.data.token);
+    auth.signin(res?.data?.token);
 
     if (recovery) {
       navigate('/admin/login');
@@ -38,11 +38,11 @@ function Form(props) {
   };
 
   const handleEmail = (e) => {
-    setUserName(e.target.value);
+    setUserName(e?.target?.value);
   };
 
   const handlePassword = (e) => {
-    setPassword(e.target.value);
+    setPassword(e?.target?.value);
   };
 
   return (

@@ -70,7 +70,7 @@ function PollDetail() {
     e.preventDefault();
 
     const newArray = selectedOptions.map((option) => {
-      if (option._id === id || option.id === id) {
+      if (option?._id === id || option?.id === id) {
         return { ...option, answer_name: e?.currentTarget?.value };
       }
       return option;
@@ -92,13 +92,13 @@ function PollDetail() {
   const handleSelectChange = (e) => {
     e.preventDefault();
 
-    setSelectedEmission(e.target.value);
+    setSelectedEmission(e?.target?.value);
   };
 
   const handleQuestion = (e) => {
     e.preventDefault();
 
-    setSelectedQuestion(e.target.value);
+    setSelectedQuestion(e?.target?.value);
   };
 
   const handleEditMode = (e) => {
@@ -114,7 +114,7 @@ function PollDetail() {
     const data = [
       {
         question: {
-          id: selectedPoll._id,
+          id: selectedPoll?._id,
           question_name: selectedQuestion,
           is_active: !isActive
         }
@@ -148,16 +148,15 @@ function PollDetail() {
         }
       },
       {
-        answers: selectedOptions.map((option) => ({
+        answers: selectedOptions?.map((option) => ({
           ...option,
-          id: option._id
+          id: option?._id
         }))
       }
     ];
 
     e?.preventDefault();
 
-    console.log(putData, selectedOptions);
     if (isEditMode) {
       pollPut(putData);
     } else {
@@ -186,7 +185,7 @@ function PollDetail() {
             <div className="pollTitleBox">
               <div className="pollTitle">
                 <h2 className="title">{`${
-                  selectedPoll ? selectedPoll.question_name : 'Nueva encuesta'
+                  selectedPoll ? selectedPoll?.question_name : 'Nueva encuesta'
                 }`}</h2>
                 {selectedPoll && !isActive && (
                   <IconButton onClick={handleEditMode}>

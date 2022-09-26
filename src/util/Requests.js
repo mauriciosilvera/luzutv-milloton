@@ -96,7 +96,7 @@ export const deletePoll = (pollId) => {
 
   return axios
     .delete('https://luzutv-api.herokuapp.com/admin/poll', config)
-    .then((response) => console.log(response))
+    .then((response) => response.data)
     .catch((error) => {
       console.log(error);
     });

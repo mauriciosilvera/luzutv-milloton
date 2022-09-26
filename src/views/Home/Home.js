@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Box, CircularProgress } from '@mui/material';
 import PollOption from '../../components/PollOption/PollOption';
 import { getActivePoll, vote } from '../../util/Requests';
 import './Home.css';
@@ -18,7 +19,7 @@ function Home() {
 
     const data = {
       answerVote: {
-        _id: answer._id
+        _id: answer?._id
       }
     };
     vote(data);
@@ -26,13 +27,23 @@ function Home() {
 
   return (
     <div className="homeWrapper">
-      {selectedOption ? (
+      {!activePoll && (
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
+        </Box>
+      )}
+
+      {activePoll && !activePoll?.length && (
+        <div>No se encontrar encuestas activas en este momento</div>
+      )}
+
+      {activePoll?.length && selectedOption ? (
         <div>Muchas gracias por votar!</div>
       ) : (
         <>
           <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
           <div className="answersWrapper">
-            {activePoll?.[0]?.answers.map((answer) => (
+            {activePoll?.[0]?.answers?.map((answer) => (
               <PollOption
                 key={answer._id}
                 option={answer}

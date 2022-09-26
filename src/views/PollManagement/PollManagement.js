@@ -27,8 +27,8 @@ function PollManagement() {
   }, [updated]);
 
   const handleDeletePoll = (e) => {
-    e.stopPropagation();
-    deletePoll(e.currentTarget.value);
+    e?.stopPropagation();
+    deletePoll(e?.currentTarget?.value);
     setUpdated(true);
   };
 
@@ -57,7 +57,7 @@ function PollManagement() {
           <Collapse in={openEmission === emission} timeout="auto" unmountOnExit>
             <div className="pollsContainer">
               {emission?.questions?.length > 0 ? (
-                emission?.questions.map((question) => (
+                emission?.questions?.map((question) => (
                   <div key={question._id} className="pollCard">
                     <PollCard question={question} />
                     <IconButton onClick={handleDeletePoll} value={question._id}>
