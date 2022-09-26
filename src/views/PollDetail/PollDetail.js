@@ -70,7 +70,7 @@ function PollDetail() {
     e.preventDefault();
 
     const newArray = selectedOptions.map((option) => {
-      if (option._id === id) {
+      if (option._id === id || option.id === id) {
         return { ...option, answer_name: e?.currentTarget?.value };
       }
       return option;
@@ -125,7 +125,7 @@ function PollDetail() {
   };
 
   const handleSubmit = (e) => {
-    const data = [
+    const postData = [
       {
         emission: selectedEmission
       },
@@ -139,16 +139,33 @@ function PollDetail() {
         answers: selectedOptions
       }
     ];
+
+    const putData = [
+      {
+        question: {
+          id: selectedPoll?._id,
+          question_name: selectedQuestion
+        }
+      },
+      {
+        answers: selectedOptions.map((option) => ({
+          ...option,
+          id: option._id
+        }))
+      }
+    ];
+
     e?.preventDefault();
+
+    console.log(putData, selectedOptions);
     if (isEditMode) {
-      pollPut(data);
+      pollPut(putData);
     } else {
-      pollPost(data);
+      pollPost(postData);
     }
     navigate('/admin/polls-management');
   };
 
-  // eslint-disable-next-line arrow-body-style
   const totalVotes = selectedPoll?.answers?.reduce((accumulator, option) => {
     return accumulator + option.voteCount;
   }, 0);
@@ -227,7 +244,7 @@ function PollDetail() {
             )}
             {selectedPoll && !isEditMode
               ? selectedPoll?.answers?.map((option, id) => (
-                  <>
+                  <div key={option?._id} className="OptionContainer">
                     <label htmlFor="option" className="pollLabel">
                       Opción {id + 1}
                     </label>
@@ -240,7 +257,7 @@ function PollDetail() {
                         className="voteCount"
                       >{`Votos: ${option?.voteCount}`}</Typography>
                     </div>
-                  </>
+                  </div>
                 ))
               : selectedOptions?.map((option, id) => (
                   <>
@@ -252,7 +269,9 @@ function PollDetail() {
                         fullWidth
                         size="small"
                         variant="outlined"
-                        onChange={(e) => handleChangeOption(option?._id, e)}
+                        onChange={(e) =>
+                          handleChangeOption(option?._id ?? option?.id, e)
+                        }
                         required
                         defaultValue={option?.answer_name}
                       />
