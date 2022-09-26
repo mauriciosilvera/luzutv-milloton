@@ -7,8 +7,8 @@ import {
   MenuItem,
   Select,
   IconButton,
-  Box,
-  CircularProgress,
+  // Box,
+  // CircularProgress,
   Typography
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
@@ -25,12 +25,21 @@ function PollDetail() {
   const [isActive, setIsActive] = useState(false);
   const [selectedEmission, setSelectedEmission] = useState('');
   const [selectedQuestion, setSelectedQuestion] = useState('');
-  const [selectedOptions, setSelectedOptions] = useState('');
+  const [selectedOptions, setSelectedOptions] = useState([
+    { id: 0, answer_name: '' },
+    { id: 1, answer_name: '' }
+  ]);
 
   useEffect(() => {
-    getPollById(pollId).then((poll) => {
-      setSelectedPoll(poll);
-    });
+    let mounted = true;
+    if (pollId !== 'new' && mounted) {
+      getPollById(pollId).then((poll) => {
+        setSelectedPoll(poll);
+      });
+    }
+    return () => {
+      mounted = false;
+    };
   }, [pollId]);
 
   useEffect(() => {
@@ -53,12 +62,16 @@ function PollDetail() {
 
   const handleChangeOption = (id, e) => {
     e.preventDefault();
-    const newValue = {
-      ...selectedOptions[id],
-      answer_name: e.currentTarget.value
-    };
-    setSelectedOptions(...selectedOptions, (selectedOptions[id] = newValue));
-    console.log(selectedOptions);
+
+    const newArray = selectedOptions.map((option) => {
+      console.log('NO entre y este es el id: ', option._id, id);
+      if (option._id === id) {
+        console.log('entre y este es el id: ', option._id, id);
+        return { ...option, answer_name: e.currentTarget.value };
+      }
+      return option;
+    });
+    setSelectedOptions(newArray);
   };
 
   const handleDeleteOption = (e) => {
@@ -115,151 +128,144 @@ function PollDetail() {
 
   return (
     <div className="pollDetailWrapper">
-      {selectedPoll.length === 0 && (
+      {/* {selectedPoll?.length === 0 && (
         <div className="loadingState">
           <Box sx={{ display: 'flex' }}>
             <CircularProgress />
           </Box>
         </div>
-      )}
-
-      {selectedPoll.length !== 0 && (
-        <div className="pollFormBox">
-          <form className="pollForm" onSubmit={handleSubmit}>
-            <div className="pollTitleBox">
-              <h2 className="title">{`${
-                selectedPoll ? selectedPoll.question_name : 'Nueva encuesta'
-              }`}</h2>
-              {selectedPoll && (
-                <IconButton onClick={handleEditMode}>
-                  <EditIcon className="pollIcon" />
-                </IconButton>
-              )}
-            </div>
-            <label htmlFor="live" className="pollLabel">
-              Emisión
-            </label>
-            {selectedPoll && !isEditMode ? (
-              <Typography variant="h6" className="selectedValue">
-                {selectedPoll?.emission_id?.emission_name}
-              </Typography>
-            ) : (
-              <Select
-                onChange={handleSelectChange}
-                sx={{ height: '2.4375em' }}
-                value={selectedEmission.emission_name}
-                required
-                renderValue={(selected) => {
-                  if (selectedEmission && !selected) {
-                    return <em>{selectedEmission.emission_name}</em>;
-                  }
-                  return selected;
-                }}
-              >
-                {mockEmissions?.map((emission) => (
-                  <MenuItem
-                    key={emission.id}
-                    value={emission.name}
-                    size="small"
-                  >
-                    {emission.name}
-                  </MenuItem>
-                ))}
-              </Select>
+      )} */}
+      <div className="pollFormBox">
+        <form className="pollForm" onSubmit={handleSubmit}>
+          <div className="pollTitleBox">
+            <h2 className="title">{`${
+              selectedPoll ? selectedPoll.question_name : 'Nueva encuesta'
+            }`}</h2>
+            {selectedPoll && (
+              <IconButton onClick={handleEditMode}>
+                <EditIcon className="pollIcon" />
+              </IconButton>
             )}
-            <label htmlFor="pollQuestion" className="pollLabel">
-              Pregunta
-            </label>
-            {selectedPoll && !isEditMode ? (
-              <Typography variant="h6" className="selectedValue">
-                {selectedPoll.question_name}
-              </Typography>
-            ) : (
-              <TextField
-                fullWidth
-                size="small"
-                id="pollQuestion"
+          </div>
+          <label htmlFor="live" className="pollLabel">
+            Emisión
+          </label>
+          {selectedPoll && !isEditMode ? (
+            <Typography variant="h6" className="selectedValue">
+              {selectedPoll?.emission_id?.emission_name}
+            </Typography>
+          ) : (
+            <Select
+              onChange={handleSelectChange}
+              sx={{ height: '2.4375em' }}
+              value={selectedEmission.emission_name}
+              required
+              renderValue={(selected) => {
+                if (selectedEmission && !selected) {
+                  return <em>{selectedEmission.emission_name}</em>;
+                }
+                return selected;
+              }}
+            >
+              {mockEmissions?.map((emission) => (
+                <MenuItem key={emission.id} value={emission.name} size="small">
+                  {emission.name}
+                </MenuItem>
+              ))}
+            </Select>
+          )}
+          <label htmlFor="pollQuestion" className="pollLabel">
+            Pregunta
+          </label>
+          {selectedPoll && !isEditMode ? (
+            <Typography variant="h6" className="selectedValue">
+              {selectedPoll.question_name}
+            </Typography>
+          ) : (
+            <TextField
+              fullWidth
+              size="small"
+              id="pollQuestion"
+              variant="outlined"
+              onChange={handleQuestion}
+              defaultValue={selectedQuestion}
+              required
+            />
+          )}
+          {selectedPoll && !isEditMode
+            ? selectedPoll?.answers?.map((option, id) => (
+                <>
+                  <label htmlFor="option" className="pollLabel">
+                    Opción {id + 1}
+                  </label>
+                  <Typography variant="h6" className="selectedValue">
+                    {option.answer_name}
+                  </Typography>
+                </>
+              ))
+            : selectedOptions?.map((option, id) => (
+                <>
+                  <label htmlFor="option" className="pollLabel">
+                    Opción {id + 1}
+                  </label>
+                  <div className="pollOptionBox">
+                    <TextField
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      onChange={(e) => handleChangeOption(option._id, e)}
+                      required
+                      defaultValue={option.answer_name}
+                    />
+                    {id >= 2 && (
+                      <IconButton onClick={handleDeleteOption} value={id}>
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                  </div>
+                </>
+              ))}
+
+          {(!selectedPoll || isEditMode) && (
+            <div className="pollButtonBox">
+              <div className="addQuestionBox">
+                <Button
+                  size="small"
+                  className="pollButton"
+                  variant="outlined"
+                  onClick={handleAddfields}
+                >
+                  Agregar opción
+                </Button>
+              </div>
+
+              <Button
+                size="large"
+                className="pollButton"
+                type="submit"
                 variant="outlined"
-                onChange={handleQuestion}
-                defaultValue={selectedQuestion}
-                required
-              />
-            )}
-            {selectedPoll && !isEditMode
-              ? selectedPoll?.answers?.map((option, id) => (
-                  <>
-                    <label htmlFor="option" className="pollLabel">
-                      Opción {id + 1}
-                    </label>
-                    <Typography variant="h6" className="selectedValue">
-                      {option.answer_name}
-                    </Typography>
-                  </>
-                ))
-              : selectedOptions?.map((option, id) => (
-                  <>
-                    <label htmlFor="option" className="pollLabel">
-                      Opción {id + 1}
-                    </label>
-                    <div className="pollOptionBox">
-                      <TextField
-                        fullWidth
-                        size="small"
-                        variant="outlined"
-                        onChange={(e) => handleChangeOption(id, e)}
-                        required
-                        defaultValue={option.answer_name}
-                      />
-                      {id >= 2 && (
-                        <IconButton onClick={handleDeleteOption} value={id}>
-                          <DeleteIcon />
-                        </IconButton>
-                      )}
-                    </div>
-                  </>
-                ))}
+              >
+                Guardar encuesta
+              </Button>
+            </div>
+          )}
 
-            {(!selectedPoll || isEditMode) && (
-              <div className="pollButtonBox">
-                <div className="addQuestionBox">
-                  <Button
-                    size="small"
-                    className="pollButton"
-                    variant="outlined"
-                    onClick={handleAddfields}
-                  >
-                    Agregar opción
-                  </Button>
-                </div>
-
-                <Button
-                  size="large"
-                  className="pollButton"
-                  type="submit"
-                  variant="outlined"
-                >
-                  Guardar encuesta
-                </Button>
-              </div>
-            )}
-
-            {selectedPoll && !isEditMode && (
-              <div className="activateButton">
-                <Button
-                  onClick={handleActivate}
-                  size="large"
-                  className="pollButton"
-                  type="submit"
-                  variant="outlined"
-                  color={isActive ? 'error' : 'success'}
-                >
-                  {isActive ? 'Terminar encuesta' : 'Activar encuestas'}
-                </Button>
-              </div>
-            )}
-          </form>
-        </div>
-      )}
+          {selectedPoll && !isEditMode && (
+            <div className="activateButton">
+              <Button
+                onClick={handleActivate}
+                size="large"
+                className="pollButton"
+                type="submit"
+                variant="outlined"
+                color={isActive ? 'error' : 'success'}
+              >
+                {isActive ? 'Terminar encuesta' : 'Activar encuesta'}
+              </Button>
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 }

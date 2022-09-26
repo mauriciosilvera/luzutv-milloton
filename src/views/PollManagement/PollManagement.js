@@ -9,6 +9,7 @@ import './PollManagement.css';
 function PollManagement() {
   const [openEmission, setOpenEmission] = React.useState(true);
   const [data, setData] = React.useState();
+  const [updated, setUpdated] = React.useState(false);
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -16,9 +17,19 @@ function PollManagement() {
     });
   }, []);
 
+  useEffect(() => {
+    if (updated) {
+      allPollsPost().then((polls) => {
+        setData(polls);
+      });
+      setUpdated(false);
+    }
+  }, [updated]);
+
   const handleDeletePoll = (e) => {
     e.stopPropagation();
     deletePoll(e.currentTarget.value);
+    setUpdated(true);
   };
 
   return (
