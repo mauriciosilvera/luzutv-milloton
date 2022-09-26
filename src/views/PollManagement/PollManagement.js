@@ -35,6 +35,7 @@ function PollManagement() {
   return (
     <div className="pollManagementWrapper">
       <h2 className="pollTitle">Encuestas</h2>
+      {console.log(localStorage.getItem('token'))}
       {data === undefined && (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />

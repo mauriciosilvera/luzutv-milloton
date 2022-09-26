@@ -7,6 +7,7 @@ import PollManagement from './views/PollManagement/PollManagement';
 import PollDetail from './views/PollDetail/PollDetail';
 import Home from './views/Home/Home';
 import Form from './views/Forms/Forms';
+import RequireAuth from './util/requireAuth';
 
 function App() {
   const location = useLocation();
@@ -36,8 +37,22 @@ function App() {
           {/* ADMIN */}
           <Route path="admin/login" element={<Form />} />
           <Route path="admin/password-recovery" element={<Form recovery />} />
-          <Route path="admin/polls-management" element={<PollManagement />} />
-          <Route path="admin/poll-details/:pollId" element={<PollDetail />} />
+          <Route
+            path="admin/polls-management"
+            element={
+              <RequireAuth>
+                <PollManagement />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/poll-details/:pollId"
+            element={
+              <RequireAuth>
+                <PollDetail />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Login } from '../../util/Requests';
+import { auth } from '../../util/auth';
 import './Form.css';
 
 function Form(props) {
@@ -26,6 +27,8 @@ function Form(props) {
       setError(res.response.data.message);
       return;
     }
+
+    auth.signin(res.data.token);
 
     if (recovery) {
       navigate('/admin/login');
