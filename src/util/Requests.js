@@ -115,6 +115,30 @@ export const deletePoll = (pollId) => {
     });
 };
 
+export const deleteOption = (optionId) => {
+  const token = auth.getData();
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      token
+    },
+    data: [
+      {
+        answers: {
+          id: optionId
+        }
+      }
+    ]
+  };
+
+  return axios
+    .delete('https://luzutv-api.herokuapp.com/admin/poll', config)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const getPollById = (pollId) => {
   const token = auth.getData();
   const config = {
