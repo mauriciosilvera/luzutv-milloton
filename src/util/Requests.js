@@ -54,6 +54,19 @@ export const getActivePoll = () => {
     });
 };
 
+export const getEmissions = () => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+  axios
+    .get('https://luzutv-api.herokuapp.com/admin/emissions', config)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const deletePoll = (pollId) => {
   const token = auth.getData();
   const config = {
