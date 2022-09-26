@@ -25,7 +25,6 @@
   border-radius: 15px;
   display: flex;
   justify-content: center;
-  padding: 20px;
 }
 
 .pollIcon {
@@ -79,6 +78,7 @@
   border: 1px solid #c4c4c4;
   padding: 5px;
   border-radius: 5px;
+  margin-top: 5px;
 }
 
 .selectedValue {
@@ -103,4 +103,8 @@
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
+}
+
+.OptionContainer {
+  margin-top: 15px;
 }

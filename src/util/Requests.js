@@ -57,7 +57,7 @@ export const getActivePoll = () => {
   const config = {
     headers: { token }
   };
-  axios
+  return axios
     .get('https://luzutv-api.herokuapp.com/public/polls', config)
     .then((response) => response.data)
     .catch((error) => {
