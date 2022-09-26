@@ -17,7 +17,8 @@ import {
   getPollById,
   getEmissions,
   pollPut,
-  pollPostExtraOption
+  pollPostExtraOption,
+  deleteOption
 } from '../../util/Requests';
 
 function PollDetail() {
@@ -83,13 +84,16 @@ function PollDetail() {
     setSelectedOptions(newArray);
   };
 
-  const handleDeleteOption = (e) => {
+  const handleDeleteOption = (id, e) => {
     const values = [...selectedOptions];
     if (values?.length > 2) {
-      values.splice(
-        values.findIndex((value) => value?.id === e?.target?.value),
+      values?.splice(
+        values?.findIndex((value) => value?.id === e?.currentTarget?.value),
         1
       );
+      if (isEditMode) {
+        deleteOption(id);
+      }
       setSelectedOptions(values);
     }
   };
@@ -291,7 +295,10 @@ function PollDetail() {
                         defaultValue={option?.answer_name}
                       />
                       {id >= 2 && (
-                        <IconButton onClick={handleDeleteOption} value={id}>
+                        <IconButton
+                          onClick={(e) => handleDeleteOption(option?._id, e)}
+                          value={id}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       )}
