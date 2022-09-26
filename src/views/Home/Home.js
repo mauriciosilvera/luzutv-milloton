@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PollOption from '../../components/PollOption/PollOption';
-import { getActivePoll } from '../../util/Requests';
+import { getActivePoll, pollPut } from '../../util/Requests';
 import './Home.css';
 
 function Home() {
@@ -13,16 +13,31 @@ function Home() {
     });
   }, []);
 
+  const handleVote = (answer) => {
+    setSelectedOption(answer);
+
+    const data = [
+      {
+        answer: {
+          id: answer._id,
+          question_id: answer.question_id,
+          voteCount: answer.voteCount + 1
+        }
+      }
+    ];
+
+    pollPut(data);
+  };
+
   return (
     <div className="homeWrapper">
       <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
       <div className="answersWrapper">
         {activePoll?.[0]?.answers.map((answer) => (
           <PollOption
+            key={answer._id}
             option={answer}
-            onClick={() => {
-              setSelectedOption(answer);
-            }}
+            onClick={() => handleVote(answer)}
             selected={selectedOption === answer}
           />
         ))}

@@ -14,9 +14,20 @@ export const pollPost = (data) => {
   };
   return axios
     .post('https://luzutv-api.herokuapp.com/admin/poll', data, config)
-    .then((response) => {
-      console.log(response.data);
-    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const pollPut = (data) => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+  return axios
+    .put('https://luzutv-api.herokuapp.com/admin/poll', data, config)
+    .then((response) => response.data)
     .catch((error) => {
       console.log(error);
     });
@@ -59,7 +70,7 @@ export const getEmissions = () => {
   const config = {
     headers: { token }
   };
-  axios
+  return axios
     .get('https://luzutv-api.herokuapp.com/admin/emissions', config)
     .then((response) => response.data)
     .catch((error) => {

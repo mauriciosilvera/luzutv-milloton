@@ -12,7 +12,12 @@ import {
   Typography
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
-import { pollPost, getPollById, getEmissions } from '../../util/Requests';
+import {
+  pollPost,
+  getPollById,
+  getEmissions,
+  pollPut
+} from '../../util/Requests';
 
 function PollDetail() {
   const { pollId } = useParams();
@@ -54,7 +59,7 @@ function PollDetail() {
     }
   }, [selectedPoll]);
 
-  const handleAddfields = () => {
+  const handleAddOption = () => {
     setSelectedOptions([
       ...selectedOptions,
       { id: selectedOptions?.length, answer_name: '' }
@@ -75,16 +80,51 @@ function PollDetail() {
 
   const handleDeleteOption = (e) => {
     const values = [...selectedOptions];
-    if (values.length > 2) {
+    if (values?.length > 2) {
       values.splice(
-        values.findIndex((value) => value.id === e.target.value),
+        values.findIndex((value) => value?.id === e?.target?.value),
         1
       );
       setSelectedOptions(values);
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSelectChange = (e) => {
+    e.preventDefault();
+
+    setSelectedEmission(e.target.value);
+  };
+
+  const handleQuestion = (e) => {
+    e.preventDefault();
+
+    setSelectedQuestion(e.target.value);
+  };
+
+  const handleEditMode = (e) => {
+    e.preventDefault();
+
+    setIsEditMode(!isEditMode);
+  };
+
+  const handleActivate = (e) => {
+    e.preventDefault();
+    setIsActive(!isActive);
+
+    const data = [
+      {
+        question: {
+          id: selectedPoll._id,
+          question_name: selectedQuestion,
+          is_active: !isActive
+        }
+      }
+    ];
+
+    pollPut(data);
+  };
+
+  const handleSubmit = (e) => {
     const data = [
       {
         emission: selectedEmission
@@ -92,38 +132,26 @@ function PollDetail() {
       {
         question: {
           question_name: selectedQuestion,
-          date: '1663786397915',
-          end_time: '2022-09-21',
-          start_time: '2022-09-20T19:00:00.000Z',
-          is_active: false
+          is_active: isActive
         }
       },
       {
         answers: selectedOptions
       }
     ];
-    event.preventDefault();
-    pollPost(data);
+    e?.preventDefault();
+    if (isEditMode) {
+      pollPut(data);
+    } else {
+      pollPost(data);
+    }
     navigate('/admin/polls-management');
   };
 
-  const handleSelectChange = (e) => {
-    setSelectedEmission(e.target.value);
-  };
-
-  const handleQuestion = (e) => {
-    setSelectedQuestion(e.target.value);
-  };
-
-  const handleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
-
-  const handleActivate = (e) => {
-    e.preventDefault();
-
-    setIsActive(!isActive);
-  };
+  // eslint-disable-next-line arrow-body-style
+  const totalVotes = selectedPoll?.answers?.reduce((accumulator, option) => {
+    return accumulator + option.voteCount;
+  }, 0);
 
   return (
     <div className="pollDetailWrapper">
@@ -138,13 +166,18 @@ function PollDetail() {
         <div className="pollFormBox">
           <form className="pollForm" onSubmit={handleSubmit}>
             <div className="pollTitleBox">
-              <h2 className="title">{`${
-                selectedPoll ? selectedPoll.question_name : 'Nueva encuesta'
-              }`}</h2>
+              <div className="pollTitle">
+                <h2 className="title">{`${
+                  selectedPoll ? selectedPoll.question_name : 'Nueva encuesta'
+                }`}</h2>
+                {selectedPoll && !isActive && (
+                  <IconButton onClick={handleEditMode}>
+                    <EditIcon className="pollIcon" />
+                  </IconButton>
+                )}
+              </div>
               {selectedPoll && (
-                <IconButton onClick={handleEditMode}>
-                  <EditIcon className="pollIcon" />
-                </IconButton>
+                <Typography variant="body2">{`Votos Totales: ${totalVotes}`}</Typography>
               )}
             </div>
             <label htmlFor="live" className="pollLabel">
@@ -198,9 +231,15 @@ function PollDetail() {
                     <label htmlFor="option" className="pollLabel">
                       Opción {id + 1}
                     </label>
-                    <Typography variant="h6" className="selectedValue">
-                      {option.answer_name}
-                    </Typography>
+                    <div className="valueContainer">
+                      <Typography variant="h6">
+                        {option?.answer_name}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        className="voteCount"
+                      >{`Votos: ${option?.voteCount}`}</Typography>
+                    </div>
                   </>
                 ))
               : selectedOptions?.map((option, id) => (
@@ -233,7 +272,7 @@ function PollDetail() {
                     size="small"
                     className="pollButton"
                     variant="outlined"
-                    onClick={handleAddfields}
+                    onClick={handleAddOption}
                   >
                     Agregar opción
                   </Button>

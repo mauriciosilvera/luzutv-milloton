@@ -4,7 +4,8 @@ import './PollOption.css';
 function PollOption(props) {
   const { option, onClick, selected } = props;
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     onClick();
   };
 

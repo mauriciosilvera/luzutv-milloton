@@ -8,6 +8,14 @@
 
 .pollTitleBox {
   display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.pollTitle {
+  display: flex;
   width: 100%;
   justify-content: center;
 }
@@ -67,11 +75,28 @@
   align-items: center;
 }
 
+.valueContainer {
+  border: 1px solid #c4c4c4;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .selectedValue {
   border: 1px solid #c4c4c4;
   padding: 5px;
   border-radius: 5px;
   min-height: 2.4375em;
+}
+
+.voteCount {
+  position: relative;
+}
+
+.voteCount::before {
+  content: '';
+  position: absolute;
+  border: 1px solid #c4c4c4;
+  width: 100%;
 }
 
 .activateButton {
