@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PollOption from '../../components/PollOption/PollOption';
-import { getActivePoll, pollPut } from '../../util/Requests';
+import { getActivePoll, vote } from '../../util/Requests';
 import './Home.css';
 
 function Home() {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState();
   const [activePoll, setActivePoll] = useState();
 
   useEffect(() => {
@@ -16,32 +16,33 @@ function Home() {
   const handleVote = (answer) => {
     setSelectedOption(answer);
 
-    const data = [
-      {
-        answer: {
-          id: answer._id,
-          question_id: answer.question_id,
-          voteCount: answer.voteCount + 1
-        }
+    const data = {
+      answerVote: {
+        _id: answer._id
       }
-    ];
-
-    pollPut(data);
+    };
+    vote(data);
   };
 
   return (
     <div className="homeWrapper">
-      <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
-      <div className="answersWrapper">
-        {activePoll?.[0]?.answers.map((answer) => (
-          <PollOption
-            key={answer._id}
-            option={answer}
-            onClick={() => handleVote(answer)}
-            selected={selectedOption === answer}
-          />
-        ))}
-      </div>
+      {selectedOption ? (
+        <div>Muchas gracias por votar!</div>
+      ) : (
+        <>
+          <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
+          <div className="answersWrapper">
+            {activePoll?.[0]?.answers.map((answer) => (
+              <PollOption
+                key={answer._id}
+                option={answer}
+                onClick={() => handleVote(answer)}
+                selected={selectedOption === answer}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

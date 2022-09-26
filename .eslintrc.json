@@ -17,6 +17,7 @@
   },
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
+    "no-alert": "off",
     "no-console": "off",
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",

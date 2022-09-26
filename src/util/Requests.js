@@ -57,7 +57,7 @@ export const getActivePoll = () => {
   const config = {
     headers: { token }
   };
-  axios
+  return axios
     .get('https://luzutv-api.herokuapp.com/public/polls', config)
     .then((response) => response.data)
     .catch((error) => {
@@ -115,6 +115,15 @@ export const getPollById = (pollId) => {
       },
       config
     )
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const vote = (data) => {
+  axios
+    .post('https://luzutv-api.herokuapp.com/public/vote', data)
     .then((response) => response.data)
     .catch((error) => {
       console.log(error);
