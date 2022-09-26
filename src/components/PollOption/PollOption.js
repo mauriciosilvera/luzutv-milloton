@@ -4,7 +4,8 @@ import './PollOption.css';
 function PollOption(props) {
   const { option, onClick, selected } = props;
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e?.preventDefault();
     onClick();
   };
 
@@ -14,7 +15,7 @@ function PollOption(props) {
       onClick={handleClick}
     >
       <div className="titleBox">
-        <span className="title">{option}</span>
+        <span className="title">{option?.answer_name}</span>
       </div>
     </div>
   );

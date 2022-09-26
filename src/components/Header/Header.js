@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { auth } from '../../util/auth';
 import Img from '../../public/luzu.png';
 
 import './Header.css';
@@ -14,9 +15,9 @@ function Header(props) {
     setIsSideBarOpen(!isSideBarOpen);
   };
 
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    navigate('/admin/login');
+  const logout = () => {
+    auth.signout();
+    navigate('/admin/login', { replace: true });
   };
 
   return (
@@ -32,7 +33,7 @@ function Header(props) {
       </Link>
       <div
         className={`header-logOutBtn ${hideButtons ? 'hidden' : ''}`}
-        onClick={handleLogOut}
+        onClick={logout}
       >
         Logout
       </div>

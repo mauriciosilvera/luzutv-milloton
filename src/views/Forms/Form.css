@@ -34,3 +34,8 @@
   color: #1976d2;
   text-decoration: none;
 }
+
+.error{
+  color: red;
+  margin-top: 10px;
+}

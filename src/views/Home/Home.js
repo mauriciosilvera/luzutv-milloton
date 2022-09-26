@@ -1,24 +1,59 @@
-import React, { useState } from 'react';
-import { mockPolls } from '../../util';
+import React, { useEffect, useState } from 'react';
+import { Box, CircularProgress } from '@mui/material';
 import PollOption from '../../components/PollOption/PollOption';
+import { getActivePoll, vote } from '../../util/Requests';
 import './Home.css';
 
 function Home() {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState();
+  const [activePoll, setActivePoll] = useState();
+
+  useEffect(() => {
+    getActivePoll().then((poll) => {
+      setActivePoll(poll);
+    });
+  }, []);
+
+  const handleVote = (answer) => {
+    setSelectedOption(answer);
+
+    const data = {
+      answerVote: {
+        _id: answer?._id
+      }
+    };
+    vote(data);
+  };
+
   return (
     <div className="homeWrapper">
-      <h2 className="questionTitle">{mockPolls[1].question}</h2>
-      <div className="answersWrapper">
-        {mockPolls[1].answers.map((answer) => (
-          <PollOption
-            option={answer}
-            onClick={() => {
-              setSelectedOption(answer);
-            }}
-            selected={selectedOption === answer}
-          />
-        ))}
-      </div>
+      {!activePoll && (
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
+        </Box>
+      )}
+
+      {activePoll && !activePoll?.length && (
+        <div>No se encontrar encuestas activas en este momento</div>
+      )}
+
+      {activePoll?.length && selectedOption ? (
+        <div>Muchas gracias por votar!</div>
+      ) : (
+        <>
+          <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
+          <div className="answersWrapper">
+            {activePoll?.[0]?.answers?.map((answer) => (
+              <PollOption
+                key={answer._id}
+                option={answer}
+                onClick={() => handleVote(answer)}
+                selected={selectedOption === answer}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

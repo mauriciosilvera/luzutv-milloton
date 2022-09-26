@@ -15,7 +15,7 @@ function Sidebar(props) {
       <div className="sideBar-Navigation">
         <div className="sideBar-LinkContainer">
           <Link to="/admin/polls-management" onClick={handleSideBar}>
-            <div className="sideBar-Option">Polls Management</div>
+            <div className="sideBar-Option">Manejo de encuestas</div>
           </Link>
         </div>
 

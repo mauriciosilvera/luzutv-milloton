@@ -1,56 +1,80 @@
-import React from 'react';
-import { Collapse } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Collapse, Box, CircularProgress, IconButton } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { MdDelete as DeleteIcon } from 'react-icons/md';
 import PollCard from '../../components/PollCard/PollCard';
-import { mockEmissions, mockPolls } from '../../util';
+import { allPollsPost, deletePoll } from '../../util/Requests';
 import './PollManagement.css';
 
 function PollManagement() {
   const [openEmission, setOpenEmission] = React.useState(true);
+  const [data, setData] = React.useState();
+  const [updated, setUpdated] = React.useState(false);
+
+  useEffect(() => {
+    allPollsPost().then((polls) => {
+      setData(polls);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (updated) {
+      allPollsPost().then((polls) => {
+        setData(polls);
+      });
+      setUpdated(false);
+    }
+  }, [updated]);
+
+  const handleDeletePoll = (e) => {
+    e?.stopPropagation();
+    deletePoll(e?.currentTarget?.value);
+    setUpdated(true);
+  };
 
   return (
     <div className="pollManagementWrapper">
       <h2 className="pollTitle">Encuestas</h2>
-      {mockEmissions.map((emission) => {
-        const emissionPolls = mockPolls.filter(
-          (poll) => poll.emissions === emission
-        );
-
-        return (
-          <div
-            key={emission.id}
-            className="emissionContainer"
-            onClick={() =>
-              setOpenEmission(openEmission === emission ? '' : emission)
-            }
-          >
-            <div className="emissionTitle">
-              <span>{emission.name}</span>
-              <span>
-                {openEmission === emission ? <ExpandLess /> : <ExpandMore />}
-              </span>
-            </div>
-            <Collapse
-              in={openEmission === emission}
-              timeout="auto"
-              unmountOnExit
-            >
-              <div className="pollsContainer">
-                {emissionPolls.length > 0 ? (
-                  emissionPolls.map((poll) => (
-                    <PollCard key={poll.id} poll={poll} />
-                  ))
-                ) : (
-                  <div className="emptyPollsContainer">
-                    No se encontraron encuestas para esta emisión
-                  </div>
-                )}
-                <PollCard create emission={emission} />
-              </div>
-            </Collapse>
+      {data === undefined && (
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
+        </Box>
+      )}
+      {data?.map((emission) => (
+        <div
+          key={emission?._id}
+          className="emissionContainer"
+          onClick={() =>
+            setOpenEmission(openEmission === emission ? '' : emission)
+          }
+        >
+          <div className="emissionTitle">
+            <span>{emission?.emission_name}</span>
+            <span>
+              {openEmission === emission ? <ExpandLess /> : <ExpandMore />}
+            </span>
           </div>
-        );
-      })}
+          <Collapse in={openEmission === emission} timeout="auto" unmountOnExit>
+            <div className="pollsContainer">
+              {emission?.questions?.length > 0 ? (
+                emission?.questions?.map((question) => (
+                  <div key={question._id} className="pollCard">
+                    <PollCard question={question} />
+                    <IconButton onClick={handleDeletePoll} value={question._id}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                ))
+              ) : (
+                <div className="emptyPollsContainer">
+                  No se encontraron encuestas para esta emisión
+                </div>
+              )}
+              <PollCard create />
+            </div>
+          </Collapse>
+        </div>
+      ))}
     </div>
   );
 }

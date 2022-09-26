@@ -8,7 +8,7 @@
 }
 
 .pollTitle {
-  padding: 20px;
+  padding-top: 20px;
 }
 
 .pollsContainer {
@@ -38,4 +38,9 @@
 
 .MuiCollapse-wrapperInner.MuiCollapse-vertical.css-9l5vo-MuiCollapse-wrapperInner {
   width: unset;
+}
+
+.pollCard {
+  display: flex;
+  align-items: center;
 }
