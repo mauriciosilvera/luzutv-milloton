@@ -166,9 +166,10 @@ function PollDetail() {
     navigate('/admin/polls-management');
   };
 
-  const totalVotes = selectedPoll?.answers?.reduce((accumulator, option) => {
-    return accumulator + option.voteCount;
-  }, 0);
+  const totalVotes = selectedPoll?.answers?.reduce(
+    (accumulator, option) => accumulator + option.voteCount,
+    0
+  );
 
   return (
     <div className="pollDetailWrapper">
