@@ -43,6 +43,14 @@ export const getActivePoll = () =>
       console.log(error);
     });
 
+export const getEmissions = () =>
+  axios
+    .get('https://luzutv-api.herokuapp.com/admin/emissions', config)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+    });
+
 export const deletePoll = (pollId) =>
   axios
     .delete('https://luzutv-api.herokuapp.com/admin/poll', {
