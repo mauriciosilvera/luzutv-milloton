@@ -166,11 +166,3 @@ export const vote = (data) => {
       console.log(error);
     });
 };
-
-export const getIPAddress = () =>
-  axios
-    .get('https://geolocation-db.com/json/')
-    .then((response) => response.data.IPv4)
-    .catch((error) => {
-      console.log(error);
-    });
