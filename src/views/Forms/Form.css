@@ -35,7 +35,13 @@
   text-decoration: none;
 }
 
-.error{
+.error {
   color: red;
   margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .inputsContainer {
+    width: 300px;
+  }
 }

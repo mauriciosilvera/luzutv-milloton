@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Login } from '../../util/Requests';
 import { auth } from '../../util/auth';
@@ -7,11 +7,18 @@ import './Form.css';
 
 function Form(props) {
   const { recovery } = props;
-  const FormMessage = recovery ? 'Enviar Pin' : 'Iniciar Sesion';
   const navigate = useNavigate();
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
+  const isAuth = auth?.isAuthenticated;
+  const formMessage = recovery ? 'Enviar Pin' : 'Iniciar Sesion';
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/admin/polls-management', { replace: true });
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,7 +103,7 @@ function Form(props) {
           className="formButton"
           onClick={handleSubmit}
         >
-          {FormMessage}
+          {formMessage}
         </Button>
         <span className="error"> {error || null} </span>
       </div>

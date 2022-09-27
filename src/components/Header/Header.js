@@ -7,16 +7,19 @@ import Img from '../../public/luzu.png';
 import './Header.css';
 
 function Header(props) {
-  const { hideButtons, isSideBarOpen, setIsSideBarOpen } = props;
+  const { isSideBarOpen, setIsSideBarOpen } = props;
 
+  const hideButtons = !auth?.isAuthenticated;
   const navigate = useNavigate();
 
   const handleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
 
-  const logout = () => {
-    auth.signout();
+  const handleLogout = () => {
+    if (auth?.isAuthenticated) {
+      auth?.signout();
+    }
     navigate('/admin/login', { replace: true });
   };
 
@@ -33,9 +36,9 @@ function Header(props) {
       </Link>
       <div
         className={`header-logOutBtn ${hideButtons ? 'hidden' : ''}`}
-        onClick={logout}
+        onClick={handleLogout}
       >
-        Logout
+        {auth?.isAuthenticated ? 'Log Out' : 'Log In'}
       </div>
     </div>
   );

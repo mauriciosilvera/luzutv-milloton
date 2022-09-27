@@ -108,3 +108,9 @@
 .OptionContainer {
   margin-top: 15px;
 }
+
+@media (max-width: 780px) {
+  .pollFormBox {
+    width: 100%;
+  }
+}
