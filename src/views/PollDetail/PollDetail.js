@@ -130,6 +130,7 @@ function PollDetail() {
       }
     ];
 
+    localStorage.removeItem('IPv4');
     pollPut(data);
   };
 
