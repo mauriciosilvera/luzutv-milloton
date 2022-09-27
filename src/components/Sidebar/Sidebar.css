@@ -33,6 +33,7 @@
   font-size: 20px;
   cursor: pointer;
   padding: 20px;
+  text-align: center;
 }
 
 .sideBar-Option :hover {
