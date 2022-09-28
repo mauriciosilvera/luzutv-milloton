@@ -18,7 +18,7 @@ function Form(props) {
     if (isAuth) {
       navigate('/admin/polls-management', { replace: true });
     }
-  }, []);
+  }, [isAuth, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -8,7 +8,7 @@ function FallBackView() {
 
   useEffect(() => {
     navigate('/', { replace: true });
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="testView">
