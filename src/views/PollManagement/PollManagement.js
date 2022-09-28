@@ -1,10 +1,21 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect } from 'react';
-import { Collapse, Box, CircularProgress, IconButton } from '@mui/material';
+import {
+  Collapse,
+  Box,
+  CircularProgress,
+  IconButton,
+  Button
+} from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import PollCard from '../../components/PollCard/PollCard';
-import { allPollsPost, deletePoll, getActivePoll } from '../../util/Requests';
+import {
+  allPollsPost,
+  deletePoll,
+  getActivePoll,
+  pollPut
+} from '../../util/Requests';
 import './PollManagement.css';
 
 function PollManagement() {
@@ -12,6 +23,7 @@ function PollManagement() {
   const [data, setData] = React.useState();
   const [updated, setUpdated] = React.useState(false);
   const [activePoll, setActivePoll] = React.useState();
+  const [isActive, setIsActive] = React.useState();
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -32,40 +44,61 @@ function PollManagement() {
     }
   }, [updated]);
 
+  useEffect(() => {
+    if (activePoll) {
+      setIsActive(activePoll?.is_active);
+    }
+  }, [activePoll]);
+
   const handleDeletePoll = (e) => {
     e?.stopPropagation();
     deletePoll(e?.currentTarget?.value);
     setUpdated(true);
   };
 
+  const handleActivate = (e) => {
+    e.preventDefault();
+    setIsActive(!isActive);
+
+    const reqData = [
+      {
+        question: {
+          id: activePoll?.[0]._id,
+          is_active: isActive
+        }
+      }
+    ];
+
+    console.log(reqData);
+    pollPut(reqData);
+  };
+
   return (
     <div className="pollManagementWrapper">
-      <h2 className="pollTitle">Encuesta activa</h2>
+      {console.log(activePoll)}
       {activePoll === undefined && (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />
         </Box>
       )}
       {activePoll && activePoll?.length ? (
-        <div key={activePoll[0]._id} className="pollCard">
-          <PollCard activePoll question={activePoll[0]} />
-        </div>
-      ) : (
-        <span style={{ display: `${!activePoll ? 'none' : 'inline'}` }}>
-          En este momento no hay encuestas activas.
-        </span>
-      )}
-      {/* {data?.map((emission) =>
-        emission.questions.map((question) => {
-          if (question.is_active) {
-            return (
-              <div key={question._id} className="pollCard">
-                <PollCard activePoll question={question} />
-              </div>
-            );
-          }
-        })
-      )} */}
+        <>
+          <h2 className="pollTitle">Encuesta activa</h2>
+          <div key={activePoll[0]._id} className="pollCard">
+            <PollCard activePoll question={activePoll[0]} />
+          </div>
+          <Button
+            onClick={handleActivate}
+            size="small"
+            className="pollButton"
+            type="submit"
+            variant="outlined"
+            color="error"
+          >
+            Finalizar encuesta activa
+          </Button>
+        </>
+      ) : null}
 
       <h2 className="pollTitle">Encuestas</h2>
       {data === undefined && (
