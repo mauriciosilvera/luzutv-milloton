@@ -4,11 +4,13 @@ import { Add } from '@mui/icons-material';
 import './PollCard.css';
 
 function PollCard(props) {
-  const { question, create } = props;
+  const { activePoll, question, create } = props;
 
   return (
     <Link
-      className={`pollCardWrapper ${create ? 'create' : ''}`}
+      className={`pollCardWrapper ${create ? 'create ' : ''} ${
+        activePoll ? 'activePoll' : ''
+      }`}
       to={
         create
           ? '/admin/poll-details/new'
