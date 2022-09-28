@@ -7,8 +7,12 @@
   gap: 2rem;
 }
 
+.pollManagementWrapper.loading{
+  justify-content: center;
+}
+
 .pollTitle {
-  padding-top: 20px;
+  padding-top: 15px;
 }
 
 .pollsContainer {
@@ -43,6 +47,18 @@
 .pollCard {
   display: flex;
   align-items: center;
+}
+
+.activePollCard{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pollButton {
+  width: 60%;
+  padding: 5px;
+  margin-top: 10px;
 }
 
 @media (max-width: 480px) {
