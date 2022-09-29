@@ -17,9 +17,11 @@
   height: 70px;
   justify-content: center;
   font-weight: 500;
-  border: 2px solid lightseagreen;
+  border: 2px solid #39d1c4;
+  color: #39d1c4;
   font-size: 20px;
   font-family: sans-serif;
+  margin-bottom: 10px;
 }
 
 .pollCardWrapper.create {
