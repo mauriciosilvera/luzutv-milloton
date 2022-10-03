@@ -80,7 +80,7 @@ function PollManagement() {
   const handleEditEmission = (emission, e) => {
     setEdit(emission?._id);
     setEmissionName(emission?.emission_name);
-    e.stopPropagation();
+    e?.stopPropagation();
   };
 
   const handleAcceptEdit = (id, name, e) => {
