@@ -280,7 +280,7 @@ function PollDetail() {
                   </div>
                 ))
               : selectedOptions?.map((option, id) => (
-                  <div key={option?._id}>
+                  <div key={option?._id || option?.id}>
                     <label htmlFor="option" className="pollLabel">
                       Opción {id + 1}
                     </label>
