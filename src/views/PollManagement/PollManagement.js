@@ -12,13 +12,18 @@ import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import CheckIcon from '@mui/icons-material/Check';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
-import PollCard from '../../components/PollCard/PollCard';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import {
   allPollsPost,
   deletePoll,
   getActivePoll,
   pollPut
 } from '../../util/Requests';
+import PollCard from '../../components/PollCard/PollCard';
 import './PollManagement.css';
 
 function PollManagement() {
@@ -28,7 +33,9 @@ function PollManagement() {
   const [activePoll, setActivePoll] = React.useState();
   const [isActive, setIsActive] = React.useState();
   const [edit, setEdit] = React.useState();
+  const [deleteEmission, setDeleteEmission] = React.useState();
   const [emissionName, setEmissionName] = React.useState();
+  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -55,9 +62,16 @@ function PollManagement() {
     }
   }, [activePoll]);
 
-  const handleDeletePoll = (e) => {
+  const handleDeletePoll = (questionId, e) => {
     e?.stopPropagation();
-    deletePoll(e?.currentTarget?.value);
+    const reqData = [
+      {
+        question: {
+          id: questionId
+        }
+      }
+    ];
+    deletePoll(reqData);
     setUpdated(true);
   };
 
@@ -96,6 +110,31 @@ function PollManagement() {
 
     pollPut(reqData);
     setEdit(false);
+    setUpdated(true);
+  };
+
+  const handleClickOpen = (id, e) => {
+    e.stopPropagation();
+
+    setDeleteEmission(id);
+    setOpenDeleteDialog(true);
+  };
+
+  const handleCancelDelete = () => {
+    setOpenDeleteDialog(false);
+  };
+
+  const handleAcceptDelete = () => {
+    const reqData = [
+      {
+        emission: {
+          id: deleteEmission
+        }
+      }
+    ];
+
+    deletePoll(reqData);
+    setOpenDeleteDialog(false);
     setUpdated(true);
   };
 
@@ -171,6 +210,33 @@ function PollManagement() {
                     >
                       <EditIcon sx={{ fontSize: '20px' }} />
                     </IconButton>
+                    <IconButton
+                      onClick={(e) => handleClickOpen(emission?._id, e)}
+                    >
+                      <DeleteIcon sx={{ fontSize: '20px' }} />
+                    </IconButton>
+                    <Dialog
+                      open={openDeleteDialog}
+                      onClose={handleCancelDelete}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        Confirmar eliminado.
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                          Eliminar la emisión borrará también las preguntas que
+                          tenga dicha emisión, deseas continuar de igual manera?
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleCancelDelete}>Cancelar</Button>
+                        <Button onClick={handleAcceptDelete} autoFocus>
+                          Aceptar
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
                   </div>
                   <span>
                     {openEmission === emission ? (
@@ -191,7 +257,7 @@ function PollManagement() {
                         <div key={question?._id} className="pollCard">
                           <PollCard question={question} />
                           <IconButton
-                            onClick={handleDeletePoll}
+                            onClick={(e) => handleDeletePoll(question?._id, e)}
                             value={question?._id}
                           >
                             <DeleteIcon />
