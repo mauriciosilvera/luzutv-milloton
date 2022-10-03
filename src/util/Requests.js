@@ -91,20 +91,14 @@ export const getEmissions = () => {
     });
 };
 
-export const deletePoll = (pollId) => {
+export const deletePoll = (reqData) => {
   const token = auth.getData();
   const config = {
     headers: {
       'Content-Type': 'application/json',
       token
     },
-    data: [
-      {
-        question: {
-          id: pollId
-        }
-      }
-    ]
+    data: reqData
   };
 
   return axios
