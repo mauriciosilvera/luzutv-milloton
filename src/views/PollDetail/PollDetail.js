@@ -156,7 +156,7 @@ function PollDetail() {
         question: {
           id: selectedPoll?._id,
           question_name: selectedQuestion,
-          emission_id: selectedEmission._id
+          emission_id: selectedEmission?._id
         }
       },
       {
