@@ -155,7 +155,8 @@ function PollDetail() {
       {
         question: {
           id: selectedPoll?._id,
-          question_name: selectedQuestion
+          question_name: selectedQuestion,
+          emission_id: selectedEmission._id
         }
       },
       {
@@ -279,7 +280,7 @@ function PollDetail() {
                   </div>
                 ))
               : selectedOptions?.map((option, id) => (
-                  <>
+                  <div key={option?._id}>
                     <label htmlFor="option" className="pollLabel">
                       Opción {id + 1}
                     </label>
@@ -303,7 +304,7 @@ function PollDetail() {
                         </IconButton>
                       )}
                     </div>
-                  </>
+                  </div>
                 ))}
 
             {(!selectedPoll || isEditMode) && (
