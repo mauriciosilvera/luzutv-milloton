@@ -188,7 +188,7 @@ function PollManagement() {
                   <div className="pollsContainer">
                     {emission?.questions?.length > 0 ? (
                       emission?.questions?.map((question) => (
-                        <div key={question._id} className="pollCard">
+                        <div key={question?._id} className="pollCard">
                           <PollCard question={question} />
                           <IconButton
                             onClick={handleDeletePoll}
