@@ -4,9 +4,13 @@ import {
   Box,
   CircularProgress,
   IconButton,
-  Button
+  Button,
+  TextField
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
+import CheckIcon from '@mui/icons-material/Check';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import PollCard from '../../components/PollCard/PollCard';
 import {
@@ -23,6 +27,8 @@ function PollManagement() {
   const [updated, setUpdated] = React.useState(false);
   const [activePoll, setActivePoll] = React.useState();
   const [isActive, setIsActive] = React.useState();
+  const [edit, setEdit] = React.useState();
+  const [emissionName, setEmissionName] = React.useState();
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -71,6 +77,28 @@ function PollManagement() {
     pollPut(reqData);
   };
 
+  const handleEditEmission = (emission, e) => {
+    setEdit(emission?._id);
+    setEmissionName(emission?.emission_name);
+    e?.stopPropagation();
+  };
+
+  const handleAcceptEdit = (id, name, e) => {
+    e?.stopPropagation();
+    const reqData = [
+      {
+        emission: {
+          id,
+          emission_name: name
+        }
+      }
+    ];
+
+    pollPut(reqData);
+    setEdit(false);
+    setUpdated(true);
+  };
+
   return (
     <div
       className={`pollManagementWrapper ${
@@ -104,48 +132,83 @@ function PollManagement() {
       {data && (
         <>
           <h2 className="pollTitle">Encuestas</h2>
-          {data?.map((emission) => (
-            <div
-              key={emission?._id}
-              className="emissionContainer"
-              onClick={() =>
-                setOpenEmission(openEmission === emission ? '' : emission)
-              }
-            >
-              <div className="emissionTitle">
-                <span>{emission?.emission_name}</span>
-                <span>
-                  {openEmission === emission ? <ExpandLess /> : <ExpandMore />}
-                </span>
-              </div>
-              <Collapse
-                in={openEmission === emission}
-                timeout="auto"
-                unmountOnExit
-              >
-                <div className="pollsContainer">
-                  {emission?.questions?.length > 0 ? (
-                    emission?.questions?.map((question) => (
-                      <div key={question._id} className="pollCard">
-                        <PollCard question={question} />
-                        <IconButton
-                          onClick={handleDeletePoll}
-                          value={question._id}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="emptyPollsContainer">
-                      No se encontraron encuestas para esta emisión
-                    </div>
-                  )}
-                  <PollCard create />
+          {data?.map((emission) => {
+            if (edit === emission?._id) {
+              return (
+                <div key={emission?._id} className="editContainer">
+                  <TextField
+                    sx={{ width: '320px', fontSize: '20px' }}
+                    id="standard-basic"
+                    variant="standard"
+                    className="editInput"
+                    value={emissionName}
+                    onChange={(e) => setEmissionName(e.target.value)}
+                  />
+                  <IconButton
+                    onClick={() => handleAcceptEdit(emission._id, emissionName)}
+                  >
+                    <CheckIcon sx={{ color: 'green' }} />
+                  </IconButton>
+                  <IconButton onClick={() => setEdit(undefined)}>
+                    <ClearIcon sx={{ color: 'red' }} />
+                  </IconButton>
                 </div>
-              </Collapse>
-            </div>
-          ))}
+              );
+            }
+            return (
+              <div
+                key={emission?._id}
+                className="emissionContainer"
+                onClick={() =>
+                  setOpenEmission(openEmission === emission ? '' : emission)
+                }
+              >
+                <div className="emissionTitle">
+                  <div>
+                    <span>{emission?.emission_name}</span>
+                    <IconButton
+                      onClick={(e) => handleEditEmission(emission, e)}
+                    >
+                      <EditIcon sx={{ fontSize: '20px' }} />
+                    </IconButton>
+                  </div>
+                  <span>
+                    {openEmission === emission ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
+                  </span>
+                </div>
+                <Collapse
+                  in={openEmission === emission}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <div className="pollsContainer">
+                    {emission?.questions?.length > 0 ? (
+                      emission?.questions?.map((question) => (
+                        <div key={question?._id} className="pollCard">
+                          <PollCard question={question} />
+                          <IconButton
+                            onClick={handleDeletePoll}
+                            value={question?._id}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="emptyPollsContainer">
+                        No se encontraron encuestas para esta emisión
+                      </div>
+                    )}
+                    <PollCard create />
+                  </div>
+                </Collapse>
+              </div>
+            );
+          })}
         </>
       )}
     </div>
