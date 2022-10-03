@@ -133,7 +133,7 @@ function PollManagement() {
         <>
           <h2 className="pollTitle">Encuestas</h2>
           {data?.map((emission) => {
-            if (edit === emission._id) {
+            if (edit === emission?._id) {
               return (
                 <div key={emission?._id} className="editContainer">
                   <TextField
