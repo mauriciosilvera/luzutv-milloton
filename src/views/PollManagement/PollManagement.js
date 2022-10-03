@@ -114,7 +114,7 @@ function PollManagement() {
   };
 
   const handleClickOpen = (id, e) => {
-    e.stopPropagation();
+    e?.stopPropagation();
 
     setDeleteEmission(id);
     setOpenDeleteDialog(true);
