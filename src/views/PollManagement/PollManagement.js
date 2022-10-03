@@ -192,7 +192,7 @@ function PollManagement() {
                           <PollCard question={question} />
                           <IconButton
                             onClick={handleDeletePoll}
-                            value={question._id}
+                            value={question?._id}
                           >
                             <DeleteIcon />
                           </IconButton>
