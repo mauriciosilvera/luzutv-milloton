@@ -116,7 +116,7 @@ function PollManagement() {
   };
 
   const handleClickOpen = (id, e) => {
-    e?.stopPropagation();
+    e.stopPropagation();
 
     setDeleteEmission(id);
     setOpenDeleteDialog(true);
@@ -233,6 +233,7 @@ function PollManagement() {
                     <Dialog
                       open={openDeleteDialog}
                       onClose={handleCancelDelete}
+                      onClick={(e) => e.stopPropagation()}
                       aria-labelledby="alert-dialog-title"
                       aria-describedby="alert-dialog-description"
                     >
@@ -246,8 +247,10 @@ function PollManagement() {
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>
-                        <Button onClick={handleCancelDelete}>Cancelar</Button>
-                        <Button onClick={handleAcceptDelete} autoFocus>
+                        <Button onClick={() => handleCancelDelete()}>
+                          Cancelar
+                        </Button>
+                        <Button onClick={() => handleAcceptDelete()} autoFocus>
                           Aceptar
                         </Button>
                       </DialogActions>
