@@ -7,7 +7,7 @@ import {
   Button,
   TextField
 } from '@mui/material';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { ExpandLess, ExpandMore, Add } from '@mui/icons-material';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import CheckIcon from '@mui/icons-material/Check';
@@ -21,7 +21,8 @@ import {
   allPollsPost,
   deletePoll,
   getActivePoll,
-  pollPut
+  pollPut,
+  pollPost
 } from '../../util/Requests';
 import PollCard from '../../components/PollCard/PollCard';
 import './PollManagement.css';
@@ -36,6 +37,7 @@ function PollManagement() {
   const [deleteEmission, setDeleteEmission] = React.useState();
   const [emissionName, setEmissionName] = React.useState();
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
+  const [add, setAdd] = React.useState(false);
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -138,6 +140,20 @@ function PollManagement() {
     setUpdated(true);
   };
 
+  const handleAddEmission = (name) => {
+    const reqData = [
+      {
+        emission: {
+          emission_name: name
+        }
+      }
+    ];
+
+    pollPost(reqData);
+    setAdd(false);
+    setUpdated(true);
+  };
+
   return (
     <div
       className={`pollManagementWrapper ${
@@ -179,7 +195,6 @@ function PollManagement() {
                     sx={{ width: '320px', fontSize: '20px' }}
                     id="standard-basic"
                     variant="standard"
-                    className="editInput"
                     value={emissionName}
                     onChange={(e) => setEmissionName(e.target.value)}
                   />
@@ -275,6 +290,27 @@ function PollManagement() {
               </div>
             );
           })}
+          {add ? (
+            <div className="editContainer">
+              <TextField
+                sx={{ width: '320px', fontSize: '20px' }}
+                id="standard-basic"
+                label="Nueva emisión"
+                variant="standard"
+                onChange={(e) => setEmissionName(e.target.value)}
+              />
+              <IconButton onClick={() => handleAddEmission(emissionName)}>
+                <CheckIcon sx={{ color: 'green' }} />
+              </IconButton>
+              <IconButton onClick={() => setAdd(false)}>
+                <ClearIcon sx={{ color: 'red' }} />
+              </IconButton>
+            </div>
+          ) : (
+            <div className="addEmissionButton" onClick={() => setAdd(true)}>
+              <Add />
+            </div>
+          )}
         </>
       )}
     </div>

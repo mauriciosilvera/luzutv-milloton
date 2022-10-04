@@ -65,6 +65,20 @@
   display:flex;
 }
 
+.addEmissionButton{
+  width: 400px;
+  height: 60px;
+  border: 1px solid #1b2430;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin: 5px;
+  color: #1b2430;
+}
+
 @media (max-width: 480px) {
   .emissionTitle {
     width: 300px;
