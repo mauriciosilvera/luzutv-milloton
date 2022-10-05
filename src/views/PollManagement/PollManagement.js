@@ -247,9 +247,7 @@ function PollManagement() {
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>
-                        <Button onClick={handleCancelDelete}>
-                          Cancelar
-                        </Button>
+                        <Button onClick={handleCancelDelete}>Cancelar</Button>
                         <Button onClick={handleAcceptDelete} autoFocus>
                           Aceptar
                         </Button>
