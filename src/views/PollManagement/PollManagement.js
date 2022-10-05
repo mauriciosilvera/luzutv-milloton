@@ -233,7 +233,7 @@ function PollManagement() {
                     <Dialog
                       open={openDeleteDialog}
                       onClose={handleCancelDelete}
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e) => e?.stopPropagation()}
                       aria-labelledby="alert-dialog-title"
                       aria-describedby="alert-dialog-description"
                     >
