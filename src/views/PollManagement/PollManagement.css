@@ -83,4 +83,8 @@
   .emissionTitle {
     width: 300px;
   }
+
+  .addEmissionButton{
+    width: 300px;
+  }
 }
