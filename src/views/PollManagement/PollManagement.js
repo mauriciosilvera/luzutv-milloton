@@ -299,7 +299,7 @@ function PollManagement() {
                 variant="standard"
                 onChange={(e) => setEmissionName(e.target.value)}
               />
-              <IconButton onClick={() => handleAddEmission(emissionName)}>
+              <IconButton onClick={handleAddEmission(emissionName)}>
                 <CheckIcon sx={{ color: 'green' }} />
               </IconButton>
               <IconButton onClick={() => setAdd(false)}>
