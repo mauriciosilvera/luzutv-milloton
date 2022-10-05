@@ -7,91 +7,109 @@ export const Login = (data) =>
     .then((response) => response)
     .catch((error) => error);
 
-export const pollPost = (data) => {
+export const pollPost = async (data) => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
-  return axios
-    .post('https://luzutv-api.herokuapp.com/admin/poll', data, config)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.post(
+      'https://luzutv-api.herokuapp.com/admin/poll',
+      data,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const pollPut = (data) => {
+export const pollPut = async (data) => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
-  return axios
-    .put('https://luzutv-api.herokuapp.com/admin/poll', data, config)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.put(
+      'https://luzutv-api.herokuapp.com/admin/poll',
+      data,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const pollPostExtraOption = (data) => {
+export const pollPostExtraOption = async (data) => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
-  return axios
-    .post('http://luzutv-api.herokuapp.com/admin/poll/answer', data, config)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.post(
+      'http://luzutv-api.herokuapp.com/admin/poll/answer',
+      data,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const allPollsPost = () => {
+export const allPollsPost = async () => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
-  return axios
-    .post(
+  try {
+    const response = await axios.post(
       'https://luzutv-api.herokuapp.com/admin/polls',
       {
         filters: {}
       },
       config
-    )
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const getActivePoll = () => {
+export const getActivePoll = async () => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
-  return axios
-    .get('https://luzutv-api.herokuapp.com/public/polls', config)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.post(
+      'https://luzutv-api.herokuapp.com/public/polls',
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const getEmissions = () => {
+export const getEmissions = async () => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
-  return axios
-    .get('https://luzutv-api.herokuapp.com/admin/emissions', config)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.get(
+      'https://luzutv-api.herokuapp.com/admin/emissions',
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const deletePoll = (reqData) => {
+export const deletePoll = async (reqData) => {
   const token = auth.getData();
   const config = {
     headers: {
@@ -101,15 +119,18 @@ export const deletePoll = (reqData) => {
     data: reqData
   };
 
-  return axios
-    .delete('https://luzutv-api.herokuapp.com/admin/poll', config)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.delete(
+      'https://luzutv-api.herokuapp.com/admin/poll',
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const deleteOption = (optionId) => {
+export const deleteOption = async (optionId) => {
   const token = auth.getData();
   const config = {
     headers: {
@@ -125,31 +146,34 @@ export const deleteOption = (optionId) => {
     ]
   };
 
-  return axios
-    .delete('https://luzutv-api.herokuapp.com/admin/poll', config)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.delete(
+      'https://luzutv-api.herokuapp.com/admin/poll',
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const getPollById = (pollId) => {
+export const getPollById = async (pollId) => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
-  return axios
-    .post(
+  try {
+    const response = await axios.post(
       'https://luzutv-api.herokuapp.com/admin/poll/id',
       {
         question_id: pollId
       },
       config
-    )
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const vote = (data) => {
