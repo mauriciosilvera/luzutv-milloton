@@ -5,13 +5,9 @@ import { auth } from '../../util/auth';
 import './Sidebar.css';
 
 function Sidebar(props) {
-  const { isOpen, setIsOpen } = props;
+  const { isOpen } = props;
   const navigate = useNavigate();
   const hideButtons = !auth?.isAuthenticated;
-
-  const handleSideBar = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleLogout = () => {
     if (auth?.isAuthenticated) {
@@ -26,8 +22,11 @@ function Sidebar(props) {
     >
       <div className="sideBar-Navigation">
         <div className="sideBar-LinkContainer">
-          <Link to="/admin/polls-management" onClick={handleSideBar}>
-            <div className="sideBar-Option">Manejo de encuestas</div>
+          <Link to="/admin/polls-management">
+            <div className="sideBar-Option">Encuestas</div>
+          </Link>
+          <Link to="/admin/groups-management">
+            <div className="sideBar-Option">Grupos</div>
           </Link>
         </div>
 

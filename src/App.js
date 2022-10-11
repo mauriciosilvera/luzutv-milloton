@@ -9,6 +9,7 @@ import Home from './views/Home/Home';
 import Form from './views/Forms/Forms';
 import FallBackView from './views/FallBackView';
 import RequireAuth from './util/requireAuth';
+import GroupManagement from './views/GroupManagement/GroupManagement';
 
 function App() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -28,6 +29,22 @@ function App() {
           <Route path="admin/password-recovery" element={<Form recovery />} />
           <Route
             path="admin/polls-management"
+            element={
+              <RequireAuth>
+                <PollManagement />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/groups-management"
+            element={
+              <RequireAuth>
+                <GroupManagement />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/sponsors-management"
             element={
               <RequireAuth>
                 <PollManagement />

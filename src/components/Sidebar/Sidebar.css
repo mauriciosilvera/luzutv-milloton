@@ -42,10 +42,6 @@
   font-size: 21px;
 }
 
-.sideBar-logOutBtn {
-  display: none;
-}
-
 @media (max-width: 780px) {
   .sideBarContainer {
     width: 35%;
