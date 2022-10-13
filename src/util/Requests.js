@@ -93,14 +93,14 @@ export const getActivePoll = async () => {
   }
 };
 
-export const getEmissions = async () => {
+export const getGroups = async () => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
   try {
     const response = await axios.get(
-      'https://luzutv-api.herokuapp.com/admin/emissions',
+      'https://luzutv-api.herokuapp.com/admin/groups',
       config
     );
     return response.data;
