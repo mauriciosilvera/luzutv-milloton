@@ -138,12 +138,10 @@ function PollDetail() {
 
     const postData = [
       {
-        group: selectedGroup
-      },
-      {
         question: {
           question_name: selectedQuestion,
-          is_active: isActive
+          is_active: isActive,
+          group_id: selectedGroup?._id
         }
       },
       {
@@ -174,6 +172,7 @@ function PollDetail() {
 
     e?.preventDefault();
 
+    console.log(postData);
     if (isEditMode) {
       pollPut(putData);
       if (editExtraAnswer) {
