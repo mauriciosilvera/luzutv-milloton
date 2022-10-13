@@ -184,3 +184,21 @@ export const vote = (data) => {
       console.log(error);
     });
 };
+
+export const calculateVotes = async (questions) => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+
+  try {
+    const response = await axios.post(
+      'https://luzutv-api.herokuapp.com/admin/calculate-votes',
+      questions,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
