@@ -15,7 +15,7 @@ import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
 import {
   pollPost,
   getPollById,
-  getEmissions,
+  getGroups,
   pollPut,
   pollPostExtraOption,
   deleteOption
@@ -26,11 +26,11 @@ function PollDetail() {
   const navigate = useNavigate();
 
   const [selectedPoll, setSelectedPoll] = useState('');
-  const [emissions, setEmissions] = useState([]);
+  const [groups, setGroups] = useState([]);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [selectedEmission, setSelectedEmission] = useState('');
+  const [selectedGroup, setSelectedGroup] = useState('');
   const [selectedQuestion, setSelectedQuestion] = useState('');
   const [selectedOptions, setSelectedOptions] = useState([
     { id: 0, answer_name: '' },
@@ -40,8 +40,8 @@ function PollDetail() {
 
   useEffect(() => {
     let mounted = true;
-    getEmissions().then((emissionsData) => {
-      setEmissions(emissionsData);
+    getGroups().then((groupsData) => {
+      setGroups(groupsData);
     });
     if (pollId !== 'new' && mounted) {
       getPollById(pollId).then((poll) => {
@@ -55,7 +55,7 @@ function PollDetail() {
 
   useEffect(() => {
     if (selectedPoll) {
-      setSelectedEmission(selectedPoll?.emission_id);
+      setSelectedGroup(selectedPoll?.group_id);
       setSelectedQuestion(selectedPoll?.question_name);
       setSelectedOptions(selectedPoll?.answers);
       setIsActive(selectedPoll?.is_active);
@@ -101,7 +101,7 @@ function PollDetail() {
   const handleSelectChange = (e) => {
     e.preventDefault();
 
-    setSelectedEmission(e?.target?.value);
+    setSelectedGroup(e?.target?.value);
   };
 
   const handleQuestion = (e) => {
@@ -138,7 +138,7 @@ function PollDetail() {
 
     const postData = [
       {
-        emission: selectedEmission
+        group: selectedGroup
       },
       {
         question: {
@@ -156,7 +156,7 @@ function PollDetail() {
         question: {
           id: selectedPoll?._id,
           question_name: selectedQuestion,
-          emission_id: selectedEmission?._id
+          group_id: selectedGroup?._id
         }
       },
       {
@@ -218,28 +218,28 @@ function PollDetail() {
               )}
             </div>
             <label htmlFor="live" className="pollLabel">
-              Emisión
+              Grupo
             </label>
             {selectedPoll && !isEditMode ? (
               <Typography variant="h6" className="selectedValue">
-                {selectedPoll?.emission_id?.emission_name}
+                {selectedPoll?.group_id?.group_name}
               </Typography>
             ) : (
               <Select
                 onChange={handleSelectChange}
                 sx={{ height: '2.4375em' }}
-                value={selectedEmission}
+                value={selectedGroup}
                 required
                 renderValue={(selected) => {
-                  if (selectedEmission && !selected) {
-                    return <em>{selectedEmission?.emission_name}</em>;
+                  if (selectedGroup && !selected) {
+                    return <em>{selectedGroup?.group_name}</em>;
                   }
-                  return selected?.emission_name;
+                  return selected?.group_name;
                 }}
               >
-                {emissions?.map((emission) => (
-                  <MenuItem key={emission?._id} value={emission} size="small">
-                    {emission?.emission_name}
+                {groups?.map((group) => (
+                  <MenuItem key={group?._id} value={group} size="small">
+                    {group?.group_name}
                   </MenuItem>
                 ))}
               </Select>
