@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Box, CircularProgress, IconButton, Button } from '@mui/material';
-import { Add } from '@mui/icons-material';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import {
   allPollsPost,
@@ -104,9 +103,6 @@ function PollManagement() {
           <h1 className="pollTitle">Encuestas</h1>
           <div className="searchContainer">
             <input type="text" placeholder="Buscar.." className="search" />
-            <div className="addButton">
-              <Add sx={{ color: 'green' }} />
-            </div>
           </div>
           <div className="pollsWrapper">
             {data?.map((emission) =>
@@ -122,6 +118,7 @@ function PollManagement() {
                 </div>
               ))
             )}
+            <PollCard create />
           </div>
         </>
       )}
