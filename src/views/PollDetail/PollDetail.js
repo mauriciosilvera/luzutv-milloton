@@ -218,7 +218,7 @@ function PollDetail() {
               )}
             </div>
             <label htmlFor="live" className="pollLabel">
-              Emisión
+              Grupo
             </label>
             {selectedPoll && !isEditMode ? (
               <Typography variant="h6" className="selectedValue">

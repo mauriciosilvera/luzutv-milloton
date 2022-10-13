@@ -80,6 +80,11 @@
   color: green;
 }
 
+.groupLink{
+  text-decoration: none;
+  color: #1b2430;
+}
+
 @media (max-width: 480px) {
   .emissionTitle {
     width: 300px;

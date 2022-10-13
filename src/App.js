@@ -10,6 +10,7 @@ import Form from './views/Forms/Forms';
 import FallBackView from './views/FallBackView';
 import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
+import GroupDetail from './views/GroupDetail/GroupDetail';
 
 function App() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -56,6 +57,14 @@ function App() {
             element={
               <RequireAuth>
                 <PollDetail />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/group-details/:groupId"
+            element={
+              <RequireAuth>
+                <GroupDetail />
               </RequireAuth>
             }
           />

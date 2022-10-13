@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Collapse,
   Box,
@@ -17,6 +17,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Link } from 'react-router-dom';
 import {
   allPollsPost,
   deletePoll,
@@ -28,16 +29,16 @@ import PollCard from '../../components/PollCard/PollCard';
 import './GroupManagement.css';
 
 function GroupManagement() {
-  const [openGroup, setOpenGroup] = React.useState(true);
-  const [data, setData] = React.useState();
-  const [updated, setUpdated] = React.useState(false);
-  const [activePoll, setActivePoll] = React.useState();
-  const [isActive, setIsActive] = React.useState();
-  const [edit, setEdit] = React.useState();
-  const [deleteGroup, setDeleteGroup] = React.useState();
-  const [groupName, setGroupName] = React.useState();
-  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
-  const [add, setAdd] = React.useState(false);
+  const [openGroup, setOpenGroup] = useState(true);
+  const [data, setData] = useState();
+  const [updated, setUpdated] = useState(false);
+  const [activePoll, setActivePoll] = useState();
+  const [isActive, setIsActive] = useState();
+  const [edit, setEdit] = useState();
+  const [deleteGroup, setDeleteGroup] = useState();
+  const [groupName, setGroupName] = useState();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [add, setAdd] = useState(false);
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -217,7 +218,12 @@ function GroupManagement() {
               >
                 <div className="groupName">
                   <div>
-                    <span>{group?.group_name}</span>
+                    <Link
+                      className="groupLink"
+                      to={`/admin/group-details/${group?._id}`}
+                    >
+                      <span>{group?.group_name}</span>
+                    </Link>
                     <IconButton onClick={(e) => handleEditGroup(group, e)}>
                       <EditIcon sx={{ fontSize: '20px' }} />
                     </IconButton>
@@ -282,11 +288,11 @@ function GroupManagement() {
               <TextField
                 sx={{ width: '320px', fontSize: '20px' }}
                 id="standard-basic"
-                label="Nueva emisión"
+                label="Nuevo grupo"
                 variant="standard"
                 onChange={(e) => setGroupName(e.target.value)}
               />
-              <IconButton onClick={handleAddEmission(groupName)}>
+              <IconButton onClick={() => handleAddEmission(groupName)}>
                 <CheckIcon sx={{ color: 'green' }} />
               </IconButton>
               <IconButton onClick={() => setAdd(false)}>

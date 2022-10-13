@@ -1,0 +1,26 @@
+.resultsCardWrapper{
+  border: 2px solid #1b2430;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.percentageBar{
+    height: 2px;
+    width: 100%;
+    border: 2px solid #1b2430;
+    border-radius: 2px;
+}
+
+.questionName{
+    padding: 7px 0;
+    font-size: 18px;
+}
+
+.questionVotes{
+    padding: 7px 0;
+    font-size: 14px;
+}
