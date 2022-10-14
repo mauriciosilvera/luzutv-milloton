@@ -210,78 +210,90 @@ function GroupManagement() {
                 </div>
               );
             }
-            return (
-              <div
-                key={group?._id}
-                className="groupContainer"
-                onClick={() => setOpenGroup(openGroup === group ? '' : group)}
-              >
-                <div className="groupName">
-                  <div>
-                    <Link
-                      className="groupLink"
-                      to={`/admin/group-details/${group?._id}`}
-                    >
-                      <span>{group?.group_name}</span>
-                    </Link>
-                    <IconButton onClick={(e) => handleEditGroup(group, e)}>
-                      <EditIcon sx={{ fontSize: '20px' }} />
-                    </IconButton>
-                    <IconButton onClick={(e) => handleClickOpen(group?._id, e)}>
-                      <DeleteIcon sx={{ fontSize: '20px' }} />
-                    </IconButton>
-                    <Dialog
-                      open={openDeleteDialog}
-                      onClose={handleCancelDelete}
-                      onClick={(e) => e?.stopPropagation()}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        Confirmar eliminado.
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Eliminar la emisión borrará también las preguntas que
-                          tenga dicha emisión, deseas continuar de igual manera?
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleCancelDelete}>Cancelar</Button>
-                        <Button onClick={handleAcceptDelete} autoFocus>
-                          Aceptar
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
+            if (group.group_name !== 'Sin Agrupar') {
+              return (
+                <div
+                  key={group?._id}
+                  className="groupContainer"
+                  onClick={() => setOpenGroup(openGroup === group ? '' : group)}
+                >
+                  <div className="groupName">
+                    <div>
+                      <Link
+                        className="groupLink"
+                        to={`/admin/group-details/${group?._id}`}
+                      >
+                        <span>{group?.group_name}</span>
+                      </Link>
+                      <IconButton onClick={(e) => handleEditGroup(group, e)}>
+                        <EditIcon sx={{ fontSize: '20px' }} />
+                      </IconButton>
+                      <IconButton
+                        onClick={(e) => handleClickOpen(group?._id, e)}
+                      >
+                        <DeleteIcon sx={{ fontSize: '20px' }} />
+                      </IconButton>
+                      <Dialog
+                        open={openDeleteDialog}
+                        onClose={handleCancelDelete}
+                        onClick={(e) => e?.stopPropagation()}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          Confirmar eliminado.
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-description">
+                            Eliminar la emisión borrará también las preguntas
+                            que tenga dicha emisión, deseas continuar de igual
+                            manera?
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleCancelDelete}>Cancelar</Button>
+                          <Button onClick={handleAcceptDelete} autoFocus>
+                            Aceptar
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                    </div>
+                    <span>
+                      {openGroup === group ? <ExpandLess /> : <ExpandMore />}
+                    </span>
                   </div>
-                  <span>
-                    {openGroup === group ? <ExpandLess /> : <ExpandMore />}
-                  </span>
-                </div>
-                <Collapse in={openGroup === group} timeout="auto" unmountOnExit>
-                  <div className="pollsContainer">
-                    {group?.questions?.length > 0 ? (
-                      group?.questions?.map((question) => (
-                        <div key={question?._id} className="pollCard">
-                          <PollCard question={question} />
-                          <IconButton
-                            onClick={(e) => handleDeletePoll(question?._id, e)}
-                            value={question?._id}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
+                  <Collapse
+                    in={openGroup === group}
+                    timeout="auto"
+                    unmountOnExit
+                  >
+                    <div className="pollsContainer">
+                      {group?.questions?.length > 0 ? (
+                        group?.questions?.map((question) => (
+                          <div key={question?._id} className="pollCard">
+                            <PollCard question={question} />
+                            <IconButton
+                              onClick={(e) =>
+                                handleDeletePoll(question?._id, e)
+                              }
+                              value={question?._id}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="emptyPollsContainer">
+                          No se encontraron encuestas para esta emisión
                         </div>
-                      ))
-                    ) : (
-                      <div className="emptyPollsContainer">
-                        No se encontraron encuestas para esta emisión
-                      </div>
-                    )}
-                    <PollCard create />
-                  </div>
-                </Collapse>
-              </div>
-            );
+                      )}
+                      <PollCard create />
+                    </div>
+                  </Collapse>
+                </div>
+              );
+            }
+            return null;
           })}
           {add ? (
             <div className="editContainer">
