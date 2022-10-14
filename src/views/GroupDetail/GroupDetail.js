@@ -34,7 +34,7 @@ function GroupDetail() {
       <h2 className="title">Resultados totales</h2>
       {votesData && (
         <div className="questionWrapper">
-          {votesData?.votes?.answerVotesPercentage.map((row, i) => {
+          {votesData?.votes?.answerVotesPercentage?.map((row, i) => {
             const answerCount = `answer_${i + 1}_count`;
             return (
               <ResultsCard
