@@ -34,10 +34,18 @@ function GroupDetail() {
       <h2 className="title">Resultados totales</h2>
       {votesData && (
         <div className="questionWrapper">
-          {Object.values(votesData?.votes?.answerVotes).map((value, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <ResultsCard key={i + 1} name={`Opción ${i + 1}`} votes={value} />
-          ))}
+          {votesData?.votes?.answerVotesPercentage?.map((row, i) => {
+            const answerCount = `answer_${i + 1}_count`;
+            return (
+              <ResultsCard
+                // eslint-disable-next-line react/no-array-index-key
+                key={i + 1}
+                name={`Opción ${i + 1}`}
+                votes={row[answerCount]}
+                percentage={row?.percentage}
+              />
+            );
+          })}
         </div>
       )}
       <h2 className="title">Resultados individuales</h2>
