@@ -18,16 +18,22 @@ function Header(props) {
 
   return (
     <div className={`headerWrapper ${hideButtons ? 'hideButtons' : ''}`}>
-      <GiHamburgerMenu
-        className={`header-HamburgerIcon ${isSideBarOpen ? 'isOpen' : ''} ${
-          hideButtons ? 'hidden' : ''
-        }`}
-        onClick={handleSideBar}
-      />
-      <Link to="/">
-        <img className="header-logo" src={Img} alt="Luzu TV Logo" />
-      </Link>
-      <img className="header-sponsor" src={Sponsor} alt="Sponsor" />
+      <div className="burger">
+        <GiHamburgerMenu
+          className={`header-HamburgerIcon ${isSideBarOpen ? 'isOpen' : ''} ${
+            hideButtons ? 'hidden' : ''
+          }`}
+          onClick={handleSideBar}
+        />
+      </div>
+      <div className="header-logosContainer">
+        <img className="header-sponsor" src={Sponsor} alt="Sponsor" />
+        <Link to="/">
+          <img className="header-logo" src={Img} alt="Luzu TV Logo" />
+        </Link>
+        <img className="header-sponsor" src={Sponsor} alt="Sponsor" />
+      </div>
+      <div className="emptyDiv" />
     </div>
   );
 }

@@ -12,9 +12,8 @@
 }
 
 .header-sponsor{
-  width: 230px;
-  height: 60px;
-  margin-right: 15px;
+  width: 100px;
+  height: 30px;
 }
 
 .header-logOutBtn {
@@ -25,6 +24,22 @@
   font-size: 20px;
   cursor: pointer;
   margin-right: 20px;
+}
+
+.burger{
+  display: flex;
+  justify-content: flex-start;
+  min-width: 100px;
+}
+
+.header-logosContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.emptyDiv{
+  min-width: 100px;
 }
 
 .header-logOutBtn:hover {
@@ -56,6 +71,12 @@
     position: relative;
   }
   .header-logOutBtn {
+    display: none;
+  }
+  .burger{
+    align-items: center;
+  }
+  .header-sponsor{
     display: none;
   }
   .header-HamburgerIcon {

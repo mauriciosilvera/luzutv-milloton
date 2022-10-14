@@ -169,7 +169,7 @@ function GroupManagement() {
                 </div>
               );
             }
-            if (group.group_name !== 'Sin Agrupar') {
+            if (group?.group_name !== 'Sin Agrupar') {
               return (
                 <div
                   key={group?._id}
