@@ -157,12 +157,10 @@ function PollDetail() {
           id: selectedPoll?._id,
           question_name: selectedQuestion,
           group_id: selectedGroup?._id
-        }
-      },
-      {
+        },
         answers: selectedOptions?.map((option) => ({
-          ...option,
-          id: option?._id
+          id: option?._id,
+          answer_name: option?.answer_name
         }))
       }
     ];

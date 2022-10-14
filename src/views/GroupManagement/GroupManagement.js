@@ -33,7 +33,6 @@ function GroupManagement() {
   const [data, setData] = useState();
   const [updated, setUpdated] = useState(false);
   const [activePoll, setActivePoll] = useState();
-  const [isActive, setIsActive] = useState();
   const [edit, setEdit] = useState();
   const [deleteGroup, setDeleteGroup] = useState();
   const [groupName, setGroupName] = useState();
@@ -59,12 +58,6 @@ function GroupManagement() {
     }
   }, [updated]);
 
-  useEffect(() => {
-    if (activePoll) {
-      setIsActive(activePoll?.[0]?.is_active);
-    }
-  }, [activePoll]);
-
   const handleDeletePoll = (questionId, e) => {
     e?.stopPropagation();
     const reqData = [
@@ -76,22 +69,6 @@ function GroupManagement() {
     ];
     deletePoll(reqData);
     setUpdated(true);
-  };
-
-  const handleActivate = (e) => {
-    e.preventDefault();
-
-    const reqData = [
-      {
-        question: {
-          id: activePoll?.[0]._id,
-          is_active: !isActive
-        }
-      }
-    ];
-
-    setIsActive(!isActive);
-    pollPut(reqData);
   };
 
   const handleEditGroup = (group, e) => {
@@ -165,24 +142,6 @@ function GroupManagement() {
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />
         </Box>
-      )}
-      {isActive && (
-        <>
-          <h1 className="groupTitle">Encuesta activa</h1>
-          <div key={activePoll[0]._id} className="activePollCard">
-            <PollCard activePoll question={activePoll[0]} />
-            <Button
-              onClick={handleActivate}
-              size="small"
-              className="pollButton"
-              type="submit"
-              variant="outlined"
-              color="error"
-            >
-              Finalizar encuesta activa
-            </Button>
-          </div>
-        </>
       )}
 
       {data && (
