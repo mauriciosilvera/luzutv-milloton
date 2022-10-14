@@ -42,7 +42,7 @@ function GroupDetail() {
                 key={i + 1}
                 name={`Opción ${i + 1}`}
                 votes={row[answerCount]}
-                percentage={row.percentage}
+                percentage={row?.percentage}
               />
             );
           })}
