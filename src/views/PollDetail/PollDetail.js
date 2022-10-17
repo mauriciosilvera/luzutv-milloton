@@ -138,12 +138,10 @@ function PollDetail() {
 
     const postData = [
       {
-        group: selectedGroup
-      },
-      {
         question: {
           question_name: selectedQuestion,
-          is_active: isActive
+          is_active: isActive,
+          group_id: selectedGroup?._id
         }
       },
       {
