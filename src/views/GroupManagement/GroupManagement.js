@@ -77,7 +77,7 @@ function GroupManagement() {
     e?.stopPropagation();
   };
 
-  const handleAcceptEdit = (id, name, e) => {
+  const handleAcceptEdit = async (id, name, e) => {
     e?.stopPropagation();
     const reqData = [
       {
@@ -88,7 +88,7 @@ function GroupManagement() {
       }
     ];
 
-    pollPut(reqData);
+    await pollPut(reqData);
     setEdit(false);
     setUpdated(true);
   };
@@ -104,7 +104,7 @@ function GroupManagement() {
     setOpenDeleteDialog(false);
   };
 
-  const handleAcceptDelete = () => {
+  const handleAcceptDelete = async () => {
     const reqData = [
       {
         group: {
@@ -113,12 +113,12 @@ function GroupManagement() {
       }
     ];
 
-    deletePoll(reqData);
+    await deletePoll(reqData);
     setOpenDeleteDialog(false);
     setUpdated(true);
   };
 
-  const handleAddEmission = (name) => {
+  const handleAddEmission = async (name) => {
     const reqData = [
       {
         group: {
@@ -127,7 +127,7 @@ function GroupManagement() {
       }
     ];
 
-    pollPost(reqData);
+    await pollPost(reqData);
     setAdd(false);
     setUpdated(true);
   };

@@ -133,7 +133,7 @@ function PollDetail() {
     pollPut(data);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const extraOptions = [...selectedOptions];
 
     const postData = [
@@ -171,12 +171,12 @@ function PollDetail() {
     e?.preventDefault();
 
     if (isEditMode) {
-      pollPut(putData);
+      await pollPut(putData);
       if (editExtraAnswer) {
-        pollPostExtraOption(putExtraOption);
+        await pollPostExtraOption(putExtraOption);
       }
     } else {
-      pollPost(postData);
+      await pollPost(postData);
     }
     navigate('/admin/polls-management');
   };
