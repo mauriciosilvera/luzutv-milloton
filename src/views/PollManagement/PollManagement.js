@@ -41,7 +41,7 @@ function PollManagement() {
     }
   }, [activePoll]);
 
-  const handleDeletePoll = (questionId, e) => {
+  const handleDeletePoll = async (questionId, e) => {
     e?.stopPropagation();
     const reqData = [
       {
@@ -50,8 +50,12 @@ function PollManagement() {
         }
       }
     ];
-    deletePoll(reqData);
-    setUpdated(true);
+
+    const res = await deletePoll(reqData);
+
+    if (res === '') {
+      setUpdated(true);
+    }
   };
 
   const handleActivate = (e) => {
