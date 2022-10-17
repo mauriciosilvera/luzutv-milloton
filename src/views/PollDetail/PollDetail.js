@@ -172,7 +172,6 @@ function PollDetail() {
 
     e?.preventDefault();
 
-    console.log(postData);
     if (isEditMode) {
       pollPut(putData);
       if (editExtraAnswer) {
