@@ -48,7 +48,7 @@ export const pollPostExtraOption = async (data) => {
   };
   try {
     const response = await axios.post(
-      'http://luzutv-api.herokuapp.com/admin/poll/answer',
+      'https://luzutv-api.herokuapp.com/admin/poll/answer',
       data,
       config
     );
