@@ -84,7 +84,23 @@ export const getActivePoll = async () => {
   };
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/public/polls',
+      'https://luzutv-api.herokuapp.com/public/active-polls',
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const adminActivePoll = async () => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+  try {
+    const response = await axios.get(
+      'https://luzutv-api.herokuapp.com/admin/active-polls',
       config
     );
     return response.data;

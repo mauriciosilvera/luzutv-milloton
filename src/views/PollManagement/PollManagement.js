@@ -4,7 +4,7 @@ import { MdDelete as DeleteIcon } from 'react-icons/md';
 import {
   allPollsPost,
   deletePoll,
-  getActivePoll,
+  adminActivePoll,
   pollPut
 } from '../../util/Requests';
 import PollCard from '../../components/PollCard/PollCard';
@@ -21,7 +21,7 @@ function PollManagement() {
       setData(polls);
     });
 
-    getActivePoll().then((poll) => {
+    adminActivePoll().then((poll) => {
       setActivePoll(poll);
     });
   }, []);

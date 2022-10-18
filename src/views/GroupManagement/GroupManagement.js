@@ -21,7 +21,6 @@ import { Link } from 'react-router-dom';
 import {
   allPollsPost,
   deletePoll,
-  getActivePoll,
   pollPut,
   pollPost
 } from '../../util/Requests';
@@ -32,7 +31,6 @@ function GroupManagement() {
   const [openGroup, setOpenGroup] = useState(true);
   const [data, setData] = useState();
   const [updated, setUpdated] = useState(false);
-  const [activePoll, setActivePoll] = useState();
   const [edit, setEdit] = useState();
   const [deleteGroup, setDeleteGroup] = useState();
   const [groupName, setGroupName] = useState();
@@ -42,10 +40,6 @@ function GroupManagement() {
   useEffect(() => {
     allPollsPost().then((polls) => {
       setData(polls);
-    });
-
-    getActivePoll().then((poll) => {
-      setActivePoll(poll);
     });
   }, []);
 
@@ -133,12 +127,8 @@ function GroupManagement() {
   };
 
   return (
-    <div
-      className={`pollManagementWrapper ${
-        !activePoll && !data ? 'loading' : ''
-      }`}
-    >
-      {!activePoll && !data && (
+    <div className={`pollManagementWrapper ${!data ? 'loading' : ''}`}>
+      {!data && (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />
         </Box>
