@@ -5,6 +5,7 @@
   align-items: center;
   flex-direction: column;
   gap: 2rem;
+  overflow: scroll;
 }
 
 .pollManagementWrapper.loading{
@@ -63,7 +64,7 @@
 
 .addGroupButton{
   width: 400px;
-  height: 60px;
+  min-height: 60px;
   border: 1px solid green;
   border-radius: 10px;
   cursor: pointer;

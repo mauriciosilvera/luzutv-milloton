@@ -11,21 +11,6 @@
   justify-content: center;
 }
 
-.header-sponsor{
-  width: 100px;
-  height: 30px;
-}
-
-.header-logOutBtn {
-  padding: 20px;
-  background: none;
-  border: none;
-  color: #d9d9d9;
-  font-size: 20px;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
 .burger{
   display: flex;
   justify-content: flex-start;
@@ -70,14 +55,8 @@
     justify-content: center;
     position: relative;
   }
-  .header-logOutBtn {
-    display: none;
-  }
   .burger{
     align-items: center;
-  }
-  .header-sponsor{
-    display: none;
   }
   .header-HamburgerIcon {
     position: absolute;

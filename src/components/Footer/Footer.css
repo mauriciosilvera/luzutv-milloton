@@ -1,0 +1,20 @@
+.footerWrapper{
+    height: 10%;
+    background-color: #1b2430;
+    display: flex;
+    margin: 0;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.footer-sponsor{
+    width: 140px;
+    height: 30px;
+  }
+
+@media (max-width: 780px) {
+    .footer-sponsor{
+        width: 20%;
+        height: 40%;
+      }
+  }

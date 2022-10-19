@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { auth } from '../../util/auth';
-import Img from '../../public/luzu.png';
-import Sponsor from '../../public/cocalogo.png';
+import Logo from '../../public/luzu.png';
 
 import './Header.css';
 
@@ -27,11 +26,9 @@ function Header(props) {
         />
       </div>
       <div className="header-logosContainer">
-        <img className="header-sponsor" src={Sponsor} alt="Sponsor" />
         <Link to="/">
-          <img className="header-logo" src={Img} alt="Luzu TV Logo" />
+          <img className="header-logo" src={Logo} alt="Luzu TV Logo" />
         </Link>
-        <img className="header-sponsor" src={Sponsor} alt="Sponsor" />
       </div>
       <div className="emptyDiv" />
     </div>
