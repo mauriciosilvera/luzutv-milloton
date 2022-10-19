@@ -127,7 +127,7 @@ function GroupManagement() {
   };
 
   return (
-    <div className={`pollManagementWrapper ${!data ? 'loading' : ''}`}>
+    <div className={`groupManagementWrapper ${!data ? 'loading' : ''}`}>
       {!data && (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />
