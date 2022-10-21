@@ -235,7 +235,7 @@ function PollDetail() {
                 >{`Votos Totales: ${totalVotes}`}</Typography>
               )}
             </div>
-
+            {console.log(selectedPoll)}
             {selectedPoll && !isEditMode ? (
               <>
                 {totalVotes !== 0 ? (
