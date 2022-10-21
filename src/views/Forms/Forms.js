@@ -6,7 +6,7 @@ import { auth } from '../../util/auth';
 import './Form.css';
 
 function Form(props) {
-  const { recovery } = props;
+  const { recovery, setIsOpen } = props;
   const navigate = useNavigate();
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
@@ -34,7 +34,7 @@ function Form(props) {
       setError(res?.response?.data?.message);
       return;
     }
-
+    setIsOpen(true);
     auth.signin(res?.data?.token);
 
     if (recovery) {

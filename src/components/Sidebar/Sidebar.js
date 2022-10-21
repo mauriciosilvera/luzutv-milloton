@@ -5,7 +5,7 @@ import { auth } from '../../util/auth';
 import './Sidebar.css';
 
 function Sidebar(props) {
-  const { isOpen } = props;
+  const { isOpen, setIsOpen } = props;
   const navigate = useNavigate();
   const hideButtons = !auth?.isAuthenticated;
 
@@ -13,6 +13,7 @@ function Sidebar(props) {
     if (auth?.isAuthenticated) {
       auth?.signout();
     }
+    setIsOpen(false);
     navigate('/admin/login', { replace: true });
   };
 

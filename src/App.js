@@ -27,7 +27,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           {/* ADMIN */}
-          <Route path="admin/login" element={<Form />} />
+          <Route
+            path="admin/login"
+            element={<Form setIsOpen={setIsSideBarOpen} />}
+          />
           <Route path="admin/password-recovery" element={<Form recovery />} />
           <Route
             path="admin/polls-management"
