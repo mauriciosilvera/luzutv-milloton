@@ -12,6 +12,7 @@ import {
   Typography
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
+import { ResponsiveBar } from '@nivo/bar';
 import {
   pollPost,
   getPollById,
@@ -200,84 +201,96 @@ function PollDetail() {
           <form className="pollForm" onSubmit={handleSubmit}>
             <div className="pollTitleBox">
               <div className="pollTitle">
-                <h2 className="title">{`${
+                <h2 className="title white">{`${
                   selectedPoll ? selectedPoll?.question_name : 'Nueva encuesta'
                 }`}</h2>
                 {selectedPoll && !isActive && (
-                  <IconButton onClick={handleEditMode}>
-                    <EditIcon className="pollIcon" />
+                  <IconButton onClick={handleEditMode} sx={{ color: '#fff' }}>
+                    <EditIcon />
                   </IconButton>
                 )}
               </div>
               {selectedPoll && (
-                <Typography variant="body2">{`Votos Totales: ${totalVotes}`}</Typography>
+                <Typography
+                  variant="body2"
+                  className="votesCount white"
+                >{`Votos Totales: ${totalVotes}`}</Typography>
               )}
             </div>
-            <label htmlFor="live" className="pollLabel">
-              Grupo
-            </label>
+
             {selectedPoll && !isEditMode ? (
-              <Typography variant="h6" className="selectedValue">
-                {selectedPoll?.group_id?.group_name}
-              </Typography>
-            ) : (
-              <Select
-                onChange={handleSelectChange}
-                sx={{ height: '2.4375em' }}
-                value={selectedGroup}
-                required
-                renderValue={(selected) => {
-                  if (selectedGroup && !selected) {
-                    return <em>{selectedGroup?.group_name}</em>;
-                  }
-                  return selected?.group_name;
-                }}
-              >
-                {groups?.map((group) => (
-                  <MenuItem key={group?._id} value={group} size="small">
-                    {group?.group_name}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-            <label htmlFor="pollQuestion" className="pollLabel">
-              Pregunta
-            </label>
-            {selectedPoll && !isEditMode ? (
-              <Typography variant="h6" className="selectedValue">
-                {selectedPoll?.question_name}
-              </Typography>
-            ) : (
-              <TextField
-                fullWidth
-                size="small"
-                id="pollQuestion"
-                variant="outlined"
-                onChange={handleQuestion}
-                defaultValue={selectedQuestion}
-                required
-              />
-            )}
-            {selectedPoll && !isEditMode
-              ? selectedPoll?.answers?.map((option, id) => (
-                  <div key={option?._id} className="OptionContainer">
-                    <label htmlFor="option" className="pollLabel">
-                      Opción {id + 1}
-                    </label>
-                    <div className="valueContainer">
-                      <Typography variant="h6">
-                        {option?.answer_name}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        className="voteCount"
-                      >{`Votos: ${option?.voteCount}`}</Typography>
-                    </div>
+              <>
+                {totalVotes !== 0 ? (
+                  <div style={{ height: '60%' }}>
+                    <ResponsiveBar
+                      data={selectedPoll?.answers}
+                      keys={['voteCount']}
+                      indexBy="answer_name"
+                      margin={{ top: 50, bottom: 50, left: 25, right: 25 }}
+                      minValue="0"
+                      padding={0.3}
+                      valueScale={{ type: 'linear' }}
+                      indexScale={{ type: 'band', round: true }}
+                      colors={{ scheme: 'pastel1' }}
+                      labelSkipHeight={1}
+                    />
                   </div>
-                ))
-              : selectedOptions?.map((option, id) => (
-                  <div key={option?._id || option?.id}>
-                    <label htmlFor="option" className="pollLabel">
+                ) : (
+                  <div className="pollWithoutVotesMessage">
+                    Esta encuesta aun no ha recibido votos.{' '}
+                  </div>
+                )}
+                <div className="activateButton">
+                  <Button
+                    onClick={handleActivate}
+                    size="large"
+                    className="pollButton"
+                    type="submit"
+                    variant="outlined"
+                    color={isActive ? 'error' : 'success'}
+                  >
+                    {isActive ? 'Terminar encuesta' : 'Activar encuesta'}
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <label htmlFor="live" className="pollLabel">
+                  Grupo
+                </label>
+                <Select
+                  onChange={handleSelectChange}
+                  sx={{ height: '2.4375em' }}
+                  value={selectedGroup}
+                  required
+                  renderValue={(selected) => {
+                    if (selectedGroup && !selected) {
+                      return <em>{selectedGroup?.group_name}</em>;
+                    }
+                    return selected?.group_name;
+                  }}
+                >
+                  {groups?.map((group) => (
+                    <MenuItem key={group?._id} value={group} size="small">
+                      {group?.group_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <label htmlFor="pollQuestion" className="pollLabel">
+                  Pregunta
+                </label>
+                <TextField
+                  fullWidth
+                  size="small"
+                  id="pollQuestion"
+                  variant="outlined"
+                  onChange={handleQuestion}
+                  defaultValue={selectedQuestion}
+                  required
+                />
+                {selectedOptions?.map((option, id) => (
+                  <div key={option?._id || option?.id} className="pollLabel">
+                    <label htmlFor="option" className="pollOption">
                       Opción {id + 1}
                     </label>
                     <div className="pollOptionBox">
@@ -302,6 +315,8 @@ function PollDetail() {
                     </div>
                   </div>
                 ))}
+              </>
+            )}
 
             {(!selectedPoll || isEditMode) && (
               <div className="pollButtonBox">
@@ -323,21 +338,6 @@ function PollDetail() {
                   variant="outlined"
                 >
                   Guardar encuesta
-                </Button>
-              </div>
-            )}
-
-            {selectedPoll && !isEditMode && (
-              <div className="activateButton">
-                <Button
-                  onClick={handleActivate}
-                  size="large"
-                  className="pollButton"
-                  type="submit"
-                  variant="outlined"
-                  color={isActive ? 'error' : 'success'}
-                >
-                  {isActive ? 'Terminar encuesta' : 'Activar encuesta'}
                 </Button>
               </div>
             )}
