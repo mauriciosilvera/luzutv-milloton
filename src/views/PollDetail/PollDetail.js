@@ -226,9 +226,9 @@ function PollDetail() {
                       data={selectedPoll?.answers}
                       keys={['voteCount']}
                       indexBy="answer_name"
-                      margin={{ top: 50, bottom: 50, left: 25, right: 25 }}
+                      margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
                       minValue="0"
-                      padding={0.3}
+                      padding={0.4}
                       valueScale={{ type: 'linear' }}
                       indexScale={{ type: 'band', round: true }}
                       colors={{ scheme: 'pastel1' }}

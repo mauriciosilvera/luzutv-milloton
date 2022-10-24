@@ -5,7 +5,7 @@ import { auth } from '../../util/auth';
 import './Sidebar.css';
 
 function Sidebar(props) {
-  const { isOpen } = props;
+  const { isOpen, setIsOpen } = props;
   const navigate = useNavigate();
   const hideButtons = !auth?.isAuthenticated;
 
@@ -13,6 +13,7 @@ function Sidebar(props) {
     if (auth?.isAuthenticated) {
       auth?.signout();
     }
+    setIsOpen(false);
     navigate('/admin/login', { replace: true });
   };
 
@@ -27,6 +28,9 @@ function Sidebar(props) {
           </Link>
           <Link to="/admin/groups-management">
             <div className="sideBar-Option">Grupos</div>
+          </Link>
+          <Link to="/admin/image-management">
+            <div className="sideBar-Option">Imágenes</div>
           </Link>
         </div>
 

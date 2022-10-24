@@ -218,3 +218,40 @@ export const calculateVotes = async (questions) => {
     return error;
   }
 };
+
+export const uploadImage = async (body) => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+
+  try {
+    const response = await axios.post(
+      'https://luzutv-api.herokuapp.com/admin/upload-images',
+      body,
+      config
+    );
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const allPollsPostWithoutGroups = async () => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+  try {
+    const response = await axios.post(
+      'https://luzutv-api.herokuapp.com/admin/all-polls',
+      {
+        filters: {}
+      },
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
