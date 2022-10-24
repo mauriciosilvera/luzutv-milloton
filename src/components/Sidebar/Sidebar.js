@@ -29,6 +29,9 @@ function Sidebar(props) {
           <Link to="/admin/groups-management">
             <div className="sideBar-Option">Grupos</div>
           </Link>
+          <Link to="/admin/image-management">
+            <div className="sideBar-Option">Imágenes</div>
+          </Link>
         </div>
 
         <div

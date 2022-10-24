@@ -1,0 +1,35 @@
+.imageManagementWrapper{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imagesForm{
+    display:flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+
+.imagesMessage{
+    font-size: 18px;
+    padding: 15px;
+}
+
+.fail{
+    color: red;
+}
+
+.success{
+    color:green;
+}
+
+.uploadFileBox{
+    display:flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 5px 0;
+}
