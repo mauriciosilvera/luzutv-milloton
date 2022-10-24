@@ -232,7 +232,10 @@ function PollDetail() {
                       valueScale={{ type: 'linear' }}
                       indexScale={{ type: 'band', round: true }}
                       colors={{ scheme: 'pastel1' }}
-                      labelSkipHeight={1}
+                      // eslint-disable-next-line react/no-unstable-nested-components
+                      tooltip={(data) => (
+                        <span>Cantidad de votos: {data.data.voteCount}</span>
+                      )}
                     />
                   </div>
                 ) : (
