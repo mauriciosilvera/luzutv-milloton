@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Box, CircularProgress, IconButton, Button } from '@mui/material';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import {
-  allPollsPost,
   deletePoll,
   adminActivePoll,
-  pollPut
+  pollPut,
+  allPollsPostWithoutGroups
 } from '../../util/Requests';
 import PollCard from '../../components/PollCard/PollCard';
 import './PollManagement.css';
@@ -17,7 +17,7 @@ function PollManagement() {
   const [isActive, setIsActive] = React.useState();
 
   useEffect(() => {
-    allPollsPost().then((polls) => {
+    allPollsPostWithoutGroups().then((polls) => {
       setData(polls);
     });
 
@@ -28,7 +28,7 @@ function PollManagement() {
 
   useEffect(() => {
     if (updated) {
-      allPollsPost().then((polls) => {
+      allPollsPostWithoutGroups().then((polls) => {
         setData(polls);
       });
       setUpdated(false);
@@ -109,19 +109,17 @@ function PollManagement() {
             <input type="text" placeholder="Buscar.." className="search" />
           </div>
           <div className="pollsWrapper">
-            {data?.map((emission) =>
-              emission?.questions?.map((question) => (
-                <div key={question?._id} className="pollCard">
-                  <PollCard question={question} />
-                  <IconButton
-                    onClick={(e) => handleDeletePoll(question?._id, e)}
-                    value={question?._id}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              ))
-            )}
+            {data?.map((question) => (
+              <div key={question?._id} className="pollCard">
+                <PollCard question={question} />
+                <IconButton
+                  onClick={(e) => handleDeletePoll(question?._id, e)}
+                  value={question?._id}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            ))}
             <PollCard create />
           </div>
         </>
