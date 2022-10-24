@@ -12,6 +12,7 @@ import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
 import GroupDetail from './views/GroupDetail/GroupDetail';
 import Footer from './components/Footer/Footer';
+import ImageManagement from './views/Images/ImageManagement';
 
 function App() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -49,10 +50,10 @@ function App() {
             }
           />
           <Route
-            path="admin/sponsors-management"
+            path="admin/image-management"
             element={
               <RequireAuth>
-                <PollManagement />
+                <ImageManagement />
               </RequireAuth>
             }
           />
