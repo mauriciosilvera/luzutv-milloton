@@ -4,13 +4,11 @@ import './GroupDetail.css';
 import { useParams, Link } from 'react-router-dom';
 import { ResponsiveBar } from '@nivo/bar';
 import { calculateVotes } from '../../util/Requests';
-// import ResultsCard from '../../components/ResultsCard/ResultsCard';
 
 function GroupDetail() {
   const { groupId } = useParams();
   const [votesData, setVotesData] = useState();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const globalResults = [];
+  const [globalResults, setGlobalResults] = useState([]);
 
   useEffect(() => {
     const ApiBody = {
@@ -22,18 +20,23 @@ function GroupDetail() {
   }, [groupId]);
 
   useEffect(() => {
-    votesData?.votes?.answerVotesPercentage?.map((row, i) => {
-      const answerCount = `answer_${i + 1}_count`;
-      globalResults.push({
-        name: `Opción ${i + 1}`,
-        votes: row[answerCount]
+    if (votesData) {
+      votesData?.votes?.answerVotesPercentage?.map((row, i) => {
+        const answerCount = `answer_${i + 1}_count`;
+        setGlobalResults(...globalResults, {
+          name: `Opción ${i + 1}`,
+          votes: row[answerCount]
+        });
+
+        return globalResults;
       });
-      return globalResults;
-    });
-  }, [globalResults, votesData?.votes?.answerVotesPercentage]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [votesData, votesData?.votes?.answerVotesPercentage]);
 
   return (
     <div className="groupDetailWrapper">
+      {console.log(globalResults)}
       {!votesData && !globalResults && (
         <div className="loadingState">
           <Box
