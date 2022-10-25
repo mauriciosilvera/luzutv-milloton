@@ -41,7 +41,7 @@ function ImageManagement(props) {
       setImageHasChanged(!imageHasChanged);
       return;
     }
-    setErrorMessage('Hubo un error al subir las imagenes.');
+    setErrorMessage('Hubo un error al cargar las imágenes.');
   };
 
   return (
