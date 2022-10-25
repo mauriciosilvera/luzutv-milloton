@@ -38,8 +38,7 @@ function GroupDetail() {
             const answerCount = `answer_${i + 1}_count`;
             return (
               <ResultsCard
-                // eslint-disable-next-line react/no-array-index-key
-                key={i + 1}
+                key={answerCount}
                 name={`Opción ${i + 1}`}
                 votes={row[answerCount]}
                 percentage={row?.percentage}

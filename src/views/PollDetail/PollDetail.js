@@ -187,6 +187,24 @@ function PollDetail() {
     0
   );
 
+  const buildTooltip = (answer) => (
+    <div
+      style={{
+        padding: 12,
+        color: '#fff',
+        background: '#222222'
+      }}
+    >
+      <strong
+        style={{
+          fontSize: '14px'
+        }}
+      >
+        {answer.answer_name}: {answer.voteCount}
+      </strong>
+    </div>
+  );
+
   return (
     <div className="pollDetailWrapper">
       {!selectedPoll && pollId !== 'new' && (
@@ -232,15 +250,12 @@ function PollDetail() {
                       valueScale={{ type: 'linear' }}
                       indexScale={{ type: 'band', round: true }}
                       colors={{ scheme: 'pastel1' }}
-                      // eslint-disable-next-line react/no-unstable-nested-components
-                      tooltip={(data) => (
-                        <span>Cantidad de votos: {data.data.voteCount}</span>
-                      )}
+                      tooltip={(data) => buildTooltip(data.data)}
                     />
                   </div>
                 ) : (
                   <div className="pollWithoutVotesMessage">
-                    Esta encuesta aun no ha recibido votos.{' '}
+                    Esta encuesta aún no ha recibido votos.{' '}
                   </div>
                 )}
                 <div className="activateButton">
