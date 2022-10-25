@@ -255,3 +255,19 @@ export const allPollsPostWithoutGroups = async () => {
     console.log(error);
   }
 };
+
+export const getImages = async (image) => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+  try {
+    const response = await axios.get(
+      `https://luzutv-api.herokuapp.com/admin/get-image/${image}`,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
