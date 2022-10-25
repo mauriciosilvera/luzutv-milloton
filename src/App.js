@@ -93,7 +93,6 @@ function App() {
           <Route path="*" element={<FallBackView />} />
         </Routes>
       </div>
-      {console.log(imageHasChanged)}
       <Footer imageHasChanged={imageHasChanged} />
     </div>
   );
