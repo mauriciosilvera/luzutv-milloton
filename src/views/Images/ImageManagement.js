@@ -3,7 +3,8 @@ import { Button } from '@mui/material';
 import { uploadImage } from '../../util/Requests';
 import './ImageManagement.css';
 
-function ImageManagement() {
+function ImageManagement(props) {
+  const { setImageHasChanged, imageHasChanged } = props;
   const formData = new FormData();
   const [successMessage, setSuccessMessage] = useState();
   const [errorMessage, setErrorMessage] = useState();
@@ -30,15 +31,16 @@ function ImageManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage();
+    setSuccessMessage();
 
     const res = await uploadImage(formData);
 
     if (res?.data.length) {
       setSuccessMessage('Imagenes subidas con éxito!');
-      setErrorMessage();
+      setImageHasChanged(!imageHasChanged);
       return;
     }
-    setSuccessMessage();
     setErrorMessage('Hubo un error al subir las imagenes.');
   };
 

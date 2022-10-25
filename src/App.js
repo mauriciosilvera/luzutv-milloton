@@ -16,12 +16,14 @@ import ImageManagement from './views/Images/ImageManagement';
 
 function App() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [imageHasChanged, setImageHasChanged] = useState(false);
 
   return (
     <div className="container">
       <Header
         isSideBarOpen={isSideBarOpen}
         setIsSideBarOpen={setIsSideBarOpen}
+        imageHasChanged={imageHasChanged}
       />
       <div className="body">
         <Sidebar isOpen={isSideBarOpen} setIsOpen={setIsSideBarOpen} />
@@ -53,7 +55,10 @@ function App() {
             path="admin/image-management"
             element={
               <RequireAuth>
-                <ImageManagement />
+                <ImageManagement
+                  setImageHasChanged={setImageHasChanged}
+                  imageHasChanged={imageHasChanged}
+                />
               </RequireAuth>
             }
           />
@@ -88,7 +93,8 @@ function App() {
           <Route path="*" element={<FallBackView />} />
         </Routes>
       </div>
-      <Footer />
+      {console.log(imageHasChanged)}
+      <Footer imageHasChanged={imageHasChanged} />
     </div>
   );
 }
