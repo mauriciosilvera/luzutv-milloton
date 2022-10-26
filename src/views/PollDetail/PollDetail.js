@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import './PollDetail.css';
 import {
@@ -13,18 +13,11 @@ import {
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
 import { ResponsiveBar } from '@nivo/bar';
-import {
-  pollPost,
-  getPollById,
-  getGroups,
-  pollPut,
-  pollPostExtraOption,
-  deleteOption
-} from '../../util/Requests';
+import { pollPost, getPollById, getGroups, pollPut } from '../../util/Requests';
 
 function PollDetail() {
   const { pollId } = useParams();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [selectedPoll, setSelectedPoll] = useState('');
   const [groups, setGroups] = useState([]);
@@ -37,7 +30,6 @@ function PollDetail() {
     { _id: 0, answer_name: '' },
     { _id: 1, answer_name: '' }
   ]);
-  const [editExtraAnswer, setEditExtraAnswer] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -68,9 +60,6 @@ function PollDetail() {
       ...selectedOptions,
       { _id: selectedOptions?.length, answer_name: '' }
     ]);
-    if (isEditMode) {
-      setEditExtraAnswer(true);
-    }
   };
 
   const handleChangeOption = (id, e) => {
@@ -87,22 +76,11 @@ function PollDetail() {
 
   const handleDeleteOption = (id) => {
     const values = [...selectedOptions];
-    // console.log(values[0].id);
-    // console.log(id);
-    // console.log(
-    //   // eslint-disable-next-line eqeqeq
-    //   values?.findIndex((value) => parseInt(value?._id, 10) === parseInt(id, 10))
-    // );
     if (values?.length > 2) {
       values?.splice(
-        // eslint-disable-next-line eqeqeq
         values?.findIndex((value) => value?._id === id),
         1
       );
-
-      if (isEditMode) {
-        deleteOption(id);
-      }
       setSelectedOptions(values);
     }
   };
@@ -144,7 +122,6 @@ function PollDetail() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const extraOptions = [...selectedOptions];
 
     const postData = [
       {
@@ -166,32 +143,23 @@ function PollDetail() {
           question_name: selectedQuestion,
           group_id: selectedGroup?._id
         },
-        answers: selectedOptions?.map((option) => ({
-          id: option?._id,
-          answer_name: option?.answer_name
-        }))
+        answers: selectedOptions?.map((option) => {
+          if (option?._id?.length > 10) {
+            return { id: option?._id, answer_name: option?.answer_name };
+          }
+          return { answer_name: option?.answer_name };
+        })
       }
     ];
-
-    const putExtraOption = {
-      question_id: selectedPoll?._id,
-      answers: extraOptions?.splice(selectedPoll?.answers?.length)
-    };
 
     e?.preventDefault();
 
     if (isEditMode) {
       await pollPut(putData);
-      if (editExtraAnswer) {
-        console.log('pase por el PUT EXTRA OPTION');
-        console.log(putExtraOption);
-        await pollPostExtraOption(putExtraOption);
-      }
     } else {
-      console.log('pase por el POST!');
       await pollPost(postData);
     }
-    // navigate('/admin/polls-management');
+    navigate('/admin/polls-management');
   };
 
   const totalVotes = selectedPoll?.answers?.reduce(
@@ -346,7 +314,6 @@ function PollDetail() {
                 ))}
               </>
             )}
-            {console.log(selectedOptions)}
 
             {(!selectedPoll || isEditMode) && (
               <div className="pollButtonBox">
