@@ -263,7 +263,7 @@ export const getImages = async (image) => {
   };
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/admin/get-image/${image}`,
+      `${process.env.REACT_APP_API_URL}/public/get-image/${image}`,
       config
     );
     return response.data;
