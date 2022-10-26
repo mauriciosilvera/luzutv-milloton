@@ -19,6 +19,8 @@
   "rules": {
     "consistent-return": "off",
     "no-alert": "off",
+    "import/no-named-as-default": 0,
+    "import/no-named-as-default-member": 0,
     "no-console": "off",
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",
