@@ -5,9 +5,10 @@
   border: 2px solid #39d1c4;
   color: #39d1c4;
   border-radius: 10px;
-  padding: 15px;
+  padding: 10px;
   justify-content: center;
   cursor: pointer;
+  margin-bottom: 2rem;
 }
 
 .pollOptionWrapper.selected {
