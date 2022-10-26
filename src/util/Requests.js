@@ -263,11 +263,11 @@ export const getImages = async (image) => {
   };
   try {
     const response = await axios.get(
-      `https://luzutv-api.herokuapp.com/admin/get-image/${image}`,
+      `${process.env.REACT_APP_API_URL}/admin/get-image/${image}`,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
