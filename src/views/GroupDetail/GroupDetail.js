@@ -21,22 +21,22 @@ function GroupDetail() {
 
   useEffect(() => {
     if (votesData) {
-      votesData?.votes?.answerVotesPercentage?.map((row, i) => {
-        const answerCount = `answer_${i + 1}_count`;
-        setGlobalResults(...globalResults, {
-          name: `Opción ${i + 1}`,
-          votes: row[answerCount]
-        });
-
-        return globalResults;
-      });
+      const newState = votesData?.votes?.answerVotesPercentage?.map(
+        (row, i) => {
+          const answerCount = `answer_${i + 1}_count`;
+          const newRow = {
+            name: `Opción ${i + 1}`,
+            votes: row[answerCount]
+          };
+          return newRow;
+        }
+      );
+      setGlobalResults(newState);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [votesData, votesData?.votes?.answerVotesPercentage]);
+  }, [votesData]);
 
   return (
     <div className="groupDetailWrapper">
-      {console.log(globalResults)}
       {!votesData && !globalResults && (
         <div className="loadingState">
           <Box
@@ -78,8 +78,8 @@ function GroupDetail() {
           <h2 className="title">Resultados individuales</h2>
           <div className="linksContainer">
             {votesData?.polls?.map((poll) => (
-              <Link to={`/admin/poll-details/${poll._id}`}>
-                <h3 className="linkToPoll">{poll.question_name}</h3>
+              <Link key={poll?._id} to={`/admin/poll-details/${poll?._id}`}>
+                <h3 className="linkToPoll">{poll?.question_name}</h3>
               </Link>
             ))}
           </div>
