@@ -3,7 +3,7 @@ import { auth } from './auth';
 
 export const Login = (data) =>
   axios
-    .post('https://luzutv-api.herokuapp.com/public/login', data)
+    .post(`${process.env.REACT_APP_API_URL}/public/login`, data)
     .then((response) => response)
     .catch((error) => error);
 
@@ -14,13 +14,13 @@ export const pollPost = async (data) => {
   };
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/admin/poll',
+      `${process.env.REACT_APP_API_URL}/admin/poll`,
       data,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -31,13 +31,13 @@ export const pollPut = async (data) => {
   };
   try {
     const response = await axios.put(
-      'https://luzutv-api.herokuapp.com/admin/poll',
+      `${process.env.REACT_APP_API_URL}/admin/poll`,
       data,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -48,13 +48,13 @@ export const pollPostExtraOption = async (data) => {
   };
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/admin/poll/answer',
+      `${process.env.REACT_APP_API_URL}/admin/poll/answer`,
       data,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -65,7 +65,7 @@ export const allPollsPost = async () => {
   };
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/admin/polls',
+      `${process.env.REACT_APP_API_URL}/admin/polls`,
       {
         filters: {}
       },
@@ -73,7 +73,7 @@ export const allPollsPost = async () => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -84,12 +84,12 @@ export const getActivePoll = async () => {
   };
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/public/active-polls',
+      `${process.env.REACT_APP_API_URL}/public/active-polls`,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -100,12 +100,12 @@ export const adminActivePoll = async () => {
   };
   try {
     const response = await axios.get(
-      'https://luzutv-api.herokuapp.com/admin/active-polls',
+      `${process.env.REACT_APP_API_URL}/admin/active-polls`,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -116,12 +116,12 @@ export const getGroups = async () => {
   };
   try {
     const response = await axios.get(
-      'https://luzutv-api.herokuapp.com/admin/groups',
+      `${process.env.REACT_APP_API_URL}/admin/groups`,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -137,12 +137,12 @@ export const deletePoll = async (reqData) => {
 
   try {
     const response = await axios.delete(
-      'https://luzutv-api.herokuapp.com/admin/poll',
+      `${process.env.REACT_APP_API_URL}/admin/poll`,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -164,12 +164,12 @@ export const deleteOption = async (optionId) => {
 
   try {
     const response = await axios.delete(
-      'https://luzutv-api.herokuapp.com/admin/poll',
+      `${process.env.REACT_APP_API_URL}/admin/poll`,
       config
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -180,7 +180,7 @@ export const getPollById = async (pollId) => {
   };
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/admin/poll/id',
+      `${process.env.REACT_APP_API_URL}/admin/poll/id`,
       {
         question_id: pollId
       },
@@ -188,16 +188,16 @@ export const getPollById = async (pollId) => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 export const vote = (data) => {
   axios
-    .post('https://luzutv-api.herokuapp.com/public/vote', data)
+    .post(`${process.env.REACT_APP_API_URL}/public/vote`, data)
     .then((response) => response.data)
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -209,7 +209,7 @@ export const calculateVotes = async (questions) => {
 
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/admin/calculate-votes',
+      `${process.env.REACT_APP_API_URL}/admin/calculate-votes`,
       questions,
       config
     );
@@ -227,7 +227,7 @@ export const uploadImage = async (body) => {
 
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/admin/upload-images',
+      `${process.env.REACT_APP_API_URL}/admin/upload-images`,
       body,
       config
     );
@@ -244,7 +244,7 @@ export const allPollsPostWithoutGroups = async () => {
   };
   try {
     const response = await axios.post(
-      'https://luzutv-api.herokuapp.com/admin/all-polls',
+      `${process.env.REACT_APP_API_URL}/admin/all-polls`,
       {
         filters: {}
       },
@@ -252,6 +252,22 @@ export const allPollsPostWithoutGroups = async () => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  }
+};
+
+export const getImages = async (image) => {
+  const token = auth.getData();
+  const config = {
+    headers: { token }
+  };
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/public/get-image/${image}`,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
 };

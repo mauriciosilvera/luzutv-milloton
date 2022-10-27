@@ -12,7 +12,7 @@ function Form(props) {
   const [password, setPassword] = useState();
   const [error, setError] = useState();
   const isAuth = auth?.isAuthenticated;
-  const formMessage = recovery ? 'Enviar Pin' : 'Iniciar Sesion';
+  const formMessage = recovery ? 'Enviar Pin' : 'Iniciar Sesión';
 
   useEffect(() => {
     if (isAuth) {
@@ -55,49 +55,28 @@ function Form(props) {
   return (
     <div className="formWrapper">
       <div className="CTAcontainer">
-        {recovery ? (
-          <div className="inputsContainer">
-            <TextField
-              className="formInput"
-              autoFocus
-              type="text"
-              placeholder="Email"
-              onChange={handleEmail}
-              required
-            />
-            <TextField
-              className="formInput"
-              type="password"
-              placeholder="Pin"
-              onChange={handlePassword}
-              required
-            />
-            <Link to="/admin/password-recovery">
-              <span className="passwordRecovery">Reenviar codigo</span>
-            </Link>
-          </div>
-        ) : (
-          <div className="inputsContainer">
-            <TextField
-              className="formInput"
-              autoFocus
-              type="text"
-              placeholder="Email"
-              onChange={handleEmail}
-              required
-            />
-            <TextField
-              className="formInput"
-              type="password"
-              placeholder="Contraseña"
-              onChange={handlePassword}
-              required
-            />
-            <Link to="/admin/password-recovery">
-              <span className="passwordRecovery">Recuperar contraseña</span>
-            </Link>
-          </div>
-        )}
+        <div className="inputsContainer">
+          <TextField
+            className="formInput"
+            autoFocus
+            type="text"
+            placeholder="Email"
+            onChange={handleEmail}
+            required
+          />
+          <TextField
+            className="formInput"
+            type="password"
+            placeholder={recovery ? 'Pin' : 'Contraseña'}
+            onChange={handlePassword}
+            required
+          />
+          <Link to="/admin/password-recovery">
+            <span className="passwordRecovery">
+              {recovery ? 'Reenviar código' : 'Recuperar contraseña'}
+            </span>
+          </Link>
+        </div>
         <Button
           variant="contained"
           className="formButton"

@@ -13,14 +13,7 @@ import {
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
 import { ResponsiveBar } from '@nivo/bar';
-import {
-  pollPost,
-  getPollById,
-  getGroups,
-  pollPut,
-  pollPostExtraOption,
-  deleteOption
-} from '../../util/Requests';
+import { pollPost, getPollById, getGroups, pollPut } from '../../util/Requests';
 
 function PollDetail() {
   const { pollId } = useParams();
@@ -34,10 +27,9 @@ function PollDetail() {
   const [selectedGroup, setSelectedGroup] = useState('');
   const [selectedQuestion, setSelectedQuestion] = useState('');
   const [selectedOptions, setSelectedOptions] = useState([
-    { id: 0, answer_name: '' },
-    { id: 1, answer_name: '' }
+    { _id: 0, answer_name: '' },
+    { _id: 1, answer_name: '' }
   ]);
-  const [editExtraAnswer, setEditExtraAnswer] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -66,11 +58,8 @@ function PollDetail() {
   const handleAddOption = () => {
     setSelectedOptions([
       ...selectedOptions,
-      { id: selectedOptions?.length, answer_name: '' }
+      { _id: selectedOptions?.length, answer_name: '' }
     ]);
-    if (isEditMode) {
-      setEditExtraAnswer(true);
-    }
   };
 
   const handleChangeOption = (id, e) => {
@@ -85,16 +74,13 @@ function PollDetail() {
     setSelectedOptions(newArray);
   };
 
-  const handleDeleteOption = (id, e) => {
+  const handleDeleteOption = (id) => {
     const values = [...selectedOptions];
     if (values?.length > 2) {
       values?.splice(
-        values?.findIndex((value) => value?.id === e?.currentTarget?.value),
+        values?.findIndex((value) => value?._id === id),
         1
       );
-      if (isEditMode) {
-        deleteOption(id);
-      }
       setSelectedOptions(values);
     }
   };
@@ -135,7 +121,7 @@ function PollDetail() {
   };
 
   const handleSubmit = async (e) => {
-    const extraOptions = [...selectedOptions];
+    e.preventDefault();
 
     const postData = [
       {
@@ -157,25 +143,19 @@ function PollDetail() {
           question_name: selectedQuestion,
           group_id: selectedGroup?._id
         },
-        answers: selectedOptions?.map((option) => ({
-          id: option?._id,
-          answer_name: option?.answer_name
-        }))
+        answers: selectedOptions?.map((option) => {
+          if (option?._id?.length > 10) {
+            return { id: option?._id, answer_name: option?.answer_name };
+          }
+          return { answer_name: option?.answer_name };
+        })
       }
     ];
-
-    const putExtraOption = {
-      question_id: selectedPoll?._id,
-      answers: extraOptions?.splice(selectedPoll?.answers?.length)
-    };
 
     e?.preventDefault();
 
     if (isEditMode) {
       await pollPut(putData);
-      if (editExtraAnswer) {
-        await pollPostExtraOption(putExtraOption);
-      }
     } else {
       await pollPost(postData);
     }
@@ -185,6 +165,24 @@ function PollDetail() {
   const totalVotes = selectedPoll?.answers?.reduce(
     (accumulator, option) => accumulator + option.voteCount,
     0
+  );
+
+  const buildTooltip = (answer) => (
+    <div
+      style={{
+        padding: 12,
+        color: '#fff',
+        background: '#222222'
+      }}
+    >
+      <strong
+        style={{
+          fontSize: '14px'
+        }}
+      >
+        {answer.answer_name}: {answer.voteCount}
+      </strong>
+    </div>
   );
 
   return (
@@ -217,7 +215,6 @@ function PollDetail() {
                 >{`Votos Totales: ${totalVotes}`}</Typography>
               )}
             </div>
-
             {selectedPoll && !isEditMode ? (
               <>
                 {totalVotes !== 0 ? (
@@ -232,12 +229,12 @@ function PollDetail() {
                       valueScale={{ type: 'linear' }}
                       indexScale={{ type: 'band', round: true }}
                       colors={{ scheme: 'pastel1' }}
-                      labelSkipHeight={1}
+                      tooltip={(data) => buildTooltip(data.data)}
                     />
                   </div>
                 ) : (
                   <div className="pollWithoutVotesMessage">
-                    Esta encuesta aun no ha recibido votos.{' '}
+                    Esta encuesta aún no ha recibido votos.{' '}
                   </div>
                 )}
                 <div className="activateButton">
@@ -306,7 +303,7 @@ function PollDetail() {
                       />
                       {id >= 2 && (
                         <IconButton
-                          onClick={(e) => handleDeleteOption(option?._id, e)}
+                          onClick={() => handleDeleteOption(option?._id)}
                           value={id}
                         >
                           <DeleteIcon />

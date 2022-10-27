@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { auth } from '../../util/auth';
-import Logo from '../../public/luzu.png';
+import { getImages } from '../../util/Requests';
 
 import './Header.css';
 
 function Header(props) {
-  const { isSideBarOpen, setIsSideBarOpen } = props;
-
+  const { isSideBarOpen, setIsSideBarOpen, imageHasChanged } = props;
+  const [logo, setLogo] = useState();
   const hideButtons = !auth?.isAuthenticated;
+
+  useEffect(() => {
+    getImages('luzuLogo').then((image) => setLogo(image.imageUrl));
+  }, [imageHasChanged]);
 
   const handleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen);
@@ -27,7 +31,7 @@ function Header(props) {
       </div>
       <div className="header-logosContainer">
         <Link to="/">
-          <img className="header-logo" src={Logo} alt="Luzu TV Logo" />
+          <img className="header-logo" src={logo} alt="Luzu TV Logo" />
         </Link>
       </div>
       <div className="emptyDiv" />
