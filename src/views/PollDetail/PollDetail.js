@@ -30,6 +30,7 @@ function PollDetail() {
     { _id: 0, answer_name: '' },
     { _id: 1, answer_name: '' }
   ]);
+  const [graphData, setGraphData] = useState();
 
   useEffect(() => {
     let mounted = true;
@@ -52,6 +53,15 @@ function PollDetail() {
       setSelectedQuestion(selectedPoll?.question_name);
       setSelectedOptions(selectedPoll?.answers);
       setIsActive(selectedPoll?.is_active);
+      const newGroupData = selectedPoll?.answers?.map((answer) => ({
+        option: answer?.answer_name,
+        voteCount: answer?.voteCount,
+        display:
+          answer?.answer_name.length > 6
+            ? `${answer?.answer_name.slice(0, 4)}...`
+            : answer?.answer_name
+      }));
+      setGraphData(newGroupData);
     }
   }, [selectedPoll]);
 
@@ -180,7 +190,7 @@ function PollDetail() {
           fontSize: '14px'
         }}
       >
-        {answer.answer_name}: {answer.voteCount}
+        {answer?.option}: {answer?.voteCount}
       </strong>
     </div>
   );
@@ -220,16 +230,23 @@ function PollDetail() {
                 {totalVotes !== 0 ? (
                   <div style={{ height: '60%' }}>
                     <ResponsiveBar
-                      data={selectedPoll?.answers}
+                      data={graphData}
                       keys={['voteCount']}
-                      indexBy="answer_name"
+                      indexBy="display"
                       margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
                       minValue="0"
                       padding={0.4}
                       valueScale={{ type: 'linear' }}
                       indexScale={{ type: 'band', round: true }}
                       colors={{ scheme: 'pastel1' }}
-                      tooltip={(data) => buildTooltip(data.data)}
+                      tooltip={(data) => buildTooltip(data?.data)}
+                      axisBottom={{
+                        tickSize: 0,
+                        tickPadding: 10,
+                        tickRotation: 0,
+                        legendPosition: 'middle',
+                        legendOffset: 0
+                      }}
                     />
                   </div>
                 ) : (

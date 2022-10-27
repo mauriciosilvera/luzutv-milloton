@@ -35,6 +35,24 @@ function GroupDetail() {
     }
   }, [votesData]);
 
+  const buildTooltip = (answer) => (
+    <div
+      style={{
+        padding: 12,
+        color: '#fff',
+        background: '#222222'
+      }}
+    >
+      <strong
+        style={{
+          fontSize: '14px'
+        }}
+      >
+        {answer.name}: {answer.votes}
+      </strong>
+    </div>
+  );
+
   return (
     <div className="groupDetailWrapper">
       {!votesData && !globalResults && (
@@ -73,6 +91,14 @@ function GroupDetail() {
               indexScale={{ type: 'band', round: true }}
               colors={{ scheme: 'pastel1' }}
               labelSkipHeight={1}
+              tooltip={(data) => buildTooltip(data.data)}
+              axisBottom={{
+                tickSize: 0,
+                tickPadding: 5,
+                tickRotation: 0,
+                legendPosition: 'middle',
+                legendOffset: 32
+              }}
             />
           </div>
           <h2 className="title">Resultados individuales</h2>
