@@ -11,7 +11,6 @@ import FallBackView from './views/FallBackView';
 import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
 import GroupDetail from './views/GroupDetail/GroupDetail';
-import Footer from './components/Footer/Footer';
 import ImageManagement from './views/Images/ImageManagement';
 
 function App() {
@@ -93,7 +92,6 @@ function App() {
           <Route path="*" element={<FallBackView />} />
         </Routes>
       </div>
-      <Footer imageHasChanged={imageHasChanged} />
     </div>
   );
 }
