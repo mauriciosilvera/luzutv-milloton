@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 import PollOption from '../../components/PollOption/PollOption';
-import { getActivePoll, vote } from '../../util/Requests';
+import { getActivePoll, vote, getIPAddress } from '../../util/Requests';
 import './Home.css';
 
 function Home() {
   const [selectedOption, setSelectedOption] = useState();
   const [activePoll, setActivePoll] = useState();
+  const [ipAddress, setIpAddress] = useState();
 
   useEffect(() => {
     getActivePoll().then((poll) => {
       setActivePoll(poll);
     });
+    getIPAddress().then((ip) => {
+      setIpAddress(ip);
+    });
   }, []);
 
-  const handleVote = (answer) => {
+  const handleVote = async (answer) => {
     setSelectedOption(answer);
 
     const data = {
+      ip_address: ipAddress,
       answerVote: {
         _id: answer?._id
       }
     };
-    vote(data);
+    console.log(data);
+    const res = await vote(data);
+    console.log(res);
   };
 
   return (

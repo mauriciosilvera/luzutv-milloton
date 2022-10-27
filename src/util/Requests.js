@@ -192,13 +192,23 @@ export const getPollById = async (pollId) => {
   }
 };
 
-export const vote = (data) => {
-  axios
-    .post(`${process.env.REACT_APP_API_URL}/public/vote`, data)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error(error);
-    });
+export const vote = async (data) => {
+  // axios
+  //   .post(`${process.env.REACT_APP_API_URL}/public/vote`, data)
+  //   .then((response) => console.log(response))
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/public/vote`,
+      data
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const calculateVotes = async (questions) => {
@@ -267,6 +277,15 @@ export const getImages = async (image) => {
       config
     );
     return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getIPAddress = async () => {
+  try {
+    const response = await axios.get(`https://geolocation-db.com/json/`);
+    return response.data.IPv4;
   } catch (error) {
     console.error(error);
   }
