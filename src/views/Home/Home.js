@@ -33,10 +33,12 @@ function Home() {
         </Box>
       )}
 
-      {activePoll && activePoll?.message && <div>{activePoll.message}</div>}
+      {activePoll && activePoll?.message && (
+        <div className="votesMessage">{activePoll.message}</div>
+      )}
 
       {activePoll?.length && selectedOption ? (
-        <div>Muchas gracias por tu voto!</div>
+        <div className="votesMessage">¡Muchas gracias por tu voto!</div>
       ) : (
         <>
           <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
