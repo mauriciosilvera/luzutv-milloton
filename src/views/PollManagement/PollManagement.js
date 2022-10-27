@@ -105,9 +105,6 @@ function PollManagement() {
       {data && (
         <>
           <h1 className="pollTitle">Encuestas</h1>
-          <div className="searchContainer">
-            <input type="text" placeholder="Buscar.." className="search" />
-          </div>
           <div className="pollsWrapper">
             {data?.map((question) => (
               <div key={question?._id} className="pollCard">
