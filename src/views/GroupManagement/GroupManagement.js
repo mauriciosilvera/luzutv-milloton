@@ -262,7 +262,7 @@ function GroupManagement() {
                 onChange={(e) => setGroupName(e.target.value)}
               />
               <IconButton onClick={() => handleAddEmission(groupName)}>
-                <CheckIcon sx={{ color: 'green' }} />
+                <CheckIcon sx={{ color: '#198754' }} />
               </IconButton>
               <IconButton onClick={() => setAdd(false)}>
                 <ClearIcon sx={{ color: 'red' }} />
