@@ -129,7 +129,15 @@ function GroupManagement() {
   return (
     <div className={`groupManagementWrapper ${!data ? 'loading' : ''}`}>
       {!data && (
-        <Box sx={{ display: 'flex' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <CircularProgress />
         </Box>
       )}

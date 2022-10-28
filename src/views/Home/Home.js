@@ -28,7 +28,15 @@ function Home() {
   return (
     <div className="homeWrapper">
       {!activePoll && (
-        <Box sx={{ display: 'flex' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <CircularProgress />
         </Box>
       )}

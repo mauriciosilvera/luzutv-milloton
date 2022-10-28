@@ -56,17 +56,17 @@ function GroupDetail() {
   return (
     <div className="groupDetailWrapper">
       {!votesData && !globalResults && (
-        <div className="loadingState">
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        </div>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <CircularProgress />
+        </Box>
       )}
 
       {votesData && globalResults && (
