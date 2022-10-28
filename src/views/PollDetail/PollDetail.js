@@ -198,11 +198,17 @@ function PollDetail() {
   return (
     <div className="pollDetailWrapper">
       {!selectedPoll && pollId !== 'new' && (
-        <div className="loadingState">
-          <Box sx={{ display: 'flex' }}>
-            <CircularProgress />
-          </Box>
-        </div>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <CircularProgress />
+        </Box>
       )}
       {(selectedPoll || pollId === 'new') && (
         <div className="pollFormBox">
@@ -251,7 +257,7 @@ function PollDetail() {
                   </div>
                 ) : (
                   <div className="pollWithoutVotesMessage">
-                    Esta encuesta aún no ha recibido votos.{' '}
+                    Esta encuesta aún no ha recibido votos.
                   </div>
                 )}
                 <div className="activateButton">

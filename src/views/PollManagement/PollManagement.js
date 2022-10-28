@@ -80,7 +80,15 @@ function PollManagement() {
       }`}
     >
       {!activePoll && !data && (
-        <Box sx={{ display: 'flex' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <CircularProgress />
         </Box>
       )}
@@ -96,6 +104,7 @@ function PollManagement() {
               type="submit"
               variant="outlined"
               color="error"
+              sx={{ width: '300px', height: '35px' }}
             >
               Finalizar encuesta activa
             </Button>

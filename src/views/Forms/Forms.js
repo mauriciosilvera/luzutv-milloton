@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Login } from '../../util/Requests';
 import { auth } from '../../util/auth';
 import './Form.css';
@@ -53,7 +53,7 @@ function Form(props) {
   };
 
   return (
-    <div className="formWrapper">
+    <form className="formWrapper" onSubmit={handleSubmit}>
       <div className="CTAcontainer">
         <div className="inputsContainer">
           <TextField
@@ -71,22 +71,13 @@ function Form(props) {
             onChange={handlePassword}
             required
           />
-          <Link to="/admin/password-recovery">
-            <span className="passwordRecovery">
-              {recovery ? 'Reenviar código' : 'Recuperar contraseña'}
-            </span>
-          </Link>
         </div>
-        <Button
-          variant="contained"
-          className="formButton"
-          onClick={handleSubmit}
-        >
+        <Button variant="contained" type="submit" className="formButton">
           {formMessage}
         </Button>
         <span className="error"> {error || null} </span>
       </div>
-    </div>
+    </form>
   );
 }
 
