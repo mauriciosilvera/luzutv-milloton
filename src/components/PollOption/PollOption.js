@@ -15,7 +15,7 @@ function PollOption(props) {
       onClick={handleClick}
     >
       <div className="titleBox">
-        <span className="title">{option?.answer_name}</span>
+        <span className="pollTitleBox">{option?.answer_name}</span>
       </div>
     </div>
   );

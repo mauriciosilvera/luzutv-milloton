@@ -38,6 +38,13 @@
   justify-content: center;
 }
 
+.pollTitle{
+  padding: 5px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .pollIcon {
   font-size: 25px;
   cursor: pointer;
