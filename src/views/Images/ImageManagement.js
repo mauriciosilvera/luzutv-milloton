@@ -6,44 +6,70 @@ import './ImageManagement.css';
 
 function ImageManagement(props) {
   const { setImageHasChanged, imageHasChanged } = props;
-  const formData = new FormData();
   const [successMessage, setSuccessMessage] = useState();
   const [errorMessage, setErrorMessage] = useState();
-  const [logo, setLogo] = useState();
-  const [sponsorOne, setSponsorOne] = useState();
-  const [sponsorTwo, setSponsorTwo] = useState();
-  const [sponsorThree, setSponsorThree] = useState();
-  const [sponsorFour, setSponsorFour] = useState();
+  const [logoName, setLogoName] = useState();
+  const [sponsorOneName, setSponsorOneName] = useState();
+  const [sponsorTwoName, setSponsorTwoName] = useState();
+  const [sponsorThreeName, setSponsorThreeName] = useState();
+  const [sponsorFourName, setSponsorFourName] = useState();
+  const [logoImg, setLogoImg] = useState();
+  const [sponsorOneImg, setSponsorOneImg] = useState();
+  const [sponsorTwoImg, setSponsorTwoImg] = useState();
+  const [sponsorThreeImg, setSponsorThreeImg] = useState();
+  const [sponsorFourImg, setSponsorFourImg] = useState();
 
-  const handleUploadImage = (event) => {
-    setLogo(event.target.files[0].name);
-    formData.append('luzuLogo', event.target.files[0]);
+  const handleUploadLogo = (event) => {
+    setLogoName(event.target.files[0].name);
+    setLogoImg(event.target.files[0]);
   };
 
   const handleUploadSponsor1 = (event) => {
-    setSponsorOne(event.target.files[0].name);
-    formData.append('sponsorOne', event.target.files[0]);
+    setSponsorOneName(event.target.files[0].name);
+    setSponsorOneImg(event.target.files[0]);
   };
 
   const handleUploadSponsor2 = (event) => {
-    setSponsorTwo(event.target.files[0].name);
-    formData.append('sponsorTwo', event.target.files[0]);
+    setSponsorTwoName(event.target.files[0].name);
+    setSponsorTwoImg(event.target.files[0]);
   };
 
   const handleUploadSponsor3 = (event) => {
-    setSponsorThree(event.target.files[0].name);
-    formData.append('sponsorThree', event.target.files[0]);
+    setSponsorThreeName(event.target.files[0].name);
+    setSponsorThreeImg(event.target.files[0]);
   };
 
   const handleUploadSponsor4 = (event) => {
-    setSponsorFour(event.target.files[0].name);
-    formData.append('sponsorFour', event.target.files[0]);
+    setSponsorFourName(event.target.files[0].name);
+    setSponsorFourImg(event.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage();
     setSuccessMessage();
+
+    const formData = new FormData();
+
+    if (logoImg) {
+      formData.append('luzuLogo', logoImg);
+    }
+
+    if (sponsorOneImg) {
+      formData.append('sponsorOne', sponsorOneImg);
+    }
+
+    if (sponsorTwoImg) {
+      formData.append('sponsorTwo', sponsorTwoImg);
+    }
+
+    if (sponsorThreeImg) {
+      formData.append('sponsorThree', sponsorThreeImg);
+    }
+
+    if (sponsorFourImg) {
+      formData.append('sponsorFour', sponsorFourImg);
+    }
 
     const res = await uploadImage(formData);
 
@@ -58,15 +84,15 @@ function ImageManagement(props) {
   return (
     <div className="imageManagementWrapper">
       <h1 className="title">Imágenes</h1>
-      <form onSubmit={(e) => handleSubmit(e)} className="imagesForm">
+      <form className="imagesForm" onSubmit={(e) => handleSubmit(e)}>
         <div className="uploadFileBox">
           <h4>Logo</h4>
           <label
             htmlFor="uploadLogo"
-            className={`uploadButton ${logo ? `imageUploaded` : ''}`}
+            className={`uploadButton ${logoName ? `imageUploaded` : ''}`}
           >
             <CloudUploadIcon />
-            <span> {logo || `Seleccionar imagen`}</span>
+            <span> {logoName || `Seleccionar imagen`}</span>
           </label>
           <input
             type="file"
@@ -74,17 +100,17 @@ function ImageManagement(props) {
             id="uploadLogo"
             name="uploadLogo"
             accept="image/*"
-            onChange={(e) => handleUploadImage(e)}
+            onChange={(e) => handleUploadLogo(e)}
           />
         </div>
         <div className="uploadFileBox">
           <h4>1° Sponsor</h4>
           <label
             htmlFor="uploadSponsorOne"
-            className={`uploadButton ${sponsorOne ? `imageUploaded` : ''}`}
+            className={`uploadButton ${sponsorOneName ? `imageUploaded` : ''}`}
           >
             <CloudUploadIcon />
-            <span> {sponsorOne || `Seleccionar imagen`}</span>
+            <span> {sponsorOneName || `Seleccionar imagen`}</span>
           </label>
           <input
             type="file"
@@ -99,10 +125,10 @@ function ImageManagement(props) {
           <h4>2° Sponsor</h4>
           <label
             htmlFor="uploadSponsorTwo"
-            className={`uploadButton ${sponsorTwo ? `imageUploaded` : ''}`}
+            className={`uploadButton ${sponsorTwoName ? `imageUploaded` : ''}`}
           >
             <CloudUploadIcon />
-            <span> {sponsorTwo || `Seleccionar imagen`}</span>
+            <span> {sponsorTwoName || `Seleccionar imagen`}</span>
           </label>
           <input
             type="file"
@@ -117,10 +143,12 @@ function ImageManagement(props) {
           <h4>3° Sponsor</h4>
           <label
             htmlFor="uploadSponsorThree"
-            className={`uploadButton ${sponsorThree ? `imageUploaded` : ''}`}
+            className={`uploadButton ${
+              sponsorThreeName ? `imageUploaded` : ''
+            }`}
           >
             <CloudUploadIcon />
-            <span> {sponsorThree || `Seleccionar imagen`}</span>
+            <span> {sponsorThreeName || `Seleccionar imagen`}</span>
           </label>
           <input
             type="file"
@@ -135,10 +163,10 @@ function ImageManagement(props) {
           <h4>4° Sponsor</h4>
           <label
             htmlFor="uploadSponsorFour"
-            className={`uploadButton ${sponsorFour ? `imageUploaded` : ''}`}
+            className={`uploadButton ${sponsorFourName ? `imageUploaded` : ''}`}
           >
             <CloudUploadIcon />
-            <span> {sponsorFour || `Seleccionar imagen`}</span>
+            <span> {sponsorFourName || `Seleccionar imagen`}</span>
           </label>
           <input
             type="file"
@@ -152,8 +180,8 @@ function ImageManagement(props) {
         <Button
           variant="outlined"
           color="success"
+          type="submit"
           sx={{ marginTop: '15px', width: '50%' }}
-          onClick={handleSubmit}
         >
           Cargar
         </Button>
