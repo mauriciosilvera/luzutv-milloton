@@ -104,6 +104,7 @@ function PollManagement() {
               type="submit"
               variant="outlined"
               color="error"
+              sx={{ width: '300px', height: '35px' }}
             >
               Finalizar encuesta activa
             </Button>
