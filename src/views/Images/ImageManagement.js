@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { uploadImage } from '../../util/Requests';
 import './ImageManagement.css';
 
@@ -50,8 +51,15 @@ function ImageManagement(props) {
       <form onSubmit={(e) => handleSubmit(e)} className="imagesForm">
         <div className="uploadFileBox">
           <h4>Logo</h4>
+          <label htmlFor="uploadLogo">
+            <CloudUploadIcon />
+            <span> Seleccionar imagen</span>
+          </label>
           <input
             type="file"
+            className="hidden"
+            id="uploadLogo"
+            name="uploadLogo"
             accept="image/*"
             onChange={(e) => handleUploadImage(e)}
           />
