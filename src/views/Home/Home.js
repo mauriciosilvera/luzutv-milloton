@@ -16,15 +16,16 @@ function Home() {
     };
 
     getIp();
-  }, []);
+  }, [ipAddress]);
 
   useEffect(() => {
-    const getPoll = async () => {
-      const poll = await getActivePoll(ipAddress);
-      setActivePoll(poll);
-    };
-
-    getPoll();
+    if (ipAddress) {
+      const getPoll = async () => {
+        const poll = await getActivePoll(ipAddress);
+        setActivePoll(poll);
+      };
+      getPoll();
+    }
   }, [ipAddress]);
 
   const handleVote = async (answer) => {
