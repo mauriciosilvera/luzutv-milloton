@@ -77,7 +77,7 @@ export const allPollsPost = async () => {
   }
 };
 
-export const getActivePoll = async () => {
+export const getActivePoll = async (ip) => {
   const token = auth.getData();
   const config = {
     headers: { token }
@@ -85,6 +85,9 @@ export const getActivePoll = async () => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/public/active-polls`,
+      {
+        ip_address: ip
+      },
       config
     );
     return response.data;
@@ -193,13 +196,6 @@ export const getPollById = async (pollId) => {
 };
 
 export const vote = async (data) => {
-  // axios
-  //   .post(`${process.env.REACT_APP_API_URL}/public/vote`, data)
-  //   .then((response) => console.log(response))
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/public/vote`,

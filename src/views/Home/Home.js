@@ -10,13 +10,22 @@ function Home() {
   const [ipAddress, setIpAddress] = useState();
 
   useEffect(() => {
-    getActivePoll().then((poll) => {
-      setActivePoll(poll);
-    });
-    getIPAddress().then((ip) => {
+    const getIp = async () => {
+      const ip = await getIPAddress();
       setIpAddress(ip);
-    });
+    };
+
+    getIp();
   }, []);
+
+  useEffect(() => {
+    const getPoll = async () => {
+      const poll = await getActivePoll(ipAddress);
+      setActivePoll(poll);
+    };
+
+    getPoll();
+  }, [ipAddress]);
 
   const handleVote = async (answer) => {
     setSelectedOption(answer);
@@ -27,26 +36,35 @@ function Home() {
         _id: answer?._id
       }
     };
-    console.log(data);
-    const res = await vote(data);
-    console.log(res);
+
+    await vote(data);
   };
 
   return (
     <div className="homeWrapper">
-      {!activePoll && (
-        <Box sx={{ display: 'flex' }}>
+      {!activePoll && !ipAddress && (
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <CircularProgress />
         </Box>
+      )}
+
+      {selectedOption && (
+        <div className="votesMessage">¡Muchas gracias por tu voto!</div>
       )}
 
       {activePoll && activePoll?.message && (
         <div className="votesMessage">{activePoll.message}</div>
       )}
 
-      {activePoll?.length && selectedOption ? (
-        <div className="votesMessage">¡Muchas gracias por tu voto!</div>
-      ) : (
+      {!selectedOption && !activePoll?.message && (
         <>
           <h2 className="questionTitle">{activePoll?.[0]?.question_name}</h2>
           <div className="answersWrapper">
