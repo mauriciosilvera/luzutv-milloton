@@ -39,6 +39,12 @@
     text-decoration: none;
 }
 
+.groupWithoutVotesMessage{
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+  }
+
 @media (max-width: 780px) {
     .globalResultsGraphContainer{
         width: 90%;

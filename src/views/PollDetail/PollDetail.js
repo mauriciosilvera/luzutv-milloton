@@ -257,7 +257,7 @@ function PollDetail() {
                   </div>
                 ) : (
                   <div className="pollWithoutVotesMessage">
-                    Esta encuesta aún no ha recibido votos.{' '}
+                    Esta encuesta aún no ha recibido votos.
                   </div>
                 )}
                 <div className="activateButton">

@@ -69,7 +69,7 @@ function GroupDetail() {
         </Box>
       )}
 
-      {votesData && globalResults && (
+      {votesData && globalResults && votesData?.votes?.totalVotes > 0 ? (
         <>
           <div className="groupTitleBox">
             <h1 className="title white"> {votesData?.group?.group_name}</h1>
@@ -108,6 +108,15 @@ function GroupDetail() {
                 <h3 className="linkToPoll">{poll?.question_name}</h3>
               </Link>
             ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="groupTitleBox">
+            <h1 className="title white"> {votesData?.group?.group_name}</h1>
+          </div>
+          <div className="groupWithoutVotesMessage">
+            Este grupo aún no ha recibido votos.
           </div>
         </>
       )}
