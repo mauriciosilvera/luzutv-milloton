@@ -215,7 +215,7 @@ function PollDetail() {
           <form className="pollForm" onSubmit={handleSubmit}>
             <div className="pollTitleBox">
               <div className="pollTitle">
-                <h2 className="title white">{`${
+                <h2 className="white">{`${
                   selectedPoll ? selectedPoll?.question_name : 'Nueva encuesta'
                 }`}</h2>
                 {selectedPoll && !isActive && (

@@ -94,7 +94,7 @@ function PollManagement() {
       )}
       {isActive && (
         <>
-          <h1 className="pollTitle">Encuesta activa</h1>
+          <h1 className="title">Encuesta activa</h1>
           <div key={activePoll[0]._id} className="activePollCard">
             <PollCard activePoll question={activePoll[0]} />
             <Button
@@ -113,7 +113,7 @@ function PollManagement() {
       )}
       {data && (
         <>
-          <h1 className="pollTitle">Encuestas</h1>
+          <h1 className="title">Encuestas</h1>
           <div className="pollsWrapper">
             {data?.map((question) => (
               <div key={question?._id} className="pollCard">

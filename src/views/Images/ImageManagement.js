@@ -46,7 +46,7 @@ function ImageManagement(props) {
 
   return (
     <div className="imageManagementWrapper">
-      <h1 className="pollTitle">Imágenes</h1>
+      <h1 className="title">Imágenes</h1>
       <form onSubmit={(e) => handleSubmit(e)} className="imagesForm">
         <div className="uploadFileBox">
           <h4>Logo</h4>
