@@ -27,8 +27,8 @@
 
 .pollCardWrapper.create {
   justify-content: center;
-  color: green;
-  border: 1px solid green;
+  color: #198754;
+  border: 1px solid #198754;
 }
 
 .pollCardTitle {

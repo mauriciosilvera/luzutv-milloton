@@ -65,7 +65,7 @@
 .addGroupButton{
   width: 400px;
   min-height: 60px;
-  border: 1px solid green;
+  border: 1px solid #198754;
   border-radius: 10px;
   cursor: pointer;
   display: flex;
@@ -73,7 +73,7 @@
   align-items: center;
   text-decoration: none;
   margin: 5px;
-  color: green;
+  color: #198754;
 }
 
 .groupLink{
