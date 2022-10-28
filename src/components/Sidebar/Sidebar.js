@@ -32,6 +32,9 @@ function Sidebar(props) {
           <Link to="/admin/image-management">
             <div className="sideBar-Option">Imágenes</div>
           </Link>
+          <Link to="/admin/poll-results">
+            <div className="sideBar-Option">Resultados</div>
+          </Link>
         </div>
 
         <div

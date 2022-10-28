@@ -76,6 +76,8 @@ function ImageManagement(props) {
 
     const res = await uploadImage(formData);
 
+    console.log(res);
+
     if (res?.data.length) {
       setSuccessMessage('Imágenes cargadas exitosamente');
       setImageHasChanged(!imageHasChanged);
