@@ -13,35 +13,61 @@ function ImageManagement(props) {
   const [sponsorTwoName, setSponsorTwoName] = useState();
   const [sponsorThreeName, setSponsorThreeName] = useState();
   const [sponsorFourName, setSponsorFourName] = useState();
-  const [logoImg, setLogoImg] = useState();
-  const [sponsorOneImg, setSponsorOneImg] = useState();
-  const [sponsorTwoImg, setSponsorTwoImg] = useState();
-  const [sponsorThreeImg, setSponsorThreeImg] = useState();
-  const [sponsorFourImg, setSponsorFourImg] = useState();
+  const [imagesArray, setImagesArray] = useState([]);
 
   const handleUploadLogo = (event) => {
     setLogoName(event.target.files[0].name);
-    setLogoImg(event.target.files[0]);
+    setImagesArray([
+      ...imagesArray,
+      {
+        name: 'luzuLogo',
+        img: event.target.files[0]
+      }
+    ]);
   };
 
   const handleUploadSponsor1 = (event) => {
     setSponsorOneName(event.target.files[0].name);
-    setSponsorOneImg(event.target.files[0]);
+    setImagesArray([
+      ...imagesArray,
+      {
+        name: 'sponsorOne',
+        img: event.target.files[0]
+      }
+    ]);
   };
 
   const handleUploadSponsor2 = (event) => {
     setSponsorTwoName(event.target.files[0].name);
-    setSponsorTwoImg(event.target.files[0]);
+    setImagesArray([
+      ...imagesArray,
+      {
+        name: 'sponsorTwo',
+        img: event.target.files[0]
+      }
+    ]);
   };
 
   const handleUploadSponsor3 = (event) => {
     setSponsorThreeName(event.target.files[0].name);
-    setSponsorThreeImg(event.target.files[0]);
+    setImagesArray([
+      ...imagesArray,
+      {
+        name: 'sponsorThree',
+        img: event.target.files[0]
+      }
+    ]);
   };
 
   const handleUploadSponsor4 = (event) => {
     setSponsorFourName(event.target.files[0].name);
-    setSponsorFourImg(event.target.files[0]);
+    setImagesArray([
+      ...imagesArray,
+      {
+        name: 'sponsorFour',
+        img: event.target.files[0]
+      }
+    ]);
   };
 
   const handleSubmit = async (e) => {
@@ -51,25 +77,7 @@ function ImageManagement(props) {
 
     const formData = new FormData();
 
-    if (logoImg) {
-      formData.append('luzuLogo', logoImg);
-    }
-
-    if (sponsorOneImg) {
-      formData.append('sponsorOne', sponsorOneImg);
-    }
-
-    if (sponsorTwoImg) {
-      formData.append('sponsorTwo', sponsorTwoImg);
-    }
-
-    if (sponsorThreeImg) {
-      formData.append('sponsorThree', sponsorThreeImg);
-    }
-
-    if (sponsorFourImg) {
-      formData.append('sponsorFour', sponsorFourImg);
-    }
+    imagesArray.map((image) => formData.append(image.name, image.img));
 
     const res = await uploadImage(formData);
 
