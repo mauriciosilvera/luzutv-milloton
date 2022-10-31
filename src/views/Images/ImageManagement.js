@@ -8,66 +8,59 @@ function ImageManagement(props) {
   const { setImageHasChanged, imageHasChanged } = props;
   const [successMessage, setSuccessMessage] = useState();
   const [errorMessage, setErrorMessage] = useState();
-  const [logoName, setLogoName] = useState();
-  const [sponsorOneName, setSponsorOneName] = useState();
-  const [sponsorTwoName, setSponsorTwoName] = useState();
-  const [sponsorThreeName, setSponsorThreeName] = useState();
-  const [sponsorFourName, setSponsorFourName] = useState();
-  const [imagesArray, setImagesArray] = useState([]);
+  const [sponsors, setSponsors] = useState({
+    luzuLogo: {
+      fileName: '',
+      file: ''
+    },
+    sponsorOne: {
+      fileName: '',
+      file: ''
+    },
+    sponsorTwo: {
+      fileName: '',
+      file: ''
+    },
+    sponsorThree: {
+      fileName: '',
+      file: ''
+    },
+    sponsorFour: {
+      fileName: '',
+      file: ''
+    }
+  });
 
-  const handleUploadLogo = (event) => {
-    setLogoName(event.target.files[0].name);
-    setImagesArray([
-      ...imagesArray,
-      {
-        name: 'luzuLogo',
-        img: event.target.files[0]
+  const handleUploadImages = (event, type) => {
+    setSponsors((prev) => ({
+      ...prev,
+      [type]: {
+        fileName: event?.target?.files[0]?.name,
+        file: event?.target?.files[0]
       }
-    ]);
+    }));
   };
 
-  const handleUploadSponsor1 = (event) => {
-    setSponsorOneName(event.target.files[0].name);
-    setImagesArray([
-      ...imagesArray,
-      {
-        name: 'sponsorOne',
-        img: event.target.files[0]
-      }
-    ]);
-  };
+  const mapImgNames = (type) => {
+    if (type === 'luzuLogo') {
+      return 'Logo';
+    }
 
-  const handleUploadSponsor2 = (event) => {
-    setSponsorTwoName(event.target.files[0].name);
-    setImagesArray([
-      ...imagesArray,
-      {
-        name: 'sponsorTwo',
-        img: event.target.files[0]
-      }
-    ]);
-  };
+    if (type === 'sponsorOne') {
+      return '1° Sponsor';
+    }
 
-  const handleUploadSponsor3 = (event) => {
-    setSponsorThreeName(event.target.files[0].name);
-    setImagesArray([
-      ...imagesArray,
-      {
-        name: 'sponsorThree',
-        img: event.target.files[0]
-      }
-    ]);
-  };
+    if (type === 'sponsorTwo') {
+      return '2° Sponsor';
+    }
 
-  const handleUploadSponsor4 = (event) => {
-    setSponsorFourName(event.target.files[0].name);
-    setImagesArray([
-      ...imagesArray,
-      {
-        name: 'sponsorFour',
-        img: event.target.files[0]
-      }
-    ]);
+    if (type === 'sponsorThree') {
+      return '3° Sponsor';
+    }
+
+    if (type === 'sponsorFour') {
+      return '4° Sponsor';
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -77,7 +70,9 @@ function ImageManagement(props) {
 
     const formData = new FormData();
 
-    imagesArray.map((image) => formData.append(image.name, image.img));
+    Object.entries(sponsors).map((image) =>
+      formData.append(image?.[0], image?.[1]?.file)
+    );
 
     const res = await uploadImage(formData);
 
@@ -92,112 +87,44 @@ function ImageManagement(props) {
   return (
     <div className="imageManagementWrapper">
       <h1 className="title">Imágenes</h1>
-      <form className="imagesForm" onSubmit={(e) => handleSubmit(e)}>
-        <div className="uploadFileBox">
-          <h4>Logo</h4>
-          <label
-            htmlFor="uploadLogo"
-            className={`uploadButton ${logoName ? `imageUploaded` : ''}`}
-          >
-            <CloudUploadIcon />
-            <span> {logoName || `Seleccionar imagen`}</span>
-          </label>
-          <input
-            type="file"
-            className="hidden"
-            id="uploadLogo"
-            name="uploadLogo"
-            accept="image/*"
-            onChange={(e) => handleUploadLogo(e)}
-          />
-        </div>
-        <div className="uploadFileBox">
-          <h4>1° Sponsor</h4>
-          <label
-            htmlFor="uploadSponsorOne"
-            className={`uploadButton ${sponsorOneName ? `imageUploaded` : ''}`}
-          >
-            <CloudUploadIcon />
-            <span> {sponsorOneName || `Seleccionar imagen`}</span>
-          </label>
-          <input
-            type="file"
-            className="hidden"
-            id="uploadSponsorOne"
-            name="uploadSponsorOne"
-            accept="image/*"
-            onChange={(e) => handleUploadSponsor1(e)}
-          />
-        </div>
-        <div className="uploadFileBox">
-          <h4>2° Sponsor</h4>
-          <label
-            htmlFor="uploadSponsorTwo"
-            className={`uploadButton ${sponsorTwoName ? `imageUploaded` : ''}`}
-          >
-            <CloudUploadIcon />
-            <span> {sponsorTwoName || `Seleccionar imagen`}</span>
-          </label>
-          <input
-            type="file"
-            className="hidden"
-            id="uploadSponsorTwo"
-            name="uploadSponsorTwo"
-            accept="image/*"
-            onChange={(e) => handleUploadSponsor2(e)}
-          />
-        </div>
-        <div className="uploadFileBox">
-          <h4>3° Sponsor</h4>
-          <label
-            htmlFor="uploadSponsorThree"
-            className={`uploadButton ${
-              sponsorThreeName ? `imageUploaded` : ''
-            }`}
-          >
-            <CloudUploadIcon />
-            <span> {sponsorThreeName || `Seleccionar imagen`}</span>
-          </label>
-          <input
-            type="file"
-            className="hidden"
-            id="uploadSponsorThree"
-            name="uploadSponsorThree"
-            accept="image/*"
-            onChange={(e) => handleUploadSponsor3(e)}
-          />
-        </div>
-        <div className="uploadFileBox">
-          <h4>4° Sponsor</h4>
-          <label
-            htmlFor="uploadSponsorFour"
-            className={`uploadButton ${sponsorFourName ? `imageUploaded` : ''}`}
-          >
-            <CloudUploadIcon />
-            <span> {sponsorFourName || `Seleccionar imagen`}</span>
-          </label>
-          <input
-            type="file"
-            className="hidden"
-            id="uploadSponsorFour"
-            name="uploadSponsorFour"
-            accept="image/*"
-            onChange={(e) => handleUploadSponsor4(e)}
-          />
-        </div>
+      <div className="imagesForm">
+        {Object.entries(sponsors).map((image) => (
+          <div key={image[0]} className="uploadFileBox">
+            <h4>{mapImgNames(image[0])}</h4>
+            <label
+              htmlFor={image[0]}
+              className={`uploadButton ${
+                image?.[1]?.fileName ? `imageUploaded` : ''
+              }`}
+            >
+              <CloudUploadIcon />
+              <span> {image?.[1]?.fileName || `Seleccionar imagen`}</span>
+            </label>
+            <input
+              type="file"
+              className="hidden"
+              id={image[0]}
+              name={image[0]}
+              accept="image/*"
+              onChange={(e) => handleUploadImages(e, image[0])}
+            />
+          </div>
+        ))}
         <Button
           variant="outlined"
           color="success"
-          type="submit"
+          onClick={(e) => handleSubmit(e)}
           sx={{ marginTop: '15px', width: '50%' }}
         >
           Cargar
         </Button>
-      </form>
-      {errorMessage && <div className="imagesMessage fail">{errorMessage}</div>}
-      {successMessage && (
-        <div className="imagesMessage success">{successMessage}</div>
-      )}
+        {errorMessage && (
+          <div className="imagesMessage fail">{errorMessage}</div>
+        )}
+        {successMessage && (
+          <div className="imagesMessage success">{successMessage}</div>
+        )}
+      </div>
     </div>
   );
 }
