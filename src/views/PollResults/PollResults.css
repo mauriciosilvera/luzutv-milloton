@@ -7,3 +7,32 @@
     gap: 2rem;
     overflow: scroll;
 }
+
+.graphResultsWrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pollResultsTitle{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+.pollResultsTitleBox {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b2430;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+

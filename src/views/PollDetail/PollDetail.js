@@ -12,7 +12,6 @@ import {
   Typography
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
-import { ResponsiveBar } from '@nivo/bar';
 import { pollPost, getPollById, getGroups, pollPut } from '../../util/Requests';
 
 function PollDetail() {
@@ -30,7 +29,6 @@ function PollDetail() {
     { _id: 0, answer_name: '' },
     { _id: 1, answer_name: '' }
   ]);
-  const [graphData, setGraphData] = useState();
 
   useEffect(() => {
     let mounted = true;
@@ -53,15 +51,6 @@ function PollDetail() {
       setSelectedQuestion(selectedPoll?.question_name);
       setSelectedOptions(selectedPoll?.answers);
       setIsActive(selectedPoll?.is_active);
-      const newGroupData = selectedPoll?.answers?.map((answer) => ({
-        option: answer?.answer_name,
-        voteCount: answer?.voteCount,
-        display:
-          answer?.answer_name.length > 6
-            ? `${answer?.answer_name.slice(0, 4)}...`
-            : answer?.answer_name
-      }));
-      setGraphData(newGroupData);
     }
   }, [selectedPoll]);
 
@@ -177,24 +166,6 @@ function PollDetail() {
     0
   );
 
-  const buildTooltip = (answer) => (
-    <div
-      style={{
-        padding: 12,
-        color: '#fff',
-        background: '#222222'
-      }}
-    >
-      <strong
-        style={{
-          fontSize: '14px'
-        }}
-      >
-        {answer?.option}: {answer?.voteCount}
-      </strong>
-    </div>
-  );
-
   return (
     <div className="pollDetailWrapper">
       {!selectedPoll && pollId !== 'new' && (
@@ -233,33 +204,34 @@ function PollDetail() {
             </div>
             {selectedPoll && !isEditMode ? (
               <>
-                {totalVotes !== 0 ? (
-                  <div style={{ height: '60%' }}>
-                    <ResponsiveBar
-                      data={graphData}
-                      keys={['voteCount']}
-                      indexBy="display"
-                      margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
-                      minValue="0"
-                      padding={0.4}
-                      valueScale={{ type: 'linear' }}
-                      indexScale={{ type: 'band', round: true }}
-                      colors={{ scheme: 'pastel1' }}
-                      tooltip={(data) => buildTooltip(data?.data)}
-                      axisBottom={{
-                        tickSize: 0,
-                        tickPadding: 10,
-                        tickRotation: 0,
-                        legendPosition: 'middle',
-                        legendOffset: 0
-                      }}
-                    />
+                <label htmlFor="live" className="pollLabel">
+                  Grupo
+                </label>
+                <div className="valueContainer">
+                  <Typography variant="h6">
+                    {selectedPoll?.group_id?.group_name}
+                  </Typography>
+                </div>
+                <label htmlFor="pollQuestion" className="pollLabel">
+                  Pregunta
+                </label>
+                <div className="valueContainer">
+                  <Typography variant="h6">
+                    {selectedPoll?.question_name}
+                  </Typography>
+                </div>
+                {selectedPoll?.answers?.map((option, id) => (
+                  <div key={option?._id} className="OptionContainer">
+                    <label htmlFor="option" className="pollLabel">
+                      Opción {id + 1}
+                    </label>
+                    <div className="valueContainer">
+                      <Typography variant="h6">
+                        {option?.answer_name}
+                      </Typography>
+                    </div>
                   </div>
-                ) : (
-                  <div className="pollWithoutVotesMessage">
-                    Esta encuesta aún no ha recibido votos.
-                  </div>
-                )}
+                ))}
                 <div className="activateButton">
                   <Button
                     onClick={handleActivate}
