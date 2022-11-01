@@ -17,7 +17,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Link } from 'react-router-dom';
 import {
   allPollsPost,
   deletePoll,
@@ -176,12 +175,8 @@ function GroupManagement() {
                 >
                   <div className="groupName">
                     <div>
-                      <Link
-                        className="groupLink"
-                        to={`/admin/group-details/${group?._id}`}
-                      >
-                        <span>{group?.group_name}</span>
-                      </Link>
+                      <span>{group?.group_name}</span>
+
                       <IconButton onClick={(e) => handleEditGroup(group, e)}>
                         <EditIcon sx={{ fontSize: '20px' }} />
                       </IconButton>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link } from 'react-router-dom';
 import { IconButton, Box, CircularProgress } from '@mui/material';
-import { allPollsPostWithoutGroups, getPollById } from '../../util/Requests';
+import { getPollById, allPollsPost } from '../../util/Requests';
 import './PollResults.css';
 
 function PollResults() {
@@ -12,7 +13,7 @@ function PollResults() {
   const [pollData, setPollData] = useState();
 
   useEffect(() => {
-    allPollsPostWithoutGroups().then((polls) => {
+    allPollsPost().then((polls) => {
       setData(polls);
     });
   }, []);
@@ -46,7 +47,7 @@ function PollResults() {
           fontSize: '14px'
         }}
       >
-        {answer?.option}: {answer?.voteCount}
+        {answer?.answer_name}: {answer?.voteCount}
       </strong>
     </div>
   );
@@ -60,17 +61,38 @@ function PollResults() {
       {viewPolls && (
         <div className="pollResultsWrapper">
           <h1 className="title">Resultados</h1>
+          <h2 className="title">Encuestas</h2>
           <div className="pollsWrapper">
-            {data?.map((question) => (
-              <div key={question?._id} className="pollCard">
-                <div
-                  className="pollCardWrapper"
-                  onClick={() => handleOpenResults(question?._id)}
-                >
-                  <span className="pollCardTitle">
-                    {question?.question_name}
-                  </span>
-                </div>
+            {data?.map((group) => (
+              <div className="pollsWrapper">
+                {group?.questions?.map((question) => (
+                  <div key={question?._id} className="pollCard">
+                    <div
+                      className="pollCardWrapper"
+                      onClick={() => handleOpenResults(question?._id)}
+                    >
+                      <span className="pollCardTitle">
+                        {question?.question_name}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <h2 className="title">Grupos</h2>
+          <div className="pollsWrapper">
+            {data?.map((group) => (
+              <div className="pollsWrapper">
+                {group?.group_name !== 'Sin Agrupar' ? (
+                  <Link
+                    key={group?._id}
+                    to={`/admin/group-details/${group?._id}`}
+                  >
+                    <h3 className="linkToPoll">{group?.group_name}</h3>
+                  </Link>
+                ) : null}
               </div>
             ))}
           </div>
