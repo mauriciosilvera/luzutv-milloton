@@ -13,9 +13,8 @@ function Home() {
       const ip = await getIPAddress();
       setIpAddress(ip);
     };
-
     getIp();
-  }, [ipAddress]);
+  }, []);
 
   useEffect(() => {
     if (ipAddress) {

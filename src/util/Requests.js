@@ -280,8 +280,8 @@ export const getImages = async (image) => {
 
 export const getIPAddress = async () => {
   try {
-    const response = await axios.get(`https://geolocation-db.com/json/`);
-    return response.data.IPv4;
+    const response = await axios.get(`https://api.ipify.org/`);
+    return response.data;
   } catch (error) {
     console.error(error);
   }
