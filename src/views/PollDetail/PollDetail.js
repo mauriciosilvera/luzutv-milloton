@@ -7,8 +7,6 @@ import {
   MenuItem,
   Select,
   IconButton,
-  Box,
-  CircularProgress,
   Typography
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
@@ -168,19 +166,7 @@ function PollDetail() {
 
   return (
     <div className="pollDetailWrapper">
-      {!selectedPoll && pollId !== 'new' && (
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!selectedPoll && pollId !== 'new' && <LoadingSpinner />}
       {(selectedPoll || pollId === 'new') && (
         <div className="pollFormBox">
           <form className="pollForm" onSubmit={handleSubmit}>

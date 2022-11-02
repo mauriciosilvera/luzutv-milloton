@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Box, CircularProgress } from '@mui/material';
-import './GroupDetail.css';
+import { Typography } from '@mui/material';
 import { useParams, Link } from 'react-router-dom';
 import { ResponsiveBar } from '@nivo/bar';
 import { calculateVotes } from '../../util/Requests';
+import { LoadingSpinner } from '../../components';
+import './GroupDetail.css';
 
 function GroupDetail() {
   const { groupId } = useParams();
@@ -55,19 +56,7 @@ function GroupDetail() {
 
   return (
     <div className="groupDetailWrapper">
-      {!votesData && !globalResults && (
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!votesData && !globalResults && <LoadingSpinner />}
 
       {votesData && globalResults && votesData?.votes?.totalVotes > 0 ? (
         <>

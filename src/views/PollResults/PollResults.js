@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
-import { IconButton, Box, CircularProgress } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { getPollById, allPollsPost } from '../../util/Requests';
+import { LoadingSpinner } from '../../components';
 import './PollResults.css';
 
 function PollResults() {
@@ -64,7 +65,7 @@ function PollResults() {
           <h2 className="title">Encuestas</h2>
           <div className="pollsWrapper">
             {data?.map((group) => (
-              <div className="pollsWrapper">
+              <div className="pollsWrapper" key={group?._id}>
                 {group?.questions?.map((question) => (
                   <div key={question?._id} className="pollCard">
                     <div
@@ -84,12 +85,9 @@ function PollResults() {
           <h2 className="title">Grupos</h2>
           <div className="pollsWrapper">
             {data?.map((group) => (
-              <div className="pollsWrapper">
+              <div className="pollsWrapper" key={group?._id}>
                 {group?.group_name !== 'Sin Agrupar' ? (
-                  <Link
-                    key={group?._id}
-                    to={`/admin/group-details/${group?._id}`}
-                  >
+                  <Link to={`/admin/group-details/${group?._id}`}>
                     <h3 className="linkToPoll">{group?.group_name}</h3>
                   </Link>
                 ) : null}
@@ -99,19 +97,7 @@ function PollResults() {
         </div>
       )}
 
-      {!pollData && !viewPolls && (
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!pollData && !viewPolls && <LoadingSpinner />}
 
       {pollData && !viewPolls && (
         <div className="graphResultsWrapper">

@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Collapse,
-  Box,
-  CircularProgress,
-  IconButton,
-  Button,
-  TextField
-} from '@mui/material';
+import { Collapse, IconButton, Button, TextField } from '@mui/material';
 import { ExpandLess, ExpandMore, Add } from '@mui/icons-material';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -23,8 +16,8 @@ import {
   pollPut,
   pollPost
 } from '../../util/Requests';
-import PollCard from '../../components/PollCard/PollCard';
 import './GroupManagement.css';
+import { LoadingSpinner, PollCard } from '../../components';
 
 function GroupManagement() {
   const [openGroup, setOpenGroup] = useState(true);
@@ -127,19 +120,7 @@ function GroupManagement() {
 
   return (
     <div className={`groupManagementWrapper ${!data ? 'loading' : ''}`}>
-      {!data && (
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!data && <LoadingSpinner />}
 
       {data && (
         <>
