@@ -10,6 +10,7 @@ import {
   Typography
 } from '@mui/material';
 import { MdModeEdit as EditIcon, MdDelete as DeleteIcon } from 'react-icons/md';
+import { LoadingSpinner } from '../../components';
 import { pollPost, getPollById, getGroups, pollPut } from '../../util/Requests';
 
 function PollDetail() {

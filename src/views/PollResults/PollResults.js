@@ -88,7 +88,16 @@ function PollResults() {
               <div className="pollsWrapper" key={group?._id}>
                 {group?.group_name !== 'Sin Agrupar' ? (
                   <Link to={`/admin/group-details/${group?._id}`}>
-                    <h3 className="linkToPoll">{group?.group_name}</h3>
+                    <div key={group?._id} className="pollCard">
+                      <div
+                        className="pollCardWrapper"
+                        onClick={() => handleOpenResults(group?._id)}
+                      >
+                        <span className="pollCardTitle">
+                          {group?.group_name}
+                        </span>
+                      </div>
+                    </div>
                   </Link>
                 ) : null}
               </div>

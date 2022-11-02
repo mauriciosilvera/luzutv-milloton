@@ -17,42 +17,42 @@
 }
 
 .pollOptionWrapper:nth-child(n + 2) {
-  color: #B8E8FC;
-  border-color: #B8E8FC;
+  color: #8D9EFF;
+  border-color: #8D9EFF;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 2) {
-  background-color: #B8E8FC;
+  background-color: #8D9EFF;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 3) {
-  color: #BF8B67;
-  border-color: #BF8B67;
+  color: #CA955C;
+  border-color: #CA955C;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 3) {
-  background-color: #BF8B67;
+  background-color: #CA955C;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 4) {
-  color: #FFC898;
-  border-color: #FFC898;
+  color: #DC758F;
+  border-color: #DC758F;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 4) {
-  background-color: #FFC898;
+  background-color: #DC758F;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 5) {
-  color: #F6C6EA;
-  border-color: #F6C6EA;
+  color: #FF6464;
+  border-color: #FF6464;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 5) {
-  background-color: #F6C6EA;
+  background-color: #FF6464;
   color: #ffffff;
 }
 
@@ -67,42 +67,42 @@
 }
 
 .pollOptionWrapper:nth-child(n + 7) {
-  color: #F6C6EA;
-  border-color: #F6C6EA;
+  color: #54B435;
+  border-color: #54B435;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 7) {
-  background-color: #F6C6EA;
+  background-color: #54B435;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 8) {
-  color: #FFD9C0;
-  border-color: #FFD9C0;
+  color: #5DA7DB;
+  border-color: #5DA7DB;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 8) {
-  background-color: #FFD9C0;
+  background-color: #5DA7DB;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 9) {
-  color: #AC7D88;
-  border-color: #AC7D88;
+  color: #DC5F00;
+  border-color: #DC5F00;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 9) {
-  background-color: #AC7D88;
+  background-color: #DC5F00;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 10) {
-  color: #C8F2EF;
-  border-color: #C8F2EF;
+  color: #E49B0F;
+  border-color: #E49B0F;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 10) {
-  background-color: #C8F2EF;
+  background-color: #E49B0F;
   color: #ffffff;
 }
 
