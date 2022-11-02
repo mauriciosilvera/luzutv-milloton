@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, CircularProgress } from '@mui/material';
-import PollOption from '../../components/PollOption/PollOption';
+import { LoadingSpinner, PollOption } from '../../components';
 import { getActivePoll, vote, getIPAddress } from '../../util/Requests';
 import './Home.css';
 
@@ -43,19 +42,7 @@ function Home() {
 
   return (
     <div className="homeWrapper">
-      {!activePoll && !ipAddress && (
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!activePoll && !ipAddress && <LoadingSpinner />}
 
       {selectedOption && (
         <div className="votesMessage">¡Muchas gracias por tu voto!</div>

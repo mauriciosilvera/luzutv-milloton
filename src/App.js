@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
+import PollResults from './views/PollResults/PollResults';
 import PollDetail from './views/PollDetail/PollDetail';
 import Home from './views/Home/Home';
 import Form from './views/Forms/Forms';
@@ -74,6 +75,14 @@ function App() {
             element={
               <RequireAuth>
                 <GroupDetail />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/poll-results"
+            element={
+              <RequireAuth>
+                <PollResults />
               </RequireAuth>
             }
           />

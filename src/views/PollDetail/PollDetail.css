@@ -103,13 +103,6 @@
   margin-top: 5px;
 }
 
-.selectedValue {
-  border: 1px solid #c4c4c4;
-  padding: 5px;
-  border-radius: 5px;
-  min-height: 2.4375em;
-}
-
 .voteCount {
   position: relative;
 }
@@ -143,6 +136,8 @@
   display: flex;
   justify-content: center;
   padding-top: 15px;
+  height: 60%;
+  align-items: center;
 }
 
 @media (max-width: 780px) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, CircularProgress, IconButton, Button } from '@mui/material';
+import { IconButton, Button } from '@mui/material';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import {
   deletePoll,
@@ -7,8 +7,8 @@ import {
   pollPut,
   allPollsPostWithoutGroups
 } from '../../util/Requests';
-import PollCard from '../../components/PollCard/PollCard';
 import './PollManagement.css';
+import { LoadingSpinner, PollCard } from '../../components';
 
 function PollManagement() {
   const [data, setData] = React.useState();
@@ -79,19 +79,7 @@ function PollManagement() {
         !activePoll && !data ? 'loading' : ''
       }`}
     >
-      {!activePoll && !data && (
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!activePoll && !data && <LoadingSpinner />}
       {isActive && (
         <>
           <h1 className="title">Encuesta activa</h1>

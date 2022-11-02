@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Collapse,
-  Box,
-  CircularProgress,
-  IconButton,
-  Button,
-  TextField
-} from '@mui/material';
+import { Collapse, IconButton, Button, TextField } from '@mui/material';
 import { ExpandLess, ExpandMore, Add } from '@mui/icons-material';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -17,15 +10,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Link } from 'react-router-dom';
 import {
   allPollsPost,
   deletePoll,
   pollPut,
   pollPost
 } from '../../util/Requests';
-import PollCard from '../../components/PollCard/PollCard';
 import './GroupManagement.css';
+import { LoadingSpinner, PollCard } from '../../components';
 
 function GroupManagement() {
   const [openGroup, setOpenGroup] = useState(true);
@@ -128,19 +120,7 @@ function GroupManagement() {
 
   return (
     <div className={`groupManagementWrapper ${!data ? 'loading' : ''}`}>
-      {!data && (
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!data && <LoadingSpinner />}
 
       {data && (
         <>
@@ -176,12 +156,8 @@ function GroupManagement() {
                 >
                   <div className="groupName">
                     <div>
-                      <Link
-                        className="groupLink"
-                        to={`/admin/group-details/${group?._id}`}
-                      >
-                        <span>{group?.group_name}</span>
-                      </Link>
+                      <span>{group?.group_name}</span>
+
                       <IconButton onClick={(e) => handleEditGroup(group, e)}>
                         <EditIcon sx={{ fontSize: '20px' }} />
                       </IconButton>
