@@ -30,9 +30,11 @@ function Header(props) {
         />
       </div>
       <div className="header-logosContainer">
-        <Link to="/">
-          <img className="header-logo" src={logo} alt="Luzu TV Logo" />
-        </Link>
+        {logo && (
+          <Link to="/">
+            <img className="header-logo" src={logo} alt="Luzu TV Logo" />
+          </Link>
+        )}
       </div>
       <div className="emptyDiv" />
     </div>

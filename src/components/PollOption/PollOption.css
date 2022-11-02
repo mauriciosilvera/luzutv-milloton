@@ -2,8 +2,8 @@
   display: flex;
   width: 500px;
   flex-direction: column;
-  border: 2px solid #39d1c4;
-  color: #39d1c4;
+  border: 2px solid #3FA796;
+  color: #3FA796;
   border-radius: 10px;
   padding: 10px;
   justify-content: center;
@@ -12,47 +12,47 @@
 }
 
 .pollOptionWrapper.selected {
-  background-color: #FF8787;
-  color: #FF8787;
+  background-color: #3FA796;
+  color: #3FA796;
 }
 
 .pollOptionWrapper:nth-child(n + 2) {
-  color: #8D9EFF;
-  border-color: #8D9EFF;
+  color: #E49B0F;
+  border-color: #E49B0F;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 2) {
-  background-color: #8D9EFF;
+  background-color: #E49B0F;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 3) {
-  color: #CA955C;
-  border-color: #CA955C;
+  color: #EF9F9F;
+  border-color: #EF9F9F;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 3) {
-  background-color: #CA955C;
+  background-color: #EF9F9F;
   color: #ffffff;
 }
 
 .pollOptionWrapper:nth-child(n + 4) {
-  color: #DC758F;
-  border-color: #DC758F;
-}
-
-.pollOptionWrapper.selected:nth-child(n + 4) {
-  background-color: #DC758F;
-  color: #ffffff;
-}
-
-.pollOptionWrapper:nth-child(n + 5) {
   color: #FF6464;
   border-color: #FF6464;
 }
 
-.pollOptionWrapper.selected:nth-child(n + 5) {
+.pollOptionWrapper.selected:nth-child(n + 4) {
   background-color: #FF6464;
+  color: #ffffff;
+}
+
+.pollOptionWrapper:nth-child(n + 5) {
+  color: #5DA7DB;
+  border-color: #5DA7DB;
+}
+
+.pollOptionWrapper.selected:nth-child(n + 5) {
+  background-color: #5DA7DB;
   color: #ffffff;
 }
 
@@ -77,12 +77,12 @@
 }
 
 .pollOptionWrapper:nth-child(n + 8) {
-  color: #5DA7DB;
-  border-color: #5DA7DB;
+  color: #DC758F;
+  border-color: #DC758F;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 8) {
-  background-color: #5DA7DB;
+  background-color: #DC758F;
   color: #ffffff;
 }
 
@@ -97,12 +97,12 @@
 }
 
 .pollOptionWrapper:nth-child(n + 10) {
-  color: #E49B0F;
-  border-color: #E49B0F;
+  color: #8D9EFF;
+  border-color: #8D9EFF;
 }
 
 .pollOptionWrapper.selected:nth-child(n + 10) {
-  background-color: #E49B0F;
+  background-color: #8D9EFF;
   color: #ffffff;
 }
 
