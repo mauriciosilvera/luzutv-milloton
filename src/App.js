@@ -11,7 +11,7 @@ import Form from './views/Forms/Forms';
 import FallBackView from './views/FallBackView';
 import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
-import GroupDetail from './views/GroupDetail/GroupDetail';
+import GroupResults from './views/GroupResults/GroupResults';
 import ImageManagement from './views/Images/ImageManagement';
 
 function App() {
@@ -74,7 +74,7 @@ function App() {
             path="admin/group-details/:groupId"
             element={
               <RequireAuth>
-                <GroupDetail />
+                <GroupResults />
               </RequireAuth>
             }
           />
