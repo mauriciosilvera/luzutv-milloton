@@ -62,28 +62,13 @@
 }
 
   @media (max-width: 780px) {
-    .sideBarContainer {
-      width: 35%;
-    }
-
     .sideBar-logOutBtn {
       display: block;
     }
 
     .graphContainer {
-        height: 70%; 
         width: 100%;
     }
   }
   
-  @media (max-width: 480px) {
-    .sideBarContainer {
-      width: 100%;
-    }
-
-    .graphContainer {
-        height: 70%; 
-        width: 100%;
-    }
-  }
   
