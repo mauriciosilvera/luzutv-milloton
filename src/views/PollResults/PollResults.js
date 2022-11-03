@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { getPollById, allPollsPost } from '../../util/Requests';
 import { LoadingSpinner } from '../../components';
 import './PollResults.css';
@@ -12,6 +12,7 @@ function PollResults() {
   const [viewPolls, setViewPolls] = useState(true);
   const [selectedPoll, setSelectedPoll] = useState();
   const [pollData, setPollData] = useState();
+  const [graphData, setGraphData] = useState();
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -24,6 +25,18 @@ function PollResults() {
       setPollData(poll);
     });
   }, [selectedPoll]);
+
+  useEffect(() => {
+    const newGraphData = pollData?.answers?.map((answer) => ({
+      option: answer?.answer_name,
+      voteCount: answer?.voteCount,
+      display:
+        answer?.answer_name.length > 4
+          ? `${answer?.answer_name.slice(0, 4)}..`
+          : answer?.answer_name
+    }));
+    setGraphData(newGraphData);
+  }, [pollData]);
 
   const handleOpenResults = (id) => {
     setSelectedPoll(id);
@@ -48,7 +61,7 @@ function PollResults() {
           fontSize: '14px'
         }}
       >
-        {answer?.answer_name}: {answer?.voteCount}
+        {answer?.option}: {answer?.voteCount}
       </strong>
     </div>
   );
@@ -114,18 +127,25 @@ function PollResults() {
             <IconButton onClick={handleBackwards}>
               <ArrowBackIcon sx={{ fontSize: '40px' }} />
             </IconButton>
-            <div className="pollResultsTitleBox">
-              <h2 className="white">{pollData?.question_name}</h2>
+            <div className="resultsTitleBox">
+              <div className="resultsTitle">
+                <h2 className="white">{pollData?.question_name}</h2>
+              </div>
+
+              <Typography
+                variant="body2"
+                className="votesCount white"
+              >{`Votos Totales: ${totalVotes}`}</Typography>
             </div>
             <div />
           </div>
 
           {totalVotes !== 0 ? (
-            <div style={{ height: '70%', width: '70%' }}>
+            <div className="graphContainer">
               <ResponsiveBar
-                data={pollData?.answers}
+                data={graphData}
                 keys={['voteCount']}
-                indexBy="answer_name"
+                indexBy="display"
                 margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
                 minValue="0"
                 padding={0.2}

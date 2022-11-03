@@ -27,7 +27,8 @@
     align-items: center;
     justify-content: space-between;
     width: 50%;
-    min-width: 200px;
+    min-width: 220px;
+    max-width: 300px;
     padding: 15px;
     cursor: pointer;
 }
@@ -56,3 +57,22 @@
 .hidden{
     display: none;
 }
+
+@media (max-width: 1050px) {
+    .imagesForm{
+        width: 70%;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .imagesForm{
+        width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .uploadFileBox{
+        width: 95%;
+    }
+  }
+  
