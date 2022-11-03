@@ -136,7 +136,6 @@ function PollResults() {
               <div className="resultsTitle">
                 <h2 className="white">{pollData?.question_name}</h2>
               </div>
-
               <Typography
                 variant="body2"
                 className="votesCount white"
