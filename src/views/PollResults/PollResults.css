@@ -36,3 +36,53 @@
     border-bottom-right-radius: 10px;
   }
 
+.resultsTitleBox {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b2430;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-top: 10px;
+    min-width: 270px;
+}
+
+.graphContainer {
+    height: 70%; 
+    width: 70%;
+}
+
+.resultsTitle {
+    padding: 5px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+  @media (max-width: 780px) {
+    .sideBarContainer {
+      width: 35%;
+    }
+    .sideBar-logOutBtn {
+      display: block;
+    }
+
+    .graphContainer {
+        height: 70%; 
+        width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sideBarContainer {
+      width: 100%;
+    }
+
+    .graphContainer {
+        height: 70%; 
+        width: 100%;
+    }
+  }
+  
