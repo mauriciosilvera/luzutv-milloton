@@ -133,9 +133,7 @@ function PollResults() {
               <ArrowBackIcon sx={{ fontSize: '40px' }} />
             </IconButton>
             <div className="resultsTitleBox">
-              <div className="resultsTitle">
-                <h2 className="white">{pollData?.question_name}</h2>
-              </div>
+              <h2 className="white">{pollData?.question_name}</h2>
 
               <Typography
                 variant="body2"
