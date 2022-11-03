@@ -5,9 +5,9 @@ import { ResponsiveBar } from '@nivo/bar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { calculateVotes } from '../../util/Requests';
 import { LoadingSpinner } from '../../components';
-import './GroupDetail.css';
+import './GroupResults.css';
 
-function GroupDetail() {
+function GroupResults() {
   const { groupId } = useParams();
   const [votesData, setVotesData] = useState();
   const [globalResults, setGlobalResults] = useState([]);
@@ -59,7 +59,7 @@ function GroupDetail() {
   );
 
   return (
-    <div className="groupDetailWrapper">
+    <div className="groupResultsWrapper">
       {!votesData && !globalResults && <LoadingSpinner />}
       {votesData && globalResults && votesData?.votes?.totalVotes > 0 ? (
         <>
@@ -73,53 +73,29 @@ function GroupDetail() {
             >{`Votos Totales: ${votesData?.votes?.totalVotes}`}</Typography>
           </div>
           <h2 className="title">Resultados totales</h2>
-          {mediaQueryMatches ? (
-            <div className="globalResultsGraphContainer">
-              <ResponsiveBar
-                data={globalResults}
-                keys={['votes']}
-                indexBy="name"
-                margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
-                minValue="0"
-                padding={0.4}
-                valueScale={{ type: 'linear' }}
-                indexScale={{ type: 'band', round: true }}
-                colors={{ scheme: 'pastel1' }}
-                labelSkipHeight={1}
-                tooltip={(data) => buildTooltip(data.data)}
-                axisBottom={{
-                  tickSize: 0,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legendPosition: 'middle',
-                  legendOffset: 32
-                }}
-              />
-            </div>
-          ) : (
-            <div className="globalResultsGraphContainer">
-              <ResponsiveBar
-                data={globalResults}
-                keys={['votes']}
-                indexBy="slicedName"
-                margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
-                minValue="0"
-                padding={0.4}
-                valueScale={{ type: 'linear' }}
-                indexScale={{ type: 'band', round: true }}
-                colors={{ scheme: 'pastel1' }}
-                labelSkipHeight={1}
-                tooltip={(data) => buildTooltip(data.data)}
-                axisBottom={{
-                  tickSize: 0,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legendPosition: 'middle',
-                  legendOffset: 32
-                }}
-              />
-            </div>
-          )}
+          <div className="globalResultsGraphContainer">
+            <ResponsiveBar
+              data={globalResults}
+              keys={['votes']}
+              indexBy={mediaQueryMatches ? 'name' : 'slicedName'}
+              margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
+              minValue="0"
+              padding={0.4}
+              valueScale={{ type: 'linear' }}
+              indexScale={{ type: 'band', round: true }}
+              colors={{ scheme: 'pastel1' }}
+              labelSkipHeight={1}
+              tooltip={(data) => buildTooltip(data.data)}
+              axisBottom={{
+                tickSize: 0,
+                tickPadding: 5,
+                tickRotation: 0,
+                legendPosition: 'middle',
+                legendOffset: 32
+              }}
+            />
+          </div>
+
           <h2 className="title">Resultados individuales</h2>
           <div className="linksContainer">
             {votesData?.polls?.map((poll) => (
@@ -143,4 +119,4 @@ function GroupDetail() {
   );
 }
 
-export default GroupDetail;
+export default GroupResults;
