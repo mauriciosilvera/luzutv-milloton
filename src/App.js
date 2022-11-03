@@ -15,24 +15,37 @@ import GroupResults from './views/GroupResults/GroupResults';
 import ImageManagement from './views/Images/ImageManagement';
 
 function App() {
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarButtonDisplayed, setIsSidebarButtonDisplayed] =
+    useState(false);
   const [imageHasChanged, setImageHasChanged] = useState(false);
 
   return (
     <div className="container">
       <Header
-        isSideBarOpen={isSideBarOpen}
-        setIsSideBarOpen={setIsSideBarOpen}
+        isSidebarButtonDisplayed={isSidebarButtonDisplayed}
+        setIsSidebarOpen={setIsSidebarOpen}
         imageHasChanged={imageHasChanged}
+        isSidebarOpen={isSidebarOpen}
       />
       <div className="body">
-        <Sidebar isOpen={isSideBarOpen} setIsOpen={setIsSideBarOpen} />
+        <Sidebar
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+          isSidebarButtonDisplayed={isSidebarButtonDisplayed}
+          setIsSidebarButtonDisplayed={setIsSidebarButtonDisplayed}
+        />
         <Routes>
           <Route path="/" element={<Home />} />
           {/* ADMIN */}
           <Route
             path="admin/login"
-            element={<Form setIsOpen={setIsSideBarOpen} />}
+            element={
+              <Form
+                setIsSidebarButtonDisplayed={setIsSidebarButtonDisplayed}
+                setIsSidebarOpen={setIsSidebarOpen}
+              />
+            }
           />
           <Route path="admin/password-recovery" element={<Form recovery />} />
           <Route

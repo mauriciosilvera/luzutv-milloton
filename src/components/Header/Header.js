@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { auth } from '../../util/auth';
 import { getImages } from '../../util/Requests';
 
 import './Header.css';
 
 function Header(props) {
-  const { isSideBarOpen, setIsSideBarOpen, imageHasChanged } = props;
+  const {
+    isSidebarButtonDisplayed,
+    setIsSidebarOpen,
+    imageHasChanged,
+    isSidebarOpen
+  } = props;
   const [logo, setLogo] = useState();
-  const hideButtons = !auth?.isAuthenticated;
 
   useEffect(() => {
     getImages('luzuLogo').then((image) => setLogo(image.imageUrl));
   }, [imageHasChanged]);
 
   const handleSideBar = () => {
-    setIsSideBarOpen(!isSideBarOpen);
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
-    <div className={`headerWrapper ${hideButtons ? 'hideButtons' : ''}`}>
+    <div
+      className={`headerWrapper ${
+        isSidebarButtonDisplayed ? '' : 'hideButtons'
+      }`}
+    >
       <div className="burger">
         <GiHamburgerMenu
-          className={`header-HamburgerIcon ${isSideBarOpen ? 'isOpen' : ''} ${
-            hideButtons ? 'hidden' : ''
+          className={`header-HamburgerIcon ${
+            isSidebarButtonDisplayed ? '' : 'hidden'
           }`}
           onClick={handleSideBar}
         />

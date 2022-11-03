@@ -5,7 +5,12 @@ import { auth } from '../../util/auth';
 import './Sidebar.css';
 
 function Sidebar(props) {
-  const { isOpen, setIsOpen } = props;
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    isSidebarButtonDisplayed,
+    setIsSidebarButtonDisplayed
+  } = props;
   const navigate = useNavigate();
   const hideButtons = !auth?.isAuthenticated;
 
@@ -13,27 +18,49 @@ function Sidebar(props) {
     if (auth?.isAuthenticated) {
       auth?.signout();
     }
-    setIsOpen(false);
+    setIsSidebarButtonDisplayed(!isSidebarButtonDisplayed);
     navigate('/admin/login', { replace: true });
   };
 
   return (
     <div
-      className={`sideBarContainer ${!isOpen || hideButtons ? 'hidden' : ''}`}
+      className={`sideBarContainer ${
+        !isSidebarOpen || hideButtons ? 'hidden' : ''
+      }`}
     >
       <div className="sideBar-Navigation">
         <div className="sideBar-LinkContainer">
           <Link to="/admin/polls-management">
-            <div className="sideBar-Option">Encuestas</div>
+            <div
+              className="sideBar-Option"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              Encuestas
+            </div>
           </Link>
           <Link to="/admin/groups-management">
-            <div className="sideBar-Option">Grupos</div>
+            <div
+              className="sideBar-Option"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              Grupos
+            </div>
           </Link>
           <Link to="/admin/image-management">
-            <div className="sideBar-Option">Imágenes</div>
+            <div
+              className="sideBar-Option"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              Imágenes
+            </div>
           </Link>
           <Link to="/admin/poll-results">
-            <div className="sideBar-Option">Resultados</div>
+            <div
+              className="sideBar-Option"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              Resultados
+            </div>
           </Link>
         </div>
 

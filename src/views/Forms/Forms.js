@@ -6,7 +6,7 @@ import { auth } from '../../util/auth';
 import './Form.css';
 
 function Form(props) {
-  const { recovery, setIsOpen } = props;
+  const { recovery, setIsSidebarButtonDisplayed, setIsSidebarOpen } = props;
   const navigate = useNavigate();
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
@@ -34,7 +34,8 @@ function Form(props) {
       setError(res?.response?.data?.message);
       return;
     }
-    setIsOpen(true);
+    setIsSidebarButtonDisplayed(true);
+    setIsSidebarOpen(false);
     auth.signin(res?.data?.token);
 
     if (recovery) {
