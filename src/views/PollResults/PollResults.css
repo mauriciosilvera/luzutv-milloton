@@ -45,7 +45,7 @@
     background-color: #1b2430;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    margin-top: 10px;
+    margin: 10px 15px 0 15px ;
     min-width: 270px;
 }
 
@@ -59,6 +59,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: center;
 }
 
   @media (max-width: 780px) {
