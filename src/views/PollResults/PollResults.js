@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ResponsiveBar } from '@nivo/bar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 import { IconButton, Typography } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { getPollById, allPollsPost } from '../../util/Requests';
 import { LoadingSpinner } from '../../components';
 import './PollResults.css';
+import BarGraph from './Components/BarGraph';
 
 function PollResults() {
   const [data, setData] = useState();
@@ -13,6 +14,7 @@ function PollResults() {
   const [selectedPoll, setSelectedPoll] = useState();
   const [pollData, setPollData] = useState();
   const [graphData, setGraphData] = useState();
+  const mediaQueryMatches = useMediaQuery('(min-width:480px)');
 
   useEffect(() => {
     allPollsPost().then((polls) => {
@@ -28,11 +30,14 @@ function PollResults() {
 
   useEffect(() => {
     const newGraphData = pollData?.answers?.map((answer) => ({
-      option: answer?.answer_name,
       voteCount: answer?.voteCount,
-      display:
+      mobileDisplay:
         answer?.answer_name.length > 4
-          ? `${answer?.answer_name.slice(0, 4)}..`
+          ? `${answer?.answer_name.slice(0, 3)}..`
+          : answer?.answer_name,
+      desktopDisplay:
+        answer?.answer_name.length > 8
+          ? `${answer?.answer_name.slice(0, 7)}..`
           : answer?.answer_name
     }));
     setGraphData(newGraphData);
@@ -61,7 +66,7 @@ function PollResults() {
           fontSize: '14px'
         }}
       >
-        {answer?.option}: {answer?.voteCount}
+        {answer?.desktopDisplay}: {answer?.voteCount}
       </strong>
     </div>
   );
@@ -139,29 +144,12 @@ function PollResults() {
             </div>
             <div />
           </div>
-
           {totalVotes !== 0 ? (
-            <div className="graphContainer">
-              <ResponsiveBar
-                data={graphData}
-                keys={['voteCount']}
-                indexBy="display"
-                margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
-                minValue="0"
-                padding={0.2}
-                valueScale={{ type: 'linear' }}
-                indexScale={{ type: 'band', round: true }}
-                colors={{ scheme: 'pastel1' }}
-                tooltip={(info) => buildTooltip(info?.data)}
-                axisBottom={{
-                  tickSize: 0,
-                  tickPadding: 10,
-                  tickRotation: 0,
-                  legendPosition: 'middle',
-                  legendOffset: 0
-                }}
-              />
-            </div>
+            <BarGraph
+              data={graphData}
+              tooltip={buildTooltip}
+              isInMobile={!mediaQueryMatches}
+            />
           ) : (
             <div className="pollWithoutVotesMessage">
               Esta encuesta aún no ha recibido votos.
