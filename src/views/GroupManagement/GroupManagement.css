@@ -21,7 +21,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-content: flex-start;
-  margin: 15px;
+  margin: 15px 0;
 }
 
 .groupName {
@@ -29,7 +29,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
-  width: 400px;
+  width: 350px;
   border-bottom: 1px solid;
   padding-top: 15px;
 }
@@ -44,6 +44,10 @@
 
 .MuiCollapse-wrapperInner.MuiCollapse-vertical.css-9l5vo-MuiCollapse-wrapperInner {
   width: unset;
+}
+
+.MuiCollapse-root.MuiCollapse-vertical.MuiCollapse-entered.css-pwcg7p-MuiCollapse-root {
+  width: 350px;
 }
 
 .pollCard {
@@ -63,7 +67,7 @@
 }
 
 .addGroupButton{
-  width: 400px;
+  width: 350px;
   min-height: 60px;
   border: 1px solid #198754;
   border-radius: 10px;
