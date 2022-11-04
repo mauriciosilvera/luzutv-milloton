@@ -61,7 +61,8 @@ function GroupResults() {
   return (
     <div className="groupResultsWrapper">
       {!votesData && !globalResults && <LoadingSpinner />}
-      {votesData && globalResults && votesData?.votes?.totalVotes > 0 ? (
+
+      {votesData && globalResults && (
         <>
           <div className="resultsTitleBox">
             <div className="resultsTitle">
@@ -72,30 +73,42 @@ function GroupResults() {
               className="votesCount white"
             >{`Votos Totales: ${votesData?.votes?.totalVotes}`}</Typography>
           </div>
-          <h2 className="title">Resultados totales</h2>
-          <div className="globalResultsGraphContainer">
-            <ResponsiveBar
-              data={globalResults}
-              keys={['votes']}
-              indexBy={mediaQueryMatches ? 'name' : 'slicedName'}
-              margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
-              minValue="0"
-              padding={0.4}
-              valueScale={{ type: 'linear' }}
-              indexScale={{ type: 'band', round: true }}
-              colors={{ scheme: 'pastel1' }}
-              labelSkipHeight={1}
-              tooltip={(data) => buildTooltip(data.data)}
-              axisBottom={{
-                tickSize: 0,
-                tickPadding: 5,
-                tickRotation: 0,
-                legendPosition: 'middle',
-                legendOffset: 32
-              }}
-            />
-          </div>
-
+          {votesData?.votes?.totalVotes > 0 ? (
+            <>
+              <h2 className="title">Resultados totales</h2>
+              <div className="globalResultsGraphContainer">
+                <ResponsiveBar
+                  data={globalResults}
+                  keys={['votes']}
+                  indexBy={mediaQueryMatches ? 'name' : 'slicedName'}
+                  margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
+                  minValue="0"
+                  padding={0.4}
+                  valueScale={{ type: 'linear' }}
+                  indexScale={{ type: 'band', round: true }}
+                  colors={{ scheme: 'pastel1' }}
+                  labelSkipHeight={1}
+                  tooltip={(data) => buildTooltip(data.data)}
+                  axisBottom={{
+                    tickSize: 0,
+                    tickPadding: 5,
+                    tickRotation: 0,
+                    legendPosition: 'middle',
+                    legendOffset: 32
+                  }}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="groupTitleBox">
+                <h1 className="title white"> {votesData?.group?.group_name}</h1>
+              </div>
+              <div className="groupWithoutVotesMessage">
+                Este grupo aún no ha recibido votos.
+              </div>
+            </>
+          )}
           <h2 className="title">Resultados individuales</h2>
           <div className="linksContainer">
             {votesData?.polls?.map((poll) => (
@@ -103,15 +116,6 @@ function GroupResults() {
                 <h3 className="linkToPoll">{poll?.question_name}</h3>
               </Link>
             ))}
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="groupTitleBox">
-            <h1 className="title white"> {votesData?.group?.group_name}</h1>
-          </div>
-          <div className="groupWithoutVotesMessage">
-            Este grupo aún no ha recibido votos.
           </div>
         </>
       )}

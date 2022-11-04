@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import '../PollResults.css';
+import '../../Results/Results.css';
 
 function BarGraph(props) {
   const { data, tooltip, isInMobile } = props;
