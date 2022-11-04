@@ -5,12 +5,8 @@ import { auth } from '../../util/auth';
 import './Sidebar.css';
 
 function Sidebar(props) {
-  const {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    isSidebarButtonDisplayed,
-    setIsSidebarButtonDisplayed
-  } = props;
+  const { isSidebarOpen, setIsSidebarOpen, setIsSidebarButtonDisplayed } =
+    props;
   const navigate = useNavigate();
   const hideButtons = !auth?.isAuthenticated;
 
@@ -18,7 +14,7 @@ function Sidebar(props) {
     if (auth?.isAuthenticated) {
       auth?.signout();
     }
-    setIsSidebarButtonDisplayed(!isSidebarButtonDisplayed);
+    setIsSidebarButtonDisplayed(false);
     navigate('/admin/login', { replace: true });
   };
 
