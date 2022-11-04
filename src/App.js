@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
 import Results from './views/Results/Results';
 import PollDetail from './views/PollDetail/PollDetail';
 import Home from './views/Home/Home';
 import Form from './views/Forms/Forms';
+import { Footer, Header, Sidebar } from './components';
 import FallBackView from './views/FallBackView';
 import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
 import GroupResults from './views/GroupResults/GroupResults';
-import ImageManagement from './views/Images/ImageManagement';
-import { auth } from './util/auth';
+import ImagesManagement from './views/ImagesManagement/ImagesManagement';
 import PollResults from './views/PollResults/PollResults';
+import { auth } from './util/auth';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -67,10 +66,10 @@ function App() {
             }
           />
           <Route
-            path="admin/image-management"
+            path="admin/images-management"
             element={
               <RequireAuth>
-                <ImageManagement
+                <ImagesManagement
                   setImageHasChanged={setImageHasChanged}
                   imageHasChanged={imageHasChanged}
                 />
@@ -124,6 +123,7 @@ function App() {
           <Route path="*" element={<FallBackView />} />
         </Routes>
       </div>
+      <Footer imageHasChanged={imageHasChanged} />
     </div>
   );
 }

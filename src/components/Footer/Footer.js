@@ -4,24 +4,46 @@ import './Footer.css';
 
 function Footer(props) {
   const { imageHasChanged } = props;
-  const [sponsorOne, setSponsorOne] = useState();
-  const [sponsorTwo, setSponsorTwo] = useState();
-  const [sponsorThree, setSponsorThree] = useState();
-  const [sponsorFour, setSponsorFour] = useState();
+  const [sponsors, setSponsors] = useState();
 
   useEffect(() => {
-    getImages('sponsorOne').then((image) => setSponsorOne(image.imageUrl));
-    getImages('sponsorTwo').then((image) => setSponsorTwo(image.imageUrl));
-    getImages('sponsorThree').then((image) => setSponsorThree(image.imageUrl));
-    getImages('sponsorFour').then((image) => setSponsorFour(image.imageUrl));
+    getImages('sponsorOne,sponsorTwo,sponsorThree,sponsorFour').then(
+      (images) => {
+        setSponsors(images);
+      }
+    );
   }, [imageHasChanged]);
 
   return (
     <div className="footerWrapper">
-      <img className="footer-sponsor" src={sponsorOne} alt="Sponsor" />
-      <img className="footer-sponsor" src={sponsorTwo} alt="Sponsor" />
-      <img className="footer-sponsor" src={sponsorThree} alt="Sponsor" />
-      <img className="footer-sponsor" src={sponsorFour} alt="Sponsor" />
+      {sponsors?.sponsorOne && (
+        <img
+          className="footer-sponsor"
+          src={sponsors?.sponsorOne}
+          alt="Sponsor"
+        />
+      )}
+      {sponsors?.sponsorTwo && (
+        <img
+          className="footer-sponsor"
+          src={sponsors?.sponsorTwo}
+          alt="Sponsor"
+        />
+      )}
+      {sponsors?.sponsorThree && (
+        <img
+          className="footer-sponsor"
+          src={sponsors?.sponsorThree}
+          alt="Sponsor"
+        />
+      )}
+      {sponsors?.sponsorFour && (
+        <img
+          className="footer-sponsor"
+          src={sponsors?.sponsorFour}
+          alt="Sponsor"
+        />
+      )}
     </div>
   );
 }

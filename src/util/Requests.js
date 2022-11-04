@@ -262,17 +262,19 @@ export const allPollsPostWithoutGroups = async () => {
   }
 };
 
-export const getImages = async (image) => {
+export const getImages = async (images) => {
   const token = auth.getData();
   const config = {
     headers: { token }
   };
+
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/public/get-image/${image}`,
+      `${process.env.REACT_APP_API_URL}/public/get-image?image_name=${images}`,
+      null,
       config
     );
-    return response.data;
+    return response?.data?.images;
   } catch (error) {
     console.error(error);
   }

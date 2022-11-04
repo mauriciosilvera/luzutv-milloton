@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { uploadImage } from '../../util/Requests';
-import './ImageManagement.css';
+import './ImagesManagement.css';
 
-function ImageManagement(props) {
+function ImagesManagement(props) {
   const { setImageHasChanged, imageHasChanged } = props;
   const [successMessage, setSuccessMessage] = useState();
   const [errorMessage, setErrorMessage] = useState();
@@ -129,4 +129,4 @@ function ImageManagement(props) {
   );
 }
 
-export default ImageManagement;
+export default ImagesManagement;
