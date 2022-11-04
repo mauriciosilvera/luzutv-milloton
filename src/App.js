@@ -14,6 +14,7 @@ import GroupManagement from './views/GroupManagement/GroupManagement';
 import GroupResults from './views/GroupResults/GroupResults';
 import ImageManagement from './views/Images/ImageManagement';
 import { auth } from './util/auth';
+import PollResults from './views/PollResults/PollResults';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -96,7 +97,7 @@ function App() {
             path="admin/poll-results/:pollId"
             element={
               <RequireAuth>
-                <Results />
+                <PollResults />
               </RequireAuth>
             }
           />
