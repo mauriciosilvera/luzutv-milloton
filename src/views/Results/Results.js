@@ -22,7 +22,10 @@ function Results() {
             {data?.map((group) => (
               <div className="pollsWrapper" key={group?._id}>
                 {group?.questions?.map((question) => (
-                  <Link to={`/admin/poll-results/${question?._id}`}>
+                  <Link
+                    to={`/admin/poll-results/${question?._id}`}
+                    key={question?._id}
+                  >
                     <div key={question?._id} className="pollCard">
                       <div className="pollCardWrapper">
                         <span className="pollCardTitle">
