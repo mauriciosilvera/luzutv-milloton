@@ -54,7 +54,7 @@ function Sidebar(props) {
               Imágenes
             </div>
           </Link>
-          <Link to="/admin/poll-results">
+          <Link to="/admin/results">
             <div
               className="sideBar-Option"
               onClick={() => setIsSidebarOpen(false)}

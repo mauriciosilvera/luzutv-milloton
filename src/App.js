@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import PollManagement from './views/PollManagement/PollManagement';
-import PollResults from './views/PollResults/PollResults';
+import Results from './views/Results/Results';
 import PollDetail from './views/PollDetail/PollDetail';
 import Home from './views/Home/Home';
 import Form from './views/Forms/Forms';
@@ -13,6 +13,7 @@ import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
 import GroupResults from './views/GroupResults/GroupResults';
 import ImageManagement from './views/Images/ImageManagement';
+import PollResults from './views/PollResults/PollResults';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -84,7 +85,7 @@ function App() {
             }
           />
           <Route
-            path="admin/group-details/:groupId"
+            path="admin/group-results/:groupId"
             element={
               <RequireAuth>
                 <GroupResults />
@@ -92,10 +93,18 @@ function App() {
             }
           />
           <Route
-            path="admin/poll-results"
+            path="admin/poll-results/:pollId"
             element={
               <RequireAuth>
                 <PollResults />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="admin/results"
+            element={
+              <RequireAuth>
+                <Results />
               </RequireAuth>
             }
           />

@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link } from 'react-router-dom';
-import { IconButton, Typography } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { getPollById, allPollsPost } from '../../util/Requests';
+import React, { useState, useEffect } from 'react';
+import { Typography, useMediaQuery } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import { LoadingSpinner } from '../../components';
-import './PollResults.css';
+import { getPollById } from '../../util/Requests';
 import BarGraph from './Components/BarGraph';
+import './PollResults.css';
 
 function PollResults() {
-  const [data, setData] = useState();
-  const [viewPolls, setViewPolls] = useState(true);
-  const [selectedPoll, setSelectedPoll] = useState();
+  const { pollId } = useParams();
   const [pollData, setPollData] = useState();
   const [graphData, setGraphData] = useState();
   const mediaQueryMatches = useMediaQuery('(min-width:480px)');
 
   useEffect(() => {
-    allPollsPost().then((polls) => {
-      setData(polls);
-    });
-  }, []);
-
-  useEffect(() => {
-    getPollById(selectedPoll).then((poll) => {
+    getPollById(pollId).then((poll) => {
       setPollData(poll);
     });
-  }, [selectedPoll]);
+  }, [pollId]);
 
   useEffect(() => {
     const newGraphData = pollData?.answers?.map((answer) => ({
@@ -42,16 +32,6 @@ function PollResults() {
     }));
     setGraphData(newGraphData);
   }, [pollData]);
-
-  const handleOpenResults = (id) => {
-    setSelectedPoll(id);
-    setViewPolls(!viewPolls);
-  };
-
-  const totalVotes = pollData?.answers?.reduce(
-    (accumulator, option) => accumulator + option.voteCount,
-    0
-  );
 
   const buildTooltip = (answer) => (
     <div
@@ -71,78 +51,27 @@ function PollResults() {
     </div>
   );
 
-  const handleBackwards = () => {
-    setViewPolls(!viewPolls);
-  };
+  const totalVotes = pollData?.answers?.reduce(
+    (accumulator, option) => accumulator + option.voteCount,
+    0
+  );
 
   return (
     <div className="pollResultsWrapper">
-      {viewPolls && (
-        <div className="pollResultsWrapper">
-          <h1 className="title">Resultados</h1>
-          <h2 className="title">Encuestas</h2>
-          <div className="pollsWrapper">
-            {data?.map((group) => (
-              <div className="pollsWrapper" key={group?._id}>
-                {group?.questions?.map((question) => (
-                  <div key={question?._id} className="pollCard">
-                    <div
-                      className="pollCardWrapper"
-                      onClick={() => handleOpenResults(question?._id)}
-                    >
-                      <span className="pollCardTitle">
-                        {question?.question_name}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+      {!graphData && <LoadingSpinner />}
 
-          <h2 className="title">Grupos</h2>
-          <div className="pollsWrapper">
-            {data?.map((group) => (
-              <div className="pollsWrapper" key={group?._id}>
-                {group?.group_name !== 'Sin Agrupar' ? (
-                  <Link to={`/admin/group-details/${group?._id}`}>
-                    <div key={group?._id} className="pollCard">
-                      <div
-                        className="pollCardWrapper"
-                        onClick={() => handleOpenResults(group?._id)}
-                      >
-                        <span className="pollCardTitle">
-                          {group?.group_name}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {!pollData && !viewPolls && <LoadingSpinner />}
-
-      {pollData && !viewPolls && (
-        <div className="graphResultsWrapper">
-          <div className="pollResultsTitle">
-            <IconButton onClick={handleBackwards}>
-              <ArrowBackIcon sx={{ fontSize: '40px' }} />
-            </IconButton>
-            <div className="resultsTitleBox">
-              <div className="resultsTitle">
-                <h2 className="white">{pollData?.question_name}</h2>
-              </div>
-              <Typography
-                variant="body2"
-                className="votesCount white"
-              >{`Votos Totales: ${totalVotes}`}</Typography>
+      {graphData && (
+        <>
+          <div className="resultsTitleBox">
+            <div className="resultsTitle">
+              <h2 className="white">{pollData?.question_name}</h2>
             </div>
-            <div />
+            <Typography
+              variant="body2"
+              className="votesCount white"
+            >{`Votos Totales: ${totalVotes}`}</Typography>
           </div>
+          <h2 className="title">Resultados</h2>
           {totalVotes !== 0 ? (
             <BarGraph
               data={graphData}
@@ -154,7 +83,7 @@ function PollResults() {
               Esta encuesta aún no ha recibido votos.
             </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
