@@ -42,7 +42,7 @@ function Sidebar(props) {
               Grupos
             </div>
           </Link>
-          <Link to="/admin/image-management">
+          <Link to="/admin/images-management">
             <div
               className="sideBar-Option"
               onClick={() => setIsSidebarOpen(false)}

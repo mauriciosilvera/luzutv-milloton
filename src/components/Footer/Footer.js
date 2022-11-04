@@ -33,14 +33,14 @@ function Footer(props) {
       {sponsors?.sponsorThree && (
         <img
           className="footer-sponsor"
-          src={sponsors?.sponsorOne}
+          src={sponsors?.sponsorThree}
           alt="Sponsor"
         />
       )}
       {sponsors?.sponsorFour && (
         <img
           className="footer-sponsor"
-          src={sponsors?.sponsorOne}
+          src={sponsors?.sponsorFour}
           alt="Sponsor"
         />
       )}

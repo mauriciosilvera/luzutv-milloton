@@ -6,12 +6,14 @@ import Results from './views/Results/Results';
 import PollDetail from './views/PollDetail/PollDetail';
 import Home from './views/Home/Home';
 import Form from './views/Forms/Forms';
-import { Header, Sidebar } from './components';
+import { Footer, Header, Sidebar } from './components';
 import FallBackView from './views/FallBackView';
 import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
 import GroupResults from './views/GroupResults/GroupResults';
 import ImagesManagement from './views/ImagesManagement/ImagesManagement';
+import PollResults from './views/PollResults/PollResults';
+import { auth } from './util/auth';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -64,7 +66,7 @@ function App() {
             }
           />
           <Route
-            path="admin/image-management"
+            path="admin/images-management"
             element={
               <RequireAuth>
                 <ImagesManagement
@@ -121,6 +123,7 @@ function App() {
           <Route path="*" element={<FallBackView />} />
         </Routes>
       </div>
+      <Footer imageHasChanged={imageHasChanged} />
     </div>
   );
 }
