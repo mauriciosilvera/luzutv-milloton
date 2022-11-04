@@ -13,12 +13,13 @@ import RequireAuth from './util/requireAuth';
 import GroupManagement from './views/GroupManagement/GroupManagement';
 import GroupResults from './views/GroupResults/GroupResults';
 import ImageManagement from './views/Images/ImageManagement';
-import PollResults from './views/PollResults/PollResults';
+import { auth } from './util/auth';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSidebarButtonDisplayed, setIsSidebarButtonDisplayed] =
-    useState(false);
+  const [isSidebarButtonDisplayed, setIsSidebarButtonDisplayed] = useState(
+    auth?.isAuthenticated
+  );
   const [imageHasChanged, setImageHasChanged] = useState(false);
 
   return (
@@ -33,7 +34,6 @@ function App() {
         <Sidebar
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
-          isSidebarButtonDisplayed={isSidebarButtonDisplayed}
           setIsSidebarButtonDisplayed={setIsSidebarButtonDisplayed}
         />
         <Routes>
@@ -96,7 +96,7 @@ function App() {
             path="admin/poll-results/:pollId"
             element={
               <RequireAuth>
-                <PollResults />
+                <Results />
               </RequireAuth>
             }
           />
