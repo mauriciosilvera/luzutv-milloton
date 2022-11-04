@@ -15,7 +15,7 @@ function Header(props) {
   const [logo, setLogo] = useState();
 
   useEffect(() => {
-    getImages('luzuLogo').then((image) => setLogo(image.imageUrl));
+    getImages('luzuLogo').then((image) => setLogo(image.luzuLogo));
   }, [imageHasChanged]);
 
   const handleSideBar = () => {
