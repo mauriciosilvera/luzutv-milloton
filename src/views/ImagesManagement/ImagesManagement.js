@@ -1,44 +1,72 @@
-import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Button, IconButton } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { uploadImage } from '../../util/Requests';
+import { Delete } from '@mui/icons-material';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { updateImages, getImages } from '../../util/Requests';
 import './ImagesManagement.css';
 
 function ImagesManagement(props) {
   const { setImageHasChanged, imageHasChanged } = props;
   const [successMessage, setSuccessMessage] = useState();
   const [errorMessage, setErrorMessage] = useState();
+  const [deletedImages, setDeletedImages] = useState('');
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [sponsors, setSponsors] = useState({
     luzuLogo: {
       fileName: '',
-      file: ''
+      file: '',
+      newFile: ''
     },
     sponsorOne: {
       fileName: '',
-      file: ''
+      file: '',
+      newFile: ''
     },
     sponsorTwo: {
       fileName: '',
-      file: ''
+      file: '',
+      newFile: ''
     },
     sponsorThree: {
       fileName: '',
-      file: ''
+      file: '',
+      newFile: ''
     },
     sponsorFour: {
       fileName: '',
-      file: ''
+      file: '',
+      newFile: ''
     }
   });
+
+  useEffect(() => {
+    getImages('luzuLogo,sponsorOne,sponsorTwo,sponsorThree,sponsorFour').then(
+      (images) => {
+        Object.entries(images).map((row) =>
+          setSponsors((prev) => ({
+            ...prev,
+            [row?.[0]]: {
+              file: row?.[1],
+              fileName: '',
+              newFile: ''
+            }
+          }))
+        );
+        setIsDataLoaded(true);
+      }
+    );
+  }, []);
 
   const handleUploadImages = (event, type) => {
     setSponsors((prev) => ({
       ...prev,
       [type]: {
         fileName: event?.target?.files[0]?.name,
-        file: event?.target?.files[0]
+        newFile: event?.target?.files[0]
       }
     }));
+    setDeletedImages(deletedImages.replace(`${type},`, ''));
   };
 
   const mapImgNames = (type) => {
@@ -63,6 +91,20 @@ function ImagesManagement(props) {
     }
   };
 
+  const handleDeleteImg = (type) => {
+    if (!deletedImages.includes(type)) {
+      setDeletedImages(`${deletedImages}${type},`);
+    }
+
+    setSponsors((prev) => ({
+      ...prev,
+      [type]: {
+        file: null,
+        newFile: null
+      }
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage();
@@ -71,60 +113,86 @@ function ImagesManagement(props) {
     const formData = new FormData();
 
     Object.entries(sponsors).map((image) =>
-      formData.append(image?.[0], image?.[1]?.file)
+      formData.append(image?.[0], image?.[1]?.newFile)
     );
 
-    const res = await uploadImage(formData);
+    const res = await updateImages(formData, deletedImages);
 
-    if (res?.data.length) {
-      setSuccessMessage('Imágenes cargadas exitosamente');
+    if (res?.status === 200) {
+      setSuccessMessage('Guardado con éxito');
       setImageHasChanged(!imageHasChanged);
       return;
     }
-    setErrorMessage('Hubo un error al cargar las imágenes.');
+    setErrorMessage('Hubo un error al guardar las imágenes.');
   };
 
   return (
     <div className="imageManagementWrapper">
-      <h1 className="title">Imágenes</h1>
-      <div className="imagesForm">
-        {Object.entries(sponsors).map((image) => (
-          <div key={image[0]} className="uploadFileBox">
-            <h4>{mapImgNames(image[0])}</h4>
-            <label
-              htmlFor={image[0]}
-              className={`uploadButton ${
-                image?.[1]?.fileName ? `imageUploaded` : ''
-              }`}
+      {!isDataLoaded ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <h1 className="title">Imágenes</h1>
+          <div className="imagesForm">
+            {Object.entries(sponsors).map((image) => (
+              <div key={image[0]} className="uploadFileBox">
+                <div className="responsiveBox">
+                  <div className="imageTypesBox">
+                    <h4 className="imageTypes">{mapImgNames(image[0])}</h4>
+                  </div>
+                  <div
+                    className={`imgLoadedButton ${
+                      image?.[1]?.file || image?.[1]?.newFile
+                        ? `success`
+                        : 'fail'
+                    }`}
+                  >
+                    <span>
+                      {image?.[1]?.file || image?.[1]?.newFile
+                        ? 'Imágen cargada'
+                        : 'Sin imágen'}
+                    </span>
+                  </div>
+                </div>
+                <label
+                  htmlFor={image[0]}
+                  className={`uploadButton ${
+                    image?.[1]?.fileName ? `imageUploaded` : ''
+                  }`}
+                >
+                  <CloudUploadIcon />
+                  <span> {image?.[1]?.fileName || `Seleccionar imagen`}</span>
+                </label>
+                <input
+                  type="file"
+                  className="hidden"
+                  id={image[0]}
+                  name={image[0]}
+                  accept="image/*"
+                  onChange={(e) => handleUploadImages(e, image[0])}
+                />
+                <IconButton onClick={() => handleDeleteImg(image[0])}>
+                  <Delete sx={{ color: '#1b2430' }} />
+                </IconButton>
+              </div>
+            ))}
+            <Button
+              variant="outlined"
+              color="success"
+              onClick={(e) => handleSubmit(e)}
+              sx={{ margin: '10px 0', width: '50%', maxWidth: '300px' }}
             >
-              <CloudUploadIcon />
-              <span> {image?.[1]?.fileName || `Seleccionar imagen`}</span>
-            </label>
-            <input
-              type="file"
-              className="hidden"
-              id={image[0]}
-              name={image[0]}
-              accept="image/*"
-              onChange={(e) => handleUploadImages(e, image[0])}
-            />
+              Guardar
+            </Button>
+            {errorMessage && (
+              <div className="imagesMessage fail">{errorMessage}</div>
+            )}
+            {successMessage && (
+              <div className="imagesMessage success">{successMessage}</div>
+            )}
           </div>
-        ))}
-        <Button
-          variant="outlined"
-          color="success"
-          onClick={(e) => handleSubmit(e)}
-          sx={{ marginTop: '15px', width: '50%' }}
-        >
-          Cargar
-        </Button>
-        {errorMessage && (
-          <div className="imagesMessage fail">{errorMessage}</div>
-        )}
-        {successMessage && (
-          <div className="imagesMessage success">{successMessage}</div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 }

@@ -225,15 +225,16 @@ export const calculateVotes = async (questions) => {
   }
 };
 
-export const uploadImage = async (body) => {
+export const updateImages = async (body, query) => {
   const token = auth.getData();
   const config = {
-    headers: { token }
+    headers: { token },
+    params: { image_name: query }
   };
 
   try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/admin/upload-images`,
+    const response = await axios.put(
+      `${process.env.REACT_APP_API_URL}/admin/update-images`,
       body,
       config
     );
