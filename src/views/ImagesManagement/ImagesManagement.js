@@ -4,6 +4,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Delete } from '@mui/icons-material';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { updateImages, getImages } from '../../util/Requests';
+import withoutImg from '../../public/cruzRoja.png';
 import './ImagesManagement.css';
 
 function ImagesManagement(props) {
@@ -16,27 +17,32 @@ function ImagesManagement(props) {
     luzuLogo: {
       fileName: '',
       file: '',
-      newFile: ''
+      newFile: '',
+      newFilePreview: ''
     },
     sponsorOne: {
       fileName: '',
       file: '',
-      newFile: ''
+      newFile: '',
+      newFilePreview: ''
     },
     sponsorTwo: {
       fileName: '',
       file: '',
-      newFile: ''
+      newFile: '',
+      newFilePreview: ''
     },
     sponsorThree: {
       fileName: '',
       file: '',
-      newFile: ''
+      newFile: '',
+      newFilePreview: ''
     },
     sponsorFour: {
       fileName: '',
       file: '',
-      newFile: ''
+      newFile: '',
+      newFilePreview: ''
     }
   });
 
@@ -51,7 +57,8 @@ function ImagesManagement(props) {
             [row?.[IMAGE_NAME_INDEX]]: {
               file: row?.[FILE_INDEX],
               fileName: '',
-              newFile: ''
+              newFile: '',
+              newFilePreview: ''
             }
           }))
         );
@@ -60,15 +67,34 @@ function ImagesManagement(props) {
     );
   }, []);
 
-  const handleUploadImages = (event, type) => {
-    setSponsors((prev) => ({
-      ...prev,
-      [type]: {
-        fileName: event?.target?.files[0]?.name,
-        newFile: event?.target?.files[0]
-      }
-    }));
-    setDeletedImages(deletedImages.replace(`${type},`, ''));
+  const readUploadedFile = (file) =>
+    new Promise((resolve, reject) => {
+      const fr = new FileReader();
+      fr.onload = () => {
+        resolve(fr.result);
+      };
+      fr.onerror = reject;
+      fr.readAsDataURL(file);
+    });
+
+  const handleUploadImages = async (event, type) => {
+    const file = event?.target?.files[0];
+
+    try {
+      const fileContent = await readUploadedFile(file);
+
+      setSponsors((prev) => ({
+        ...prev,
+        [type]: {
+          fileName: event?.target?.files[0]?.name,
+          newFile: event?.target?.files[0],
+          newFilePreview: fileContent
+        }
+      }));
+      setDeletedImages(deletedImages.replace(`${type},`, ''));
+    } catch (e) {
+      console.warn(e.message);
+    }
   };
 
   const mapImgNames = (type) => {
@@ -135,6 +161,7 @@ function ImagesManagement(props) {
       ) : (
         <>
           <h1 className="title">Imágenes</h1>
+          {console.log(sponsors)}
           <div className="imagesForm">
             {Object.entries(sponsors).map((image) => (
               <div key={image[0]} className="uploadFileBox">
@@ -142,19 +169,15 @@ function ImagesManagement(props) {
                   <div className="imageTypesBox">
                     <h4 className="imageTypes">{mapImgNames(image[0])}</h4>
                   </div>
-                  <div
-                    className={`imgLoadedButton ${
-                      image?.[1]?.file || image?.[1]?.newFile
-                        ? `success`
-                        : 'fail'
-                    }`}
-                  >
-                    <span>
-                      {image?.[1]?.file || image?.[1]?.newFile
-                        ? 'Imagen cargada'
-                        : 'Sin imagen'}
-                    </span>
-                  </div>
+                  <img
+                    className="imgPreview"
+                    src={
+                      image?.[1]?.newFilePreview ||
+                      image?.[1]?.file ||
+                      withoutImg
+                    }
+                    alt="preview"
+                  />
                 </div>
                 <label
                   htmlFor={image[0]}
@@ -163,7 +186,9 @@ function ImagesManagement(props) {
                   }`}
                 >
                   <CloudUploadIcon />
-                  <span> {image?.[1]?.fileName || `Seleccionar imagen`}</span>
+                  <span className="uploadButtonText">
+                    {image?.[1]?.fileName || `Seleccionar imagen`}
+                  </span>
                 </label>
                 <input
                   type="file"
@@ -171,10 +196,12 @@ function ImagesManagement(props) {
                   id={image[0]}
                   name={image[0]}
                   accept="image/*"
-                  onChange={(e) => handleUploadImages(e, image[0])}
+                  onChange={(e) => {
+                    handleUploadImages(e, image[0]);
+                  }}
                 />
                 <IconButton onClick={() => handleDeleteImg(image[0])}>
-                  <Delete sx={{ color: '#1b2430' }} />
+                  <Delete sx={{ color: '#1b2430', fontSize: '30px' }} />
                 </IconButton>
               </div>
             ))}
