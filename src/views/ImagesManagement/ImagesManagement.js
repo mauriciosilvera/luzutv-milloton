@@ -43,11 +43,13 @@ function ImagesManagement(props) {
   useEffect(() => {
     getImages('luzuLogo,sponsorOne,sponsorTwo,sponsorThree,sponsorFour').then(
       (images) => {
+        const IMAGE_NAME_INDEX = 0;
+        const FILE_INDEX = 1;
         Object.entries(images).map((row) =>
           setSponsors((prev) => ({
             ...prev,
-            [row?.[0]]: {
-              file: row?.[1],
+            [row?.[IMAGE_NAME_INDEX]]: {
+              file: row?.[FILE_INDEX],
               fileName: '',
               newFile: ''
             }
