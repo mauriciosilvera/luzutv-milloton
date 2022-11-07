@@ -4,12 +4,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    overflow: scroll;
 }
 
 .imagesForm{
     display:flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     align-items: center;
     margin-top: 15px;
 }
@@ -26,8 +27,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 50%;
-    min-width: 220px;
+    width: 40%;
+    min-width: 210px;
     max-width: 300px;
     padding: 15px;
     cursor: pointer;
@@ -37,42 +38,85 @@
     background-color: #198754;
 }
 
+.imgLoadedButton{
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 0 5px;
+    width: 25%;
+    min-width: 130px;
+    display: flex;
+    justify-content: center;
+}
+
 .fail{
-    color: red;
+    color: #FC100D;
+    border-color: #FC100D;
 }
 
 .success{
-    color:green;
+    color: #198754;
+    border-color: #198754;
 }
 
 .uploadFileBox{
     display:flex;
     width: 70%;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin: 10px;
     padding: 5px 0;
+}
+
+.responsiveBox{
+    display: flex;
+    justify-content: space-between;
 }
 
 .hidden{
     display: none;
 }
 
-@media (max-width: 1050px) {
-    .imagesForm{
-        width: 70%;
+.imageTypesBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media (min-width: 1024px) {
+    .uploadFileBox{
+        width: 60%;
+    }
+  }
+
+@media (min-width: 780px) {
+    .uploadFileBox{
+        width: 80%;
+    }
+
+    .imageTypes{
+        min-width: 100px;
     }
   }
 
   @media (max-width: 780px) {
-    .imagesForm{
-        width: 100%;
+    .uploadFileBox{
+        width: 95%;
+    }
+    .responsiveBox{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .imgLoadedButton{
+        margin-top: 5px;
+        font-size: 12px;
+        min-width: 100px;
     }
   }
 
   @media (max-width: 480px) {
-    .uploadFileBox{
-        width: 95%;
-    }
+    
   }
   
