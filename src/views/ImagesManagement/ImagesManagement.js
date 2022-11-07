@@ -151,7 +151,7 @@ function ImagesManagement(props) {
                   >
                     <span>
                       {image?.[1]?.file || image?.[1]?.newFile
-                        ? 'Imágen cargada'
+                        ? 'Imagen cargada'
                         : 'Sin imagen'}
                     </span>
                   </div>
