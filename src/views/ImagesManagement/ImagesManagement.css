@@ -50,8 +50,8 @@
 }
 
 .fail{
-    color: red;
-    border-color: red;
+    color: #FC100D;
+    border-color: #FC100D;
 }
 
 .success{

@@ -142,7 +142,7 @@ function GroupManagement() {
                     <CheckIcon sx={{ color: 'green' }} />
                   </IconButton>
                   <IconButton onClick={() => setEdit(undefined)}>
-                    <ClearIcon sx={{ color: 'red' }} />
+                    <ClearIcon sx={{ color: '#FC100D' }} />
                   </IconButton>
                 </div>
               );
@@ -241,7 +241,7 @@ function GroupManagement() {
                 <CheckIcon sx={{ color: '#198754' }} />
               </IconButton>
               <IconButton onClick={() => setAdd(false)}>
-                <ClearIcon sx={{ color: 'red' }} />
+                <ClearIcon sx={{ color: '#FC100D' }} />
               </IconButton>
             </div>
           ) : (
