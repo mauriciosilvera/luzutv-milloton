@@ -12,8 +12,15 @@
   }
 
 @media (max-width: 780px) {
+  .footer-sponsor {
+      width: 15%;
+      height: 40%;
+      }
+  }
+
+@media (max-width: 480px) {
     .footer-sponsor{
         width: 20%;
-        height: 40%;
+        height: 30%;
       }
   }
