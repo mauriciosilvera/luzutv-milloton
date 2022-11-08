@@ -169,7 +169,13 @@ function ImagesManagement(props) {
                     <h4 className="imageTypes">{mapImgNames(image[0])}</h4>
                   </div>
                   <img
-                    className="imgPreview"
+                    className={`imgPreview 
+                        ${
+                          image?.[1]?.newFilePreview || image?.[1]?.file
+                            ? `imgPreviewBackgroundColor`
+                            : ``
+                        }  
+                    `}
                     src={
                       image?.[1]?.newFilePreview ||
                       image?.[1]?.file ||
