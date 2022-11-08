@@ -86,8 +86,8 @@ function ImagesManagement(props) {
       setSponsors((prev) => ({
         ...prev,
         [type]: {
-          fileName: event?.target?.files[0]?.name,
-          newFile: event?.target?.files[0],
+          fileName: file?.name,
+          newFile: file,
           newFilePreview: fileContent
         }
       }));
@@ -161,7 +161,6 @@ function ImagesManagement(props) {
       ) : (
         <>
           <h1 className="title">Imágenes</h1>
-          {console.log(sponsors)}
           <div className="imagesForm">
             {Object.entries(sponsors).map((image) => (
               <div key={image[0]} className="uploadFileBox">
