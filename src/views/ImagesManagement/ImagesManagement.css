@@ -129,6 +129,9 @@
         font-size: 12px;
         min-width: 100px;
     }
+    .noImgPreview{
+        width: 50px;
+    }
   }
 
   

@@ -173,7 +173,7 @@ function ImagesManagement(props) {
                         ${
                           image?.[1]?.newFilePreview || image?.[1]?.file
                             ? `imgPreviewBackgroundColor`
-                            : ``
+                            : `noImgPreview`
                         }  
                     `}
                     src={
