@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+import Div100vh from 'react-div-100vh';
 import PollManagement from './views/PollManagement/PollManagement';
 import Results from './views/Results/Results';
 import PollDetail from './views/PollDetail/PollDetail';
@@ -23,7 +24,7 @@ function App() {
   const [imageHasChanged, setImageHasChanged] = useState(false);
 
   return (
-    <div className="container">
+    <Div100vh>
       <Header
         isSidebarButtonDisplayed={isSidebarButtonDisplayed}
         setIsSidebarOpen={setIsSidebarOpen}
@@ -124,7 +125,7 @@ function App() {
         </Routes>
       </div>
       <Footer imageHasChanged={imageHasChanged} />
-    </div>
+    </Div100vh>
   );
 }
 

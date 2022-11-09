@@ -76,10 +76,13 @@
 
 .imgPreview{
     max-height: 50px;
-    background-color: #1b2430;
     padding: 10px;
     border-radius: 5px;
     max-width: 150px;
+}
+
+.imgPreviewBackgroundColor {
+    background-color: #1b2430;
 }
 
 @media (max-width: 1024px) {
@@ -125,6 +128,9 @@
         margin-top: 5px;
         font-size: 12px;
         min-width: 100px;
+    }
+    .noImgPreview{
+        width: 50px;
     }
   }
 
