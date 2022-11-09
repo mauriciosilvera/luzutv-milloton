@@ -11,17 +11,3 @@
 .footer-sponsor{
     max-height: 30px;
   }
-
-@media (max-width: 780px) {
-  .footer-sponsor {
-      width: 15%;
-      height: 40%;
-      }
-  }
-
-@media (max-width: 480px) {
-    .footer-sponsor{
-        width: 23%;
-        height: 30%;
-      }
-  }
