@@ -1,4 +1,4 @@
-# Milloton Front
+# luzu-polls front-end
 
 ## Installation
 - nvm install
